@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import NewsletterOptInSuccess from "./NewsletterOptInSuccess.svelte";
   import CtaButton from "../components/CtaButton.svelte";
   import CCheckbox from "../components/BaseCheckbox.svelte";
@@ -45,3 +45,9 @@
     <NewsletterOptInSuccess />
   {/if}
 </div>
+
+<style lang="postcss" global>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>

@@ -3,11 +3,20 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  purge: [
-    "./src/**/*.svelte",
-    "./src/**/*.ts",
-    "./src/**/*.html",
-  ],
+  purge: {
+    enabled: !process.env.ROLLUP_WATCH,
+    content: [
+      "./src/**/*.svelte",
+      "./src/**/*.ts",
+      "./src/**/*.html",
+    ],
+    options: {
+      defaultExtractor: content => [
+        ...(content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []),
+        ...(content.match(/(?<=class:)[^=>\/\s]*/g) || []),
+      ],
+    },
+  },
   theme: {
     extend: {
       colors: {
