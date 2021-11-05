@@ -2,10 +2,10 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
-import sveltePreprocess from 'svelte-preprocess'
+import svelteConfig from './svelte.config';
 
 export default {
-	input: './src/lib/NewsletterOptIn.svelte',
+	input: './src/satellites/NewsletterOptIn.svelte',
 	output: {
 		format: 'iife',
 		name: 'NewsletterOptIn', // Name of the class we will call on the page
@@ -14,13 +14,7 @@ export default {
 	plugins: [
 		svelte({
 			emitCss: false,  // Let's store CSS in JS (no-depends), but you can emit it in separate *.css file too
-            preprocess: sveltePreprocess({
-                // postcss: true
-                // sourceMap: false,
-                postcss: {
-                    configFilePath: 'postcss.config.cjs'
-                },
-              }),
+			...svelteConfig
 		}),
 		resolve({
 			browser: true,

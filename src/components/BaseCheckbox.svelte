@@ -3,9 +3,28 @@
   export let value = undefined;
 </script>
 
-<div class="flex space-x-2">
-  <input {id} type="checkbox" class="w-6 h-6 cursor-pointer" {value} />
-  <label class="text-left cursor-pointer w-full text-sm text-gray-400" for={id}>
+<div class="satellite-checkbox">
+  <input {id} type="checkbox" {value} />
+  <label for={id}>
     <slot />
   </label>
 </div>
+
+<style lang="scss">
+  .satellite-checkbox {
+    display: flex;
+    text-align: left;
+    margin-bottom: 16px;
+
+    label {
+      cursor: pointer;
+      width: fit-content;
+    }
+    input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+  }
+</style>

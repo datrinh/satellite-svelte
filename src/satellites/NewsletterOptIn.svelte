@@ -1,5 +1,5 @@
 <script lang="ts">
-  import NewsletterOptInSuccess from "./NewsletterOptInSuccess.svelte";
+  import NewsletterOptInSuccess from "../components/NewsletterOptInSuccess.svelte";
   import CtaButton from "../components/CtaButton.svelte";
   import CCheckbox from "../components/BaseCheckbox.svelte";
   import CInput from "../components/BaseInput.svelte";
@@ -22,14 +22,14 @@
   };
 </script>
 
-<div class="shadow rounded text-center bg-white">
+<div class="charles-newsletter">
   {#if !isDone}
     <form
-      class="flex flex-col max-w-xl p-12 m-auto space-y-4"
+      class="charles-newsletter-form gap"
       on:submit|preventDefault={onSubmit}
     >
-      <h1 class="text-lg mt-2 font-semibold">{heading}</h1>
-      <p>{description}</p>
+      <h1 class="gap">{heading}</h1>
+      <p class="gap">{description}</p>
 
       <CInput type="text" placeholder="Your Name" bind:value={name} />
       <CInput type="tel" placeholder="Your Phone Number" bind:value={phone} />
@@ -46,8 +46,27 @@
   {/if}
 </div>
 
-<style lang="postcss" global>
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+<style lang="scss" global>
+  @import "../styles/base";
+  @import "../styles/helpers";
+
+  .charles-newsletter {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 0.5rem;
+    text-align: center;
+    background-color: white;
+
+    h1 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+  }
+
+  .charles-newsletter-form {
+    display: flex;
+    flex-direction: column;
+    max-width: $newsletter-content;
+    padding: 3rem;
+    margin: auto;
+  }
 </style>

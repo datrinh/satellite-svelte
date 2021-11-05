@@ -1,5 +1,5 @@
 <script lang="ts">
-  import NewsletterOptIn from "./lib/NewsletterOptIn.svelte";
+  import NewsletterOptIn from "./satellites/NewsletterOptIn.svelte";
 
   let title = undefined;
 </script>
