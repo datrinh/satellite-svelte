@@ -4,6 +4,10 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import svelteConfig from './svelte.config';
 
+// Widget logic based on https://gist.github.com/AlexxNB/ab13267ad2a82a29f5466ec24fe797d5
+
+// Build each satellite separately
+// Must match the names in the satellites folder. Might be auto parsed later maybe
 const satellites = [
 	'NewsletterOptIn',
 	'BubbleButton'

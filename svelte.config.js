@@ -4,7 +4,7 @@ const config = {
   preprocess: [
     preprocess({
       scss: {
-        prependData: '@import "src/variables.scss";',
+        prependData: '@import "src/styles/_variables.scss";',
       },
     }),
   ],
