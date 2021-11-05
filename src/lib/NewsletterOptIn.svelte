@@ -17,23 +17,26 @@
   let phone = "";
   let hasAgreed = false;
 
-  const onSubmit = () => null;
+  const onSubmit = () => {
+    isDone = true;
+  };
 </script>
 
-<div class="charles-newsletter">
+<div class="shadow rounded text-center bg-white">
   {#if !isDone}
-    <form class="charles-newsletter-form" on:submit|preventDefault={onSubmit}>
-      <h1>{heading}</h1>
+    <form
+      class="flex flex-col max-w-xl p-12 m-auto space-y-4"
+      on:submit|preventDefault={onSubmit}
+    >
+      <h1 class="text-lg mt-2 font-semibold">{heading}</h1>
       <p>{description}</p>
 
       <CInput type="text" placeholder="Your Name" bind:value={name} />
       <CInput type="tel" placeholder="Your Phone Number" bind:value={phone} />
 
       <CCheckbox id="agreed" value={hasAgreed}>
-        <p>
-          {legalText}
-          <a href={privacyPolicyLink} target="_blank">Link</a>
-        </p>
+        {legalText}
+        <a href={privacyPolicyLink} target="_blank">Link</a>
       </CCheckbox>
 
       <CtaButton type="submit">{ctaButtonLabel}</CtaButton>

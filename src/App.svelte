@@ -5,6 +5,6 @@
 </script>
 
 <main>
-  <input type="text" bind:value={title} />
+  <input type="text" bind:value={title} placeholder="Title" />
   <NewsletterOptIn heading={title} />
 </main>
