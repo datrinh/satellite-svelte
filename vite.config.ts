@@ -11,4 +11,11 @@ export default defineConfig({
       additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
     }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "src/styles/_variables.scss";',
+      },
+    },
+  },
 });
