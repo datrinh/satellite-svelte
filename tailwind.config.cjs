@@ -1,12 +1,16 @@
-const config = {
-  mode: "jit",
-  purge: ["./src/**/*.{html,js,svelte,ts}"],
-
+module.exports = {
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
+  purge: [
+    "./src/**/*.svelte",
+    "./src/**/*.ts",
+    "./src/**/*.html",
+  ],
   theme: {
     extend: {},
   },
-
+  variants: {},
   plugins: [],
-};
-
-module.exports = config;
+}
