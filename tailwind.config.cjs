@@ -9,7 +9,16 @@ module.exports = {
     "./src/**/*.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        green: {
+          whatsapp: '#00c40a'
+        },
+        gray: {
+          light: '#f3f3f3'
+        }
+      }
+    },
   },
   variants: {},
   plugins: [],

@@ -2,17 +2,9 @@
   export let type = "button";
 </script>
 
-<button {type}>
+<button
+  {type}
+  class="p-2 cursor-pointer bg-green-whatsapp rounded-2xl border-none text-white"
+>
   <slot />
 </button>
-
-<style>
-  button {
-    padding: 0.5rem;
-    cursor: pointer;
-    background-color: #00c40a;
-    border-radius: 1rem;
-    border: none;
-    color: white;
-  }
-</style>

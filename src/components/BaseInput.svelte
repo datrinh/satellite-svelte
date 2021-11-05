@@ -4,12 +4,4 @@
   export let value = undefined;
 </script>
 
-<input {type} {placeholder} {value} />
-
-<style>
-  input {
-    padding: 0.5rem;
-    background-color: #f3f3f3;
-    border: none;
-  }
-</style>
+<input {type} {placeholder} {value} class="bg-gray-light p-2 border-none" />

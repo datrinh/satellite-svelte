@@ -45,25 +45,3 @@
     <NewsletterOptInSuccess />
   {/if}
 </div>
-
-<!-- <style lang="scss">
-  .charles-newsletter {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    border-radius: 0.5rem;
-    text-align: center;
-    background-color: white;
-
-    h1 {
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-  }
-
-  .charles-newsletter-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 576px;
-    padding: 3rem;
-    margin: auto;
-  }
-</style> -->
