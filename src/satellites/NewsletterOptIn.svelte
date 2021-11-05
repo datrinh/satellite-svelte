@@ -24,10 +24,7 @@
 
 <div class="charles-newsletter">
   {#if !isDone}
-    <form
-      class="charles-newsletter-form gap"
-      on:submit|preventDefault={onSubmit}
-    >
+    <form class="charles-newsletter-form" on:submit|preventDefault={onSubmit}>
       <h1 class="gap">{heading}</h1>
       <p class="gap">{description}</p>
 

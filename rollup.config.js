@@ -4,16 +4,25 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import svelteConfig from './svelte.config';
 
-export default {
-	input: './src/satellites/NewsletterOptIn.svelte',
+// Widget logic based on https://gist.github.com/AlexxNB/ab13267ad2a82a29f5466ec24fe797d5
+
+// Build each satellite separately
+// Must match the names in the satellites folder. Might be auto parsed later maybe
+const satellites = [
+	'NewsletterOptIn',
+	'BubbleButton'
+] 
+
+export default satellites.map(sat => ({
+	input: `src/satellites/${sat}.svelte`,
 	output: {
 		format: 'iife',
-		name: 'NewsletterOptIn', // Name of the class we will call on the page
-		file: 'dist/NewsletterOptIn.js' // the file which we will include on the page
+		name: sat,
+		file: `dist/${sat}.js`
 	},
 	plugins: [
 		svelte({
-			emitCss: false,  // Let's store CSS in JS (no-depends), but you can emit it in separate *.css file too
+			emitCss: false,
 			...svelteConfig
 		}),
 		resolve({
@@ -23,4 +32,4 @@ export default {
 		commonjs(),
 		terser()
 	]
-};
+}))

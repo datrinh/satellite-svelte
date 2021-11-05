@@ -11,6 +11,7 @@
 </div>
 
 <style lang="scss">
+  @import "../styles/variables";
   .satellite-checkbox {
     display: flex;
     text-align: left;
@@ -19,6 +20,8 @@
     label {
       cursor: pointer;
       width: fit-content;
+      font-size: 0.8rem;
+      color: $gray-dark;
     }
     input[type="checkbox"] {
       width: 24px;
