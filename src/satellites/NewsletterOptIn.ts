@@ -1,5 +1,10 @@
 import NewsletterOptIn from "./NewsletterOptIn.svelte";
 
+// will come from config
+const targetSelector = "#charles-newsletter";
+
+const target = document.querySelector(targetSelector);
+
 var iframe = document.createElement("iframe");
 iframe.onload = (ev) => {
   const app = new NewsletterOptIn({
@@ -10,8 +15,10 @@ iframe.onload = (ev) => {
   iframe.style.width = "100%";
 };
 
-var script = document.currentScript;
-script.parentNode.insertBefore(iframe, script);
+target.replaceWith(iframe);
+
+// var script = document.currentScript;
+// script.parentNode.insertBefore(iframe, script);
 
 // const app = new NewsletterOptIn({
 //   target: iframe,

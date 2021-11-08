@@ -52,6 +52,7 @@
     border-radius: 0.5rem;
     text-align: center;
     background-color: white;
+    margin: 2px; // avoid clipped box shadow in iframes
 
     h1 {
       font-size: 1rem;
