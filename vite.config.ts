@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { resolve } from "path";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import legacy from "@vitejs/plugin-legacy";
 
@@ -18,6 +19,17 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: '@import "src/styles/_variables.scss";',
+      },
+    },
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "index.html"),
+        newsletterOptIn: resolve(
+          __dirname,
+          "src/satellites/NewsletterOptIn.html"
+        ),
       },
     },
   },
