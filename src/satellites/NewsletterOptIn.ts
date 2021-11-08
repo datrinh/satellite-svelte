@@ -6,6 +6,7 @@ iframe.onload = (ev) => {
   const app = new NewsletterOptIn({
     target: iframe.contentWindow.document.body,
   });
+  iframe.style.height = iframe.contentWindow.document.body.scrollHeight + "px";
 };
 script.parentNode.insertBefore(iframe, script);
 
