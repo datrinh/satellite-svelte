@@ -9,10 +9,13 @@ import svelteConfig from "./svelte.config";
 
 // Build each satellite separately
 // Must match the names in the satellites folder. Might be auto parsed later maybe
-const satellites = ["NewsletterOptIn", "BubbleButton"];
+const satellites = [
+	"NewsletterOptIn", 
+	// "BubbleButton"
+];
 
 const modernBuilds = satellites.map((sat) => ({
-  input: `src/satellites/${sat}.svelte`,
+  input: `src/satellites/${sat}.ts`,
   output: {
     format: "iife",
     name: sat,
@@ -33,7 +36,7 @@ const modernBuilds = satellites.map((sat) => ({
 }));
 
 const legacyBuilds = satellites.map((sat) => ({
-  input: `src/satellites/${sat}.svelte`,
+  input: `src/satellites/${sat}.ts`,
   output: {
     format: "iife",
     name: sat,
