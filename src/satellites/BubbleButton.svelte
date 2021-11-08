@@ -6,7 +6,7 @@
   };
 </script>
 
-<div class="charles-newsletter">
+<div>
   <button class="charles-satellite-button" on:click={onClick}> Open </button>
   {#if isOpen}
     <div>Tada!</div>
