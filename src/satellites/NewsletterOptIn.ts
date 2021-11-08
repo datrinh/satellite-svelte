@@ -1,11 +1,11 @@
 import NewsletterOptIn from "./NewsletterOptIn.svelte";
 
-var div = document.createElement("div");
+var iframe = document.createElement("iframe");
 var script = document.currentScript;
-script.parentNode.insertBefore(div, script);
+script.parentNode.insertBefore(iframe, script);
 
 const app = new NewsletterOptIn({
-  target: div,
+  target: iframe,
 });
 
 export default app;
