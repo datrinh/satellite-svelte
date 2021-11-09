@@ -3,7 +3,7 @@ import NewsletterOptIn from "./NewsletterOptIn.svelte";
 // will come from config
 const targetSelector = "#charles-newsletter";
 
-const target = document.querySelector(targetSelector);
+const target = document.querySelectorAll(targetSelector);
 
 var iframe = document.createElement("iframe");
 iframe.onload = (ev) => {
@@ -15,7 +15,9 @@ iframe.onload = (ev) => {
   iframe.style.width = "100%";
 };
 
-target.replaceWith(iframe);
+target.forEach((el) => {
+  el.parentNode.replaceChild(iframe, el);
+});
 
 // var script = document.currentScript;
 // script.parentNode.insertBefore(iframe, script);
