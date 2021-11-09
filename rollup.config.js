@@ -48,7 +48,7 @@ const legacyBuilds = satellites.map((sat) => ({
       ...svelteConfig,
     }),
     babel({
-      extensions: [".js", ".mjs", ".html", ".svelte"],
+      extensions: [".js", ".ts", ".mjs", ".html", ".svelte"],
       runtimeHelpers: true,
       exclude: ["node_modules/@babel/**", "node_modules/core-js/**"],
       presets: [

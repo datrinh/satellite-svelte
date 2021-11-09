@@ -24,4 +24,4 @@ target.replaceWith(iframe);
 //   target: iframe,
 // });
 
-// export default app;
+export default iframe;
