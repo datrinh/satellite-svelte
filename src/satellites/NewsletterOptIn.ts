@@ -1,9 +1,9 @@
 import NewsletterOptIn from "./NewsletterOptIn.svelte";
 
 // will come from config
-const targetSelector = "#charles-newsletter";
+const targetSelector = '[data-charles="charles-newsletter"]';
 
-const target = document.querySelectorAll(targetSelector);
+const targets = document.querySelectorAll(targetSelector);
 
 var iframe = document.createElement("iframe");
 iframe.onload = (ev) => {
@@ -13,17 +13,14 @@ iframe.onload = (ev) => {
   iframe.style.height = iframe.contentWindow.document.body.scrollHeight + "px";
   iframe.style.border = "none";
   iframe.style.width = "100%";
+  iframe.contentWindow.document.body.style.overflow = "hidden"; // remove scrollbar on IE11
 };
 
-target.forEach((el) => {
+console.log("iframe", iframe);
+console.log("targets", targets);
+
+targets.forEach((el) => {
   el.parentNode.replaceChild(iframe, el);
 });
-
-// var script = document.currentScript;
-// script.parentNode.insertBefore(iframe, script);
-
-// const app = new NewsletterOptIn({
-//   target: iframe,
-// });
 
 export default iframe;

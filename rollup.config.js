@@ -76,7 +76,7 @@ const legacyBuilds = satellites.map((sat) => ({
       dedupe: (imp) => imp === "svelte" || imp.startsWith("svelte/"),
     }),
     commonjs(),
-    // terser(),
+    terser(),
   ],
 }));
 
