@@ -55,7 +55,7 @@ const legacyBuilds = satellites.map((sat) => ({
         [
           "@babel/preset-env",
           {
-            targets: "> 0.25%, not dead",
+            targets: "> 0.5%, ie >= 11",
             useBuiltIns: "usage",
             corejs: 3,
           },
@@ -76,7 +76,7 @@ const legacyBuilds = satellites.map((sat) => ({
       dedupe: (imp) => imp === "svelte" || imp.startsWith("svelte/"),
     }),
     commonjs(),
-    terser(),
+    // terser(),
   ],
 }));
 
