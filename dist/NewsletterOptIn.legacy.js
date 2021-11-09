@@ -2960,7 +2960,9 @@ var NewsletterOptIn = (function () {
 
   const getConfig = async () => {
       return new Promise((resolve) => {
-          resolve(newsletterConfig);
+          setTimeout(() => {
+              resolve(newsletterConfig);
+          }, 500);
       });
   };
 
