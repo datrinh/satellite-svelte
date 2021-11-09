@@ -23,4 +23,4 @@ targets.forEach((el) => {
   el.parentNode.replaceChild(iframe, el);
 });
 
-export default iframe;
+export default NewsletterOptIn;
