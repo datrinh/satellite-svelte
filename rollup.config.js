@@ -3,6 +3,8 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import babel from "rollup-plugin-babel";
+import alias from 'rollup-plugin-alias';
+import typescript from '@rollup/plugin-typescript';
 import svelteConfig from "./svelte.config";
 
 // Widget logic based on https://gist.github.com/AlexxNB/ab13267ad2a82a29f5466ec24fe797d5
@@ -31,7 +33,13 @@ const modernBuilds = satellites.map((sat) => ({
       dedupe: (imp) => imp === "svelte" || imp.startsWith("svelte/"),
     }),
     commonjs(),
-    terser(),
+    typescript(),
+    alias({
+      entries: [
+        { find: '@', replacement: './src' },
+      ]
+    }),
+    // terser(),
   ],
 }));
 
@@ -48,9 +56,9 @@ const legacyBuilds = satellites.map((sat) => ({
       ...svelteConfig,
     }),
     babel({
-      extensions: [".js", ".ts", ".mjs", ".html", ".svelte"],
+      extensions: [".js", ".mjs", ".html", ".svelte"],
       runtimeHelpers: true,
-      exclude: ["node_modules/@babel/**", "node_modules/core-js/**"],
+      exclude: "node_modules/**",
       presets: [
         [
           "@babel/preset-env",
@@ -71,12 +79,15 @@ const legacyBuilds = satellites.map((sat) => ({
         ],
       ],
     }),
-    resolve({
-      browser: true,
-      dedupe: (imp) => imp === "svelte" || imp.startsWith("svelte/"),
-    }),
+    resolve(),
     commonjs(),
-    terser(),
+    typescript(),
+    alias({
+      entries: [
+        { find: '@', replacement: './src' },
+      ]
+    }),
+    // terser(),
   ],
 }));
 

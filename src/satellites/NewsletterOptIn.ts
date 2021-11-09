@@ -1,26 +1,33 @@
 import NewsletterOptIn from "./NewsletterOptIn.svelte";
+import { getConfig } from "@/api/config";
 
-// will come from config
-const targetSelector = '[data-charles="charles-newsletter"]';
+const init = async () => {
+  const config = await getConfig();
+  const { selector, title, description } = config;
+  const targets = document.querySelectorAll(selector);
 
-const targets = document.querySelectorAll(targetSelector);
+  var iframe = document.createElement("iframe");
+  iframe.onload = (ev) => {
+    const app = new NewsletterOptIn({
+      target: iframe.contentWindow.document.body,
+      props: {
+        heading: title,
+        description,
+      },
+    });
+    iframe.style.height =
+      iframe.contentWindow.document.body.scrollHeight + "px";
+    iframe.style.border = "none";
+    iframe.style.width = "100%";
+    iframe.contentWindow.document.body.style.overflow = "hidden"; // remove scrollbar on IE11
+  };
 
-var iframe = document.createElement("iframe");
-iframe.onload = (ev) => {
-  const app = new NewsletterOptIn({
-    target: iframe.contentWindow.document.body,
+  // TODO: Currently not functional to replace multiple targets
+  targets.forEach((el) => {
+    el.parentNode.replaceChild(iframe, el);
   });
-  iframe.style.height = iframe.contentWindow.document.body.scrollHeight + "px";
-  iframe.style.border = "none";
-  iframe.style.width = "100%";
-  iframe.contentWindow.document.body.style.overflow = "hidden"; // remove scrollbar on IE11
 };
 
-console.log("iframe", iframe);
-console.log("targets", targets);
-
-targets.forEach((el) => {
-  el.parentNode.replaceChild(iframe, el);
-});
+init();
 
 export default NewsletterOptIn;
