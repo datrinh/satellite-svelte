@@ -11,7 +11,7 @@ const init = async () => {
     const app = new NewsletterOptIn({
       target: iframe.contentWindow.document.body,
       props: {
-        heading: title,
+        title,
         description,
       },
     });

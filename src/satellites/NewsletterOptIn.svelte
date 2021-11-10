@@ -4,7 +4,7 @@
   import CCheckbox from "../components/BaseCheckbox.svelte";
   import CInput from "../components/BaseInput.svelte";
 
-  export let heading = "Get our Whatsapp Newsletter";
+  export let title = "Get our Whatsapp Newsletter";
   export let description =
     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia";
   export let legalText =
@@ -25,7 +25,7 @@
 <div class="charles-newsletter">
   {#if !isDone}
     <form class="charles-newsletter-form" on:submit|preventDefault={onSubmit}>
-      <h1 class="gap">{heading}</h1>
+      <h1 class="gap">{title}</h1>
       <p class="gap">{description}</p>
 
       <CInput type="text" placeholder="Your Name" bind:value={name} />
@@ -43,7 +43,7 @@
   {/if}
 </div>
 
-<style lang="scss" global>
+<style lang="scss">
   @import "../styles/base";
   @import "../styles/helpers";
 
