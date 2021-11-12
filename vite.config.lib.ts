@@ -22,17 +22,13 @@ export default defineConfig({
       },
     },
   },
-  // build: {
-  //   rollupOptions: {
-  //     input: {
-  //       main: resolve(__dirname, "index.html"),
-  //       newsletterOptIn: resolve(
-  //         __dirname,
-  //         "src/satellites/NewsletterOptIn.html"
-  //       ),
-  //     },
-  //   },
-  // },
+  build: {
+    lib: {
+      entry: "src/lib.ts",
+      fileName: "charles-satellites",
+      name: "charles-satellites",
+    },
+  },
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),

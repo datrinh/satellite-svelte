@@ -2473,7 +2473,7 @@ var NewsletterOptIn = (function () {
   function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
   function add_css(target) {
-    append_styles(target, "svelte-n8j93d", "*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}*{font-family:Arial, Helvetica, sans-serif;margin:0}h1{font-size:1rem}p{font-size:0.8rem}.gap{margin-bottom:1rem}.charles-newsletter{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter h1{font-size:1rem;margin-bottom:8px}.charles-newsletter-form{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
+    append_styles(target, "svelte-uf4qf7", ".svelte-uf4qf7.svelte-uf4qf7,.svelte-uf4qf7.svelte-uf4qf7:before,.svelte-uf4qf7.svelte-uf4qf7:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.svelte-uf4qf7.svelte-uf4qf7{font-family:Arial, Helvetica, sans-serif;margin:0}h1.svelte-uf4qf7.svelte-uf4qf7{font-size:1rem}p.svelte-uf4qf7.svelte-uf4qf7{font-size:0.8rem}.gap.svelte-uf4qf7.svelte-uf4qf7{margin-bottom:1rem}.charles-newsletter.svelte-uf4qf7.svelte-uf4qf7{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-uf4qf7 h1.svelte-uf4qf7{font-size:1rem;margin-bottom:8px}.charles-newsletter-form.svelte-uf4qf7.svelte-uf4qf7{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
   } // (35:2) {:else}
 
 
@@ -2604,7 +2604,7 @@ var NewsletterOptIn = (function () {
         form = element("form");
         h1 = element("h1");
         t0 = text(
-        /*heading*/
+        /*title*/
         ctx[0]);
         t1 = space();
         p = element("p");
@@ -2619,9 +2619,9 @@ var NewsletterOptIn = (function () {
         create_component(ccheckbox.$$.fragment);
         t6 = space();
         create_component(ctabutton.$$.fragment);
-        attr(h1, "class", "gap");
-        attr(p, "class", "gap");
-        attr(form, "class", "charles-newsletter-form");
+        attr(h1, "class", "gap svelte-uf4qf7");
+        attr(p, "class", "gap svelte-uf4qf7");
+        attr(form, "class", "charles-newsletter-form svelte-uf4qf7");
       },
       m: function m(target, anchor) {
         insert(target, form, anchor);
@@ -2649,9 +2649,9 @@ var NewsletterOptIn = (function () {
       },
       p: function p(ctx, dirty) {
         if (!current || dirty &
-        /*heading*/
+        /*title*/
         1) set_data(t0,
-        /*heading*/
+        /*title*/
         ctx[0]);
         if (!current || dirty &
         /*description*/
@@ -2758,6 +2758,7 @@ var NewsletterOptIn = (function () {
         /*privacyPolicyLink*/
         ctx[3]);
         attr(a, "target", "_blank");
+        attr(a, "class", "svelte-uf4qf7");
       },
       m: function m(target, anchor) {
         insert(target, t0, anchor);
@@ -2834,7 +2835,7 @@ var NewsletterOptIn = (function () {
       c: function c() {
         div = element("div");
         if_block.c();
-        attr(div, "class", "charles-newsletter");
+        attr(div, "class", "charles-newsletter svelte-uf4qf7");
       },
       m: function m(target, anchor) {
         insert(target, div, anchor);
@@ -2888,8 +2889,8 @@ var NewsletterOptIn = (function () {
   var hasAgreed = false;
 
   function instance($$self, $$props, $$invalidate) {
-    var _$$props$heading = $$props.heading,
-        heading = _$$props$heading === void 0 ? "Get our Whatsapp Newsletter" : _$$props$heading;
+    var _$$props$title = $$props.title,
+        title = _$$props$title === void 0 ? "Get our Whatsapp Newsletter" : _$$props$title;
     var _$$props$description = $$props.description,
         description = _$$props$description === void 0 ? "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" : _$$props$description;
     var _$$props$legalText = $$props.legalText,
@@ -2917,14 +2918,14 @@ var NewsletterOptIn = (function () {
     }
 
     $$self.$$set = function ($$props) {
-      if ('heading' in $$props) $$invalidate(0, heading = $$props.heading);
+      if ('title' in $$props) $$invalidate(0, title = $$props.title);
       if ('description' in $$props) $$invalidate(1, description = $$props.description);
       if ('legalText' in $$props) $$invalidate(2, legalText = $$props.legalText);
       if ('privacyPolicyLink' in $$props) $$invalidate(3, privacyPolicyLink = $$props.privacyPolicyLink);
       if ('ctaButtonLabel' in $$props) $$invalidate(4, ctaButtonLabel = $$props.ctaButtonLabel);
     };
 
-    return [heading, description, legalText, privacyPolicyLink, ctaButtonLabel, isDone, name, phone, onSubmit, cinput0_value_binding, cinput1_value_binding];
+    return [title, description, legalText, privacyPolicyLink, ctaButtonLabel, isDone, name, phone, onSubmit, cinput0_value_binding, cinput1_value_binding];
   }
 
   var NewsletterOptIn = /*#__PURE__*/function (_SvelteComponent) {
@@ -2939,7 +2940,7 @@ var NewsletterOptIn = (function () {
 
       _this = _super.call(this);
       init$1(_assertThisInitialized(_this), options, instance, create_fragment, safe_not_equal, {
-        heading: 0,
+        title: 0,
         description: 1,
         legalText: 2,
         privacyPolicyLink: 3,
@@ -2975,7 +2976,7 @@ var NewsletterOptIn = (function () {
           new NewsletterOptIn({
               target: iframe.contentWindow.document.body,
               props: {
-                  heading: title,
+                  title,
                   description,
               },
           });
