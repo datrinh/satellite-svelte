@@ -449,7 +449,7 @@ class CtaButton extends SvelteComponent {
   }
 }
 function add_css$3(target) {
-  append_styles(target, "svelte-7s4zxs", '.satellite-checkbox.svelte-7s4zxs.svelte-7s4zxs.svelte-7s4zxs{display:flex;text-align:left;margin-bottom:16px}.satellite-checkbox.svelte-7s4zxs .container.svelte-7s4zxs.svelte-7s4zxs{display:block;position:relative;padding-left:35px;margin-bottom:12px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:#ababab;width:fit-content;font-size:0.8rem}.satellite-checkbox.svelte-7s4zxs .container input.svelte-7s4zxs.svelte-7s4zxs{position:absolute;opacity:0;cursor:pointer;height:0;width:0}.satellite-checkbox.svelte-7s4zxs .checkmark.svelte-7s4zxs.svelte-7s4zxs{position:absolute;top:0;left:0;height:25px;width:25px;border-radius:0.2rem;background-color:#f3f3f3}.satellite-checkbox.svelte-7s4zxs .container:hover input.svelte-7s4zxs~.checkmark.svelte-7s4zxs{background-color:#dadada}.satellite-checkbox.svelte-7s4zxs .checkmark.svelte-7s4zxs.svelte-7s4zxs:after{content:"";position:absolute;display:none}.satellite-checkbox.svelte-7s4zxs .container input.svelte-7s4zxs:checked~.checkmark.svelte-7s4zxs:after{display:block}.satellite-checkbox.svelte-7s4zxs .container .checkmark.svelte-7s4zxs.svelte-7s4zxs:after{left:9px;top:5px;width:5px;height:10px;border:solid black;border-width:0 3px 3px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}');
+  append_styles(target, "svelte-16yoonm", '.satellite-checkbox.svelte-16yoonm.svelte-16yoonm.svelte-16yoonm{display:flex;text-align:left;margin-bottom:16px}.satellite-checkbox.svelte-16yoonm .container.svelte-16yoonm.svelte-16yoonm{display:block;position:relative;padding-left:35px;margin-bottom:12px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:#ababab;width:fit-content;font-size:0.8rem}.satellite-checkbox.svelte-16yoonm .container input.svelte-16yoonm.svelte-16yoonm{position:absolute;opacity:0;cursor:pointer;height:0;width:0}.satellite-checkbox.svelte-16yoonm .checkmark.svelte-16yoonm.svelte-16yoonm{position:absolute;top:0;left:0;height:25px;width:25px;border-radius:0.2rem;background-color:#f3f3f3}.satellite-checkbox.svelte-16yoonm .container:hover input.svelte-16yoonm~.checkmark.svelte-16yoonm{background-color:#dadada}.satellite-checkbox.svelte-16yoonm .checkmark.svelte-16yoonm.svelte-16yoonm:after{content:"";position:absolute;display:none}.satellite-checkbox.svelte-16yoonm .container input.svelte-16yoonm:checked~.checkmark.svelte-16yoonm:after{display:block}.satellite-checkbox.svelte-16yoonm .container .checkmark.svelte-16yoonm.svelte-16yoonm:after{left:9px;top:4px;width:7px;height:14px;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);box-sizing:border-box}');
 }
 function create_fragment$3(ctx) {
   let div;
@@ -474,11 +474,11 @@ function create_fragment$3(ctx) {
       attr(input, "id", ctx[0]);
       attr(input, "type", "checkbox");
       input.value = ctx[1];
-      attr(input, "class", "svelte-7s4zxs");
-      attr(span, "class", "checkmark svelte-7s4zxs");
-      attr(label, "class", "container svelte-7s4zxs");
+      attr(input, "class", "svelte-16yoonm");
+      attr(span, "class", "checkmark svelte-16yoonm");
+      attr(label, "class", "container svelte-16yoonm");
       attr(label, "for", ctx[0]);
-      attr(div, "class", "satellite-checkbox svelte-7s4zxs");
+      attr(div, "class", "satellite-checkbox svelte-16yoonm");
     },
     m(target, anchor) {
       insert(target, div, anchor);

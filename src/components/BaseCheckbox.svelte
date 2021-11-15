@@ -73,14 +73,15 @@
     /* Style the checkmark/indicator */
     .container .checkmark:after {
       left: 9px;
-      top: 5px;
-      width: 5px;
-      height: 10px;
+      top: 4px;
+      width: 7px;
+      height: 14px;
       border: solid black;
-      border-width: 0 3px 3px 0;
+      border-width: 0 2px 2px 0;
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
+      box-sizing: border-box;
     }
   }
 </style>
