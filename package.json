@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:lib": "rm -rf dist && rollup -c",
+    "build:embed": "rm -rf dist && rollup -c",
+    "build:lib": "vite build --config vite.config.lib.ts",
     "serve": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
