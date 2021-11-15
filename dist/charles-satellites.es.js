@@ -547,7 +547,7 @@ class BaseCheckbox extends SvelteComponent {
   }
 }
 function add_css$2(target) {
-  append_styles(target, "svelte-19c4js4", "input.svelte-19c4js4{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:2rem;border-radius:0.2rem}");
+  append_styles(target, "svelte-e1mo4v", "input.svelte-e1mo4v{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:3rem;border-radius:0.2rem}");
 }
 function create_fragment$2(ctx) {
   let input;
@@ -557,7 +557,7 @@ function create_fragment$2(ctx) {
       attr(input, "type", ctx[0]);
       attr(input, "placeholder", ctx[1]);
       input.value = ctx[2];
-      attr(input, "class", "svelte-19c4js4");
+      attr(input, "class", "svelte-e1mo4v");
     },
     m(target, anchor) {
       insert(target, input, anchor);
