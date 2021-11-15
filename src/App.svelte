@@ -2,11 +2,11 @@
   import NewsletterOptIn from "./satellites/NewsletterOptIn.svelte";
   import BubbleButton from "./satellites/BubbleButton.svelte";
 
-  let title = undefined;
+  let title: string;
 </script>
 
 <main>
   <input type="text" bind:value={title} placeholder="Title" />
-  <NewsletterOptIn heading={title} />
+  <NewsletterOptIn {title} />
   <BubbleButton />
 </main>

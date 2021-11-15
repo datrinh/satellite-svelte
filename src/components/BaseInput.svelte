@@ -1,7 +1,7 @@
 <script lang="ts">
   export let type = "text";
-  export let placeholder = "";
-  export let value = undefined;
+  export let placeholder: string;
+  export let value: string;
 </script>
 
 <input {type} {placeholder} {value} />
@@ -14,5 +14,6 @@
     border: none;
     margin-bottom: 16px;
     height: 2rem;
+    border-radius: $input-radius;
   }
 </style>

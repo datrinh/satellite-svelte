@@ -11,6 +11,8 @@
     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia";
   export let privacyPolicyLink = "https://hello-charles.com";
   export let ctaButtonLabel = "Submit";
+  export let namePlaceholder = "Your Name";
+  export let phoneNrPlaceholder = "Your Phone Number";
 
   let isDone = false;
   let name = "";
@@ -28,8 +30,8 @@
       <h1 class="gap">{title}</h1>
       <p class="gap">{description}</p>
 
-      <CInput type="text" placeholder="Your Name" bind:value={name} />
-      <CInput type="tel" placeholder="Your Phone Number" bind:value={phone} />
+      <CInput type="text" placeholder={namePlaceholder} bind:value={name} />
+      <CInput type="tel" placeholder={phoneNrPlaceholder} bind:value={phone} />
 
       <CCheckbox id="agreed" value={hasAgreed}>
         {legalText}
