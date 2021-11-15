@@ -449,53 +449,60 @@ class CtaButton extends SvelteComponent {
   }
 }
 function add_css$3(target) {
-  append_styles(target, "svelte-1kqko7a", ".satellite-checkbox.svelte-1kqko7a.svelte-1kqko7a{display:flex;text-align:left;margin-bottom:16px}.satellite-checkbox.svelte-1kqko7a label.svelte-1kqko7a{cursor:pointer;width:fit-content;font-size:0.8rem;color:#ababab}.satellite-checkbox.svelte-1kqko7a input[type=checkbox].svelte-1kqko7a{width:24px;height:24px;cursor:pointer;margin-right:8px}");
+  append_styles(target, "svelte-7s4zxs", '.satellite-checkbox.svelte-7s4zxs.svelte-7s4zxs.svelte-7s4zxs{display:flex;text-align:left;margin-bottom:16px}.satellite-checkbox.svelte-7s4zxs .container.svelte-7s4zxs.svelte-7s4zxs{display:block;position:relative;padding-left:35px;margin-bottom:12px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:#ababab;width:fit-content;font-size:0.8rem}.satellite-checkbox.svelte-7s4zxs .container input.svelte-7s4zxs.svelte-7s4zxs{position:absolute;opacity:0;cursor:pointer;height:0;width:0}.satellite-checkbox.svelte-7s4zxs .checkmark.svelte-7s4zxs.svelte-7s4zxs{position:absolute;top:0;left:0;height:25px;width:25px;border-radius:0.2rem;background-color:#f3f3f3}.satellite-checkbox.svelte-7s4zxs .container:hover input.svelte-7s4zxs~.checkmark.svelte-7s4zxs{background-color:#dadada}.satellite-checkbox.svelte-7s4zxs .checkmark.svelte-7s4zxs.svelte-7s4zxs:after{content:"";position:absolute;display:none}.satellite-checkbox.svelte-7s4zxs .container input.svelte-7s4zxs:checked~.checkmark.svelte-7s4zxs:after{display:block}.satellite-checkbox.svelte-7s4zxs .container .checkmark.svelte-7s4zxs.svelte-7s4zxs:after{left:9px;top:5px;width:5px;height:10px;border:solid black;border-width:0 3px 3px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}');
 }
 function create_fragment$3(ctx) {
   let div;
-  let input;
-  let t;
   let label;
+  let t0;
+  let input;
+  let t1;
+  let span;
   let current;
   const default_slot_template = ctx[3].default;
   const default_slot = create_slot(default_slot_template, ctx, ctx[2], null);
   return {
     c() {
       div = element("div");
-      input = element("input");
-      t = space();
       label = element("label");
       if (default_slot)
         default_slot.c();
+      t0 = space();
+      input = element("input");
+      t1 = space();
+      span = element("span");
       attr(input, "id", ctx[0]);
       attr(input, "type", "checkbox");
       input.value = ctx[1];
-      attr(input, "class", "svelte-1kqko7a");
+      attr(input, "class", "svelte-7s4zxs");
+      attr(span, "class", "checkmark svelte-7s4zxs");
+      attr(label, "class", "container svelte-7s4zxs");
       attr(label, "for", ctx[0]);
-      attr(label, "class", "svelte-1kqko7a");
-      attr(div, "class", "satellite-checkbox svelte-1kqko7a");
+      attr(div, "class", "satellite-checkbox svelte-7s4zxs");
     },
     m(target, anchor) {
       insert(target, div, anchor);
-      append(div, input);
-      append(div, t);
       append(div, label);
       if (default_slot) {
         default_slot.m(label, null);
       }
+      append(label, t0);
+      append(label, input);
+      append(label, t1);
+      append(label, span);
       current = true;
     },
     p(ctx2, [dirty]) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & 4)) {
+          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[2], !current ? get_all_dirty_from_scope(ctx2[2]) : get_slot_changes(default_slot_template, ctx2[2], dirty, null), null);
+        }
+      }
       if (!current || dirty & 1) {
         attr(input, "id", ctx2[0]);
       }
       if (!current || dirty & 2) {
         input.value = ctx2[1];
-      }
-      if (default_slot) {
-        if (default_slot.p && (!current || dirty & 4)) {
-          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[2], !current ? get_all_dirty_from_scope(ctx2[2]) : get_slot_changes(default_slot_template, ctx2[2], dirty, null), null);
-        }
       }
       if (!current || dirty & 1) {
         attr(label, "for", ctx2[0]);
@@ -522,7 +529,7 @@ function create_fragment$3(ctx) {
 function instance$3($$self, $$props, $$invalidate) {
   let { $$slots: slots = {}, $$scope } = $$props;
   let { id } = $$props;
-  let { value = void 0 } = $$props;
+  let { value } = $$props;
   $$self.$$set = ($$props2) => {
     if ("id" in $$props2)
       $$invalidate(0, id = $$props2.id);
@@ -540,7 +547,7 @@ class BaseCheckbox extends SvelteComponent {
   }
 }
 function add_css$2(target) {
-  append_styles(target, "svelte-1b3yyig", "input.svelte-1b3yyig{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:2rem}");
+  append_styles(target, "svelte-19c4js4", "input.svelte-19c4js4{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:2rem;border-radius:0.2rem}");
 }
 function create_fragment$2(ctx) {
   let input;
@@ -550,7 +557,7 @@ function create_fragment$2(ctx) {
       attr(input, "type", ctx[0]);
       attr(input, "placeholder", ctx[1]);
       input.value = ctx[2];
-      attr(input, "class", "svelte-1b3yyig");
+      attr(input, "class", "svelte-19c4js4");
     },
     m(target, anchor) {
       insert(target, input, anchor);
@@ -576,8 +583,8 @@ function create_fragment$2(ctx) {
 }
 function instance$2($$self, $$props, $$invalidate) {
   let { type = "text" } = $$props;
-  let { placeholder = "" } = $$props;
-  let { value = void 0 } = $$props;
+  let { placeholder } = $$props;
+  let { value } = $$props;
   $$self.$$set = ($$props2) => {
     if ("type" in $$props2)
       $$invalidate(0, type = $$props2.type);
@@ -646,23 +653,26 @@ function create_if_block$1(ctx) {
   let mounted;
   let dispose;
   function cinput0_value_binding(value) {
-    ctx[9](value);
+    ctx[11](value);
   }
-  let cinput0_props = { type: "text", placeholder: "Your Name" };
-  if (ctx[6] !== void 0) {
-    cinput0_props.value = ctx[6];
+  let cinput0_props = {
+    type: "text",
+    placeholder: ctx[5]
+  };
+  if (ctx[8] !== void 0) {
+    cinput0_props.value = ctx[8];
   }
   cinput0 = new BaseInput({ props: cinput0_props });
   binding_callbacks.push(() => bind(cinput0, "value", cinput0_value_binding));
   function cinput1_value_binding(value) {
-    ctx[10](value);
+    ctx[12](value);
   }
   let cinput1_props = {
     type: "tel",
-    placeholder: "Your Phone Number"
+    placeholder: ctx[6]
   };
-  if (ctx[7] !== void 0) {
-    cinput1_props.value = ctx[7];
+  if (ctx[9] !== void 0) {
+    cinput1_props.value = ctx[9];
   }
   cinput1 = new BaseInput({ props: cinput1_props });
   binding_callbacks.push(() => bind(cinput1, "value", cinput1_value_binding));
@@ -718,7 +728,7 @@ function create_if_block$1(ctx) {
       mount_component(ctabutton, form, null);
       current = true;
       if (!mounted) {
-        dispose = listen(form, "submit", prevent_default(ctx[8]));
+        dispose = listen(form, "submit", prevent_default(ctx[10]));
         mounted = true;
       }
     },
@@ -728,26 +738,30 @@ function create_if_block$1(ctx) {
       if (!current || dirty & 2)
         set_data(t2, ctx2[1]);
       const cinput0_changes = {};
-      if (!updating_value && dirty & 64) {
+      if (dirty & 32)
+        cinput0_changes.placeholder = ctx2[5];
+      if (!updating_value && dirty & 256) {
         updating_value = true;
-        cinput0_changes.value = ctx2[6];
+        cinput0_changes.value = ctx2[8];
         add_flush_callback(() => updating_value = false);
       }
       cinput0.$set(cinput0_changes);
       const cinput1_changes = {};
-      if (!updating_value_1 && dirty & 128) {
+      if (dirty & 64)
+        cinput1_changes.placeholder = ctx2[6];
+      if (!updating_value_1 && dirty & 512) {
         updating_value_1 = true;
-        cinput1_changes.value = ctx2[7];
+        cinput1_changes.value = ctx2[9];
         add_flush_callback(() => updating_value_1 = false);
       }
       cinput1.$set(cinput1_changes);
       const ccheckbox_changes = {};
-      if (dirty & 2060) {
+      if (dirty & 8204) {
         ccheckbox_changes.$$scope = { dirty, ctx: ctx2 };
       }
       ccheckbox.$set(ccheckbox_changes);
       const ctabutton_changes = {};
-      if (dirty & 2064) {
+      if (dirty & 8208) {
         ctabutton_changes.$$scope = { dirty, ctx: ctx2 };
       }
       ctabutton.$set(ctabutton_changes);
@@ -845,7 +859,7 @@ function create_fragment$1(ctx) {
   const if_block_creators = [create_if_block$1, create_else_block];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
-    if (!ctx2[5])
+    if (!ctx2[7])
       return 0;
     return 1;
   }
@@ -908,19 +922,21 @@ function instance$1($$self, $$props, $$invalidate) {
   let { legalText = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" } = $$props;
   let { privacyPolicyLink = "https://hello-charles.com" } = $$props;
   let { ctaButtonLabel = "Submit" } = $$props;
+  let { namePlaceholder = "Your Name" } = $$props;
+  let { phoneNrPlaceholder = "Your Phone Number" } = $$props;
   let isDone = false;
   let name = "";
   let phone = "";
   const onSubmit = () => {
-    $$invalidate(5, isDone = true);
+    $$invalidate(7, isDone = true);
   };
   function cinput0_value_binding(value) {
     name = value;
-    $$invalidate(6, name);
+    $$invalidate(8, name);
   }
   function cinput1_value_binding(value) {
     phone = value;
-    $$invalidate(7, phone);
+    $$invalidate(9, phone);
   }
   $$self.$$set = ($$props2) => {
     if ("title" in $$props2)
@@ -933,6 +949,10 @@ function instance$1($$self, $$props, $$invalidate) {
       $$invalidate(3, privacyPolicyLink = $$props2.privacyPolicyLink);
     if ("ctaButtonLabel" in $$props2)
       $$invalidate(4, ctaButtonLabel = $$props2.ctaButtonLabel);
+    if ("namePlaceholder" in $$props2)
+      $$invalidate(5, namePlaceholder = $$props2.namePlaceholder);
+    if ("phoneNrPlaceholder" in $$props2)
+      $$invalidate(6, phoneNrPlaceholder = $$props2.phoneNrPlaceholder);
   };
   return [
     title,
@@ -940,6 +960,8 @@ function instance$1($$self, $$props, $$invalidate) {
     legalText,
     privacyPolicyLink,
     ctaButtonLabel,
+    namePlaceholder,
+    phoneNrPlaceholder,
     isDone,
     name,
     phone,
@@ -956,7 +978,9 @@ class NewsletterOptIn extends SvelteComponent {
       description: 1,
       legalText: 2,
       privacyPolicyLink: 3,
-      ctaButtonLabel: 4
+      ctaButtonLabel: 4,
+      namePlaceholder: 5,
+      phoneNrPlaceholder: 6
     }, add_css$1);
   }
 }
