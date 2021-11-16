@@ -14,13 +14,12 @@
     padding: 0.5rem 1.5rem;
     cursor: pointer;
     background-color: $green-whatsapp;
-    border-radius: 1rem;
+    border-radius: 2rem;
     border: none;
     color: white;
     height: $button-height;
     display: flex;
     align-items: center;
     justify-content: center;
-    // width: 100px;
   }
 </style>

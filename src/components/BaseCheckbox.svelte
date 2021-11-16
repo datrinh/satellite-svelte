@@ -47,8 +47,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      height: 0.75rem;
-      width: 0.75rem;
+      height: 1.25rem;
+      width: 1.25rem;
       border-radius: $input-radius;
       background-color: $gray-light;
     }
@@ -72,16 +72,15 @@
 
     /* Style the checkmark/indicator */
     .container .checkmark:after {
-      left: 9px;
-      top: 4px;
-      width: 7px;
-      height: 14px;
+      left: 0.5rem;
+      top: 0.1rem;
+      width: 0.4rem;
+      height: 0.8rem;
       border: solid black;
       border-width: 0 2px 2px 0;
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
-      box-sizing: border-box;
     }
   }
 </style>

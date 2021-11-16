@@ -28,13 +28,13 @@
   {#if !isDone}
     <form class="charles-newsletter-form" on:submit|preventDefault={onSubmit}>
       <h1 class="gap">{title}</h1>
-      <p class="gap">{description}</p>
+      <p class="gap text-sm">{description}</p>
 
       <CInput type="text" placeholder={namePlaceholder} bind:value={name} />
       <CInput type="tel" placeholder={phoneNrPlaceholder} bind:value={phone} />
 
       <CCheckbox id="agreed" value={hasAgreed}>
-        <span class="legal-text">
+        <span class="text-sm">
           {legalText}
           <a href={privacyPolicyLink} target="_blank">Link</a>
         </span>
@@ -61,15 +61,9 @@
     margin: 2px; // avoid clipped box shadow in iframes
 
     h1 {
-      font-size: 0.75rem;
+      font-size: 1rem;
       margin-bottom: 8px;
       font-weight: bold;
-    }
-    p {
-      font-size: 0.6rem;
-    }
-    .legal-text {
-      font-size: 0.333rem;
     }
   }
 
