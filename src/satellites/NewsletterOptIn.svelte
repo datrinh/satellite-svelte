@@ -3,6 +3,7 @@
   import CtaButton from "../components/CtaButton.svelte";
   import CCheckbox from "../components/BaseCheckbox.svelte";
   import CInput from "../components/BaseInput.svelte";
+  import { init } from "../api/config";
 
   export let isPreview = false;
   export let title = "Get our Whatsapp Newsletter";
@@ -19,6 +20,8 @@
   let name = "";
   let phone = "";
   let hasAgreed = false;
+
+  init();
 
   const onSubmit = () => {
     if (isPreview) {

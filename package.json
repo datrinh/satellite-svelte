@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:embed": "rm -rf dist && rollup -c",
+    "build:script": "rm -rf dist && rollup -c",
     "build:lib": "vite build --config vite.config.lib.ts",
     "serve": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
@@ -34,5 +34,8 @@
     "tslib": "^2.2.0",
     "typescript": "^4.3.2",
     "vite": "^2.6.4"
+  },
+  "dependencies": {
+    "query-string": "^7.0.1"
   }
 }

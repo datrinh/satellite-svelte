@@ -3,7 +3,12 @@ import { getConfig } from "@/api/config";
 
 const init = async () => {
   const config = await getConfig();
-  const { selector, title, description } = config;
+  const { selector, title, description, enabled } = config;
+  console.log("document.currentScript", document.currentScript);
+  if (!enabled) {
+    return;
+  }
+
   const targets = document.querySelectorAll(selector);
 
   var iframe = document.createElement("iframe");
