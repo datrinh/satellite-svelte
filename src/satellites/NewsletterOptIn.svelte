@@ -38,7 +38,9 @@
         <a href={privacyPolicyLink} target="_blank">Link</a>
       </CCheckbox>
 
-      <CtaButton type="submit">{ctaButtonLabel}</CtaButton>
+      <div class="center">
+        <CtaButton type="submit">{ctaButtonLabel}</CtaButton>
+      </div>
     </form>
   {:else}
     <NewsletterOptInSuccess />

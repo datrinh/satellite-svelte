@@ -13,7 +13,7 @@
     background-color: $gray-light;
     border: none;
     margin-bottom: 16px;
-    height: 3rem;
+    height: $input-height;
     border-radius: $input-radius;
   }
 </style>

@@ -10,6 +10,7 @@
   @import "../styles/variables";
 
   button {
+    box-sizing: border-box;
     padding: 0.5rem;
     cursor: pointer;
     background-color: $green-whatsapp;
@@ -17,5 +18,9 @@
     border: none;
     color: white;
     height: $button-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
   }
 </style>
