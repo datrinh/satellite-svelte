@@ -11,7 +11,7 @@
 
   button {
     box-sizing: border-box;
-    padding: 0.5rem;
+    padding: 0.5rem 1.5rem;
     cursor: pointer;
     background-color: $green-whatsapp;
     border-radius: 1rem;
@@ -21,6 +21,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
+    // width: 100px;
   }
 </style>

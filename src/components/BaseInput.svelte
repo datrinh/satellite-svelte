@@ -15,5 +15,6 @@
     margin-bottom: 16px;
     height: $input-height;
     border-radius: $input-radius;
+    font-size: 0.6rem;
   }
 </style>

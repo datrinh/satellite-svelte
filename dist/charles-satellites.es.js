@@ -381,7 +381,7 @@ class NewsletterOptInSuccess extends SvelteComponent {
   }
 }
 function add_css$4(target) {
-  append_styles(target, "svelte-1jeecl2", "button.svelte-1jeecl2{box-sizing:border-box;padding:0.5rem;cursor:pointer;background-color:#00c40a;border-radius:1rem;border:none;color:white;height:1.5rem;display:flex;align-items:center;justify-content:center;width:100px}");
+  append_styles(target, "svelte-a74sww", "button.svelte-a74sww{box-sizing:border-box;padding:0.5rem 1.5rem;cursor:pointer;background-color:#00c40a;border-radius:1rem;border:none;color:white;height:1.5rem;display:flex;align-items:center;justify-content:center}");
 }
 function create_fragment$4(ctx) {
   let button;
@@ -394,7 +394,7 @@ function create_fragment$4(ctx) {
       if (default_slot)
         default_slot.c();
       attr(button, "type", ctx[0]);
-      attr(button, "class", "svelte-1jeecl2");
+      attr(button, "class", "svelte-a74sww");
     },
     m(target, anchor) {
       insert(target, button, anchor);
@@ -547,7 +547,7 @@ class BaseCheckbox extends SvelteComponent {
   }
 }
 function add_css$2(target) {
-  append_styles(target, "svelte-6v9gg", "input.svelte-6v9gg{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:1.5rem;border-radius:0.2rem}");
+  append_styles(target, "svelte-rk5yfa", "input.svelte-rk5yfa{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:1.5rem;border-radius:0.2rem;font-size:0.6rem}");
 }
 function create_fragment$2(ctx) {
   let input;
@@ -557,7 +557,7 @@ function create_fragment$2(ctx) {
       attr(input, "type", ctx[0]);
       attr(input, "placeholder", ctx[1]);
       input.value = ctx[2];
-      attr(input, "class", "svelte-6v9gg");
+      attr(input, "class", "svelte-rk5yfa");
     },
     m(target, anchor) {
       insert(target, input, anchor);
@@ -602,7 +602,7 @@ class BaseInput extends SvelteComponent {
   }
 }
 function add_css$1(target) {
-  append_styles(target, "svelte-dngo6n", ".svelte-dngo6n.svelte-dngo6n,.svelte-dngo6n.svelte-dngo6n:before,.svelte-dngo6n.svelte-dngo6n:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.svelte-dngo6n.svelte-dngo6n{font-family:Arial, Helvetica, sans-serif;margin:0}h1.svelte-dngo6n.svelte-dngo6n{font-size:1rem}p.svelte-dngo6n.svelte-dngo6n{font-size:0.8rem}.gap.svelte-dngo6n.svelte-dngo6n{margin-bottom:1rem}.center.svelte-dngo6n.svelte-dngo6n{display:flex;align-items:center;justify-content:center}.charles-newsletter.svelte-dngo6n.svelte-dngo6n{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-dngo6n h1.svelte-dngo6n{font-size:0.75rem;margin-bottom:8px}.charles-newsletter.svelte-dngo6n p.svelte-dngo6n{font-size:0.6rem}.charles-newsletter.svelte-dngo6n .legal-text.svelte-dngo6n{font-size:0.333rem}.charles-newsletter-form.svelte-dngo6n.svelte-dngo6n{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
+  append_styles(target, "svelte-1olx3qb", ".svelte-1olx3qb.svelte-1olx3qb,.svelte-1olx3qb.svelte-1olx3qb:before,.svelte-1olx3qb.svelte-1olx3qb:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.svelte-1olx3qb.svelte-1olx3qb{font-family:Arial, Helvetica, sans-serif;margin:0}h1.svelte-1olx3qb.svelte-1olx3qb{font-size:1rem}p.svelte-1olx3qb.svelte-1olx3qb{font-size:0.8rem}.gap.svelte-1olx3qb.svelte-1olx3qb{margin-bottom:1rem}.center.svelte-1olx3qb.svelte-1olx3qb{display:flex;align-items:center;justify-content:center}.charles-newsletter.svelte-1olx3qb.svelte-1olx3qb{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-1olx3qb h1.svelte-1olx3qb{font-size:0.75rem;margin-bottom:8px;font-weight:bold}.charles-newsletter.svelte-1olx3qb p.svelte-1olx3qb{font-size:0.6rem}.charles-newsletter.svelte-1olx3qb .legal-text.svelte-1olx3qb{font-size:0.333rem}.charles-newsletter-form.svelte-1olx3qb.svelte-1olx3qb{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
 }
 function create_else_block(ctx) {
   let newsletteroptinsuccess;
@@ -709,10 +709,10 @@ function create_if_block$1(ctx) {
       t6 = space();
       div = element("div");
       create_component(ctabutton.$$.fragment);
-      attr(h1, "class", "gap svelte-dngo6n");
-      attr(p, "class", "gap svelte-dngo6n");
-      attr(div, "class", "center svelte-dngo6n");
-      attr(form, "class", "charles-newsletter-form svelte-dngo6n");
+      attr(h1, "class", "gap svelte-1olx3qb");
+      attr(p, "class", "gap svelte-1olx3qb");
+      attr(div, "class", "center svelte-1olx3qb");
+      attr(form, "class", "charles-newsletter-form svelte-1olx3qb");
     },
     m(target, anchor) {
       insert(target, form, anchor);
@@ -813,8 +813,8 @@ function create_default_slot_1(ctx) {
       t2 = text("Link");
       attr(a, "href", ctx[3]);
       attr(a, "target", "_blank");
-      attr(a, "class", "svelte-dngo6n");
-      attr(span, "class", "legal-text svelte-dngo6n");
+      attr(a, "class", "svelte-1olx3qb");
+      attr(span, "class", "legal-text svelte-1olx3qb");
     },
     m(target, anchor) {
       insert(target, span, anchor);
@@ -873,7 +873,7 @@ function create_fragment$1(ctx) {
     c() {
       div = element("div");
       if_block.c();
-      attr(div, "class", "charles-newsletter svelte-dngo6n");
+      attr(div, "class", "charles-newsletter svelte-1olx3qb");
     },
     m(target, anchor) {
       insert(target, div, anchor);

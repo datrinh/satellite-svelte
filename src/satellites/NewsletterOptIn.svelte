@@ -63,6 +63,7 @@
     h1 {
       font-size: 0.75rem;
       margin-bottom: 8px;
+      font-weight: bold;
     }
     p {
       font-size: 0.6rem;
