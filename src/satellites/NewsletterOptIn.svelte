@@ -34,8 +34,10 @@
       <CInput type="tel" placeholder={phoneNrPlaceholder} bind:value={phone} />
 
       <CCheckbox id="agreed" value={hasAgreed}>
-        {legalText}
-        <a href={privacyPolicyLink} target="_blank">Link</a>
+        <span class="legal-text">
+          {legalText}
+          <a href={privacyPolicyLink} target="_blank">Link</a>
+        </span>
       </CCheckbox>
 
       <div class="center">
@@ -59,8 +61,14 @@
     margin: 2px; // avoid clipped box shadow in iframes
 
     h1 {
-      font-size: 1rem;
+      font-size: 0.75rem;
       margin-bottom: 8px;
+    }
+    p {
+      font-size: 0.6rem;
+    }
+    .legal-text {
+      font-size: 0.333rem;
     }
   }
 

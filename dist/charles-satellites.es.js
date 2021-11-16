@@ -381,7 +381,7 @@ class NewsletterOptInSuccess extends SvelteComponent {
   }
 }
 function add_css$4(target) {
-  append_styles(target, "svelte-52qjtk", "button.svelte-52qjtk{padding:0.5rem;cursor:pointer;background-color:#00c40a;border-radius:1rem;border:none;color:white;height:32px}");
+  append_styles(target, "svelte-1jeecl2", "button.svelte-1jeecl2{box-sizing:border-box;padding:0.5rem;cursor:pointer;background-color:#00c40a;border-radius:1rem;border:none;color:white;height:1.5rem;display:flex;align-items:center;justify-content:center;width:100px}");
 }
 function create_fragment$4(ctx) {
   let button;
@@ -394,7 +394,7 @@ function create_fragment$4(ctx) {
       if (default_slot)
         default_slot.c();
       attr(button, "type", ctx[0]);
-      attr(button, "class", "svelte-52qjtk");
+      attr(button, "class", "svelte-1jeecl2");
     },
     m(target, anchor) {
       insert(target, button, anchor);
@@ -449,7 +449,7 @@ class CtaButton extends SvelteComponent {
   }
 }
 function add_css$3(target) {
-  append_styles(target, "svelte-16yoonm", '.satellite-checkbox.svelte-16yoonm.svelte-16yoonm.svelte-16yoonm{display:flex;text-align:left;margin-bottom:16px}.satellite-checkbox.svelte-16yoonm .container.svelte-16yoonm.svelte-16yoonm{display:block;position:relative;padding-left:35px;margin-bottom:12px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:#ababab;width:fit-content;font-size:0.8rem}.satellite-checkbox.svelte-16yoonm .container input.svelte-16yoonm.svelte-16yoonm{position:absolute;opacity:0;cursor:pointer;height:0;width:0}.satellite-checkbox.svelte-16yoonm .checkmark.svelte-16yoonm.svelte-16yoonm{position:absolute;top:0;left:0;height:25px;width:25px;border-radius:0.2rem;background-color:#f3f3f3}.satellite-checkbox.svelte-16yoonm .container:hover input.svelte-16yoonm~.checkmark.svelte-16yoonm{background-color:#dadada}.satellite-checkbox.svelte-16yoonm .checkmark.svelte-16yoonm.svelte-16yoonm:after{content:"";position:absolute;display:none}.satellite-checkbox.svelte-16yoonm .container input.svelte-16yoonm:checked~.checkmark.svelte-16yoonm:after{display:block}.satellite-checkbox.svelte-16yoonm .container .checkmark.svelte-16yoonm.svelte-16yoonm:after{left:9px;top:4px;width:7px;height:14px;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);box-sizing:border-box}');
+  append_styles(target, "svelte-nxetdm", '.satellite-checkbox.svelte-nxetdm.svelte-nxetdm.svelte-nxetdm{display:flex;text-align:left;margin-bottom:16px}.satellite-checkbox.svelte-nxetdm .container.svelte-nxetdm.svelte-nxetdm{display:block;position:relative;padding-left:35px;margin-bottom:12px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:#ababab;width:fit-content;font-size:0.8rem}.satellite-checkbox.svelte-nxetdm .container input.svelte-nxetdm.svelte-nxetdm{position:absolute;opacity:0;cursor:pointer;height:0;width:0}.satellite-checkbox.svelte-nxetdm .checkmark.svelte-nxetdm.svelte-nxetdm{position:absolute;top:0;left:0;height:0.75rem;width:0.75rem;border-radius:0.2rem;background-color:#f3f3f3}.satellite-checkbox.svelte-nxetdm .container:hover input.svelte-nxetdm~.checkmark.svelte-nxetdm{background-color:#dadada}.satellite-checkbox.svelte-nxetdm .checkmark.svelte-nxetdm.svelte-nxetdm:after{content:"";position:absolute;display:none}.satellite-checkbox.svelte-nxetdm .container input.svelte-nxetdm:checked~.checkmark.svelte-nxetdm:after{display:block}.satellite-checkbox.svelte-nxetdm .container .checkmark.svelte-nxetdm.svelte-nxetdm:after{left:9px;top:4px;width:7px;height:14px;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);box-sizing:border-box}');
 }
 function create_fragment$3(ctx) {
   let div;
@@ -474,11 +474,11 @@ function create_fragment$3(ctx) {
       attr(input, "id", ctx[0]);
       attr(input, "type", "checkbox");
       input.value = ctx[1];
-      attr(input, "class", "svelte-16yoonm");
-      attr(span, "class", "checkmark svelte-16yoonm");
-      attr(label, "class", "container svelte-16yoonm");
+      attr(input, "class", "svelte-nxetdm");
+      attr(span, "class", "checkmark svelte-nxetdm");
+      attr(label, "class", "container svelte-nxetdm");
       attr(label, "for", ctx[0]);
-      attr(div, "class", "satellite-checkbox svelte-16yoonm");
+      attr(div, "class", "satellite-checkbox svelte-nxetdm");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -547,7 +547,7 @@ class BaseCheckbox extends SvelteComponent {
   }
 }
 function add_css$2(target) {
-  append_styles(target, "svelte-e1mo4v", "input.svelte-e1mo4v{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:3rem;border-radius:0.2rem}");
+  append_styles(target, "svelte-6v9gg", "input.svelte-6v9gg{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:1.5rem;border-radius:0.2rem}");
 }
 function create_fragment$2(ctx) {
   let input;
@@ -557,7 +557,7 @@ function create_fragment$2(ctx) {
       attr(input, "type", ctx[0]);
       attr(input, "placeholder", ctx[1]);
       input.value = ctx[2];
-      attr(input, "class", "svelte-e1mo4v");
+      attr(input, "class", "svelte-6v9gg");
     },
     m(target, anchor) {
       insert(target, input, anchor);
@@ -602,7 +602,7 @@ class BaseInput extends SvelteComponent {
   }
 }
 function add_css$1(target) {
-  append_styles(target, "svelte-uf4qf7", ".svelte-uf4qf7.svelte-uf4qf7,.svelte-uf4qf7.svelte-uf4qf7:before,.svelte-uf4qf7.svelte-uf4qf7:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.svelte-uf4qf7.svelte-uf4qf7{font-family:Arial, Helvetica, sans-serif;margin:0}h1.svelte-uf4qf7.svelte-uf4qf7{font-size:1rem}p.svelte-uf4qf7.svelte-uf4qf7{font-size:0.8rem}.gap.svelte-uf4qf7.svelte-uf4qf7{margin-bottom:1rem}.charles-newsletter.svelte-uf4qf7.svelte-uf4qf7{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-uf4qf7 h1.svelte-uf4qf7{font-size:1rem;margin-bottom:8px}.charles-newsletter-form.svelte-uf4qf7.svelte-uf4qf7{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
+  append_styles(target, "svelte-dngo6n", ".svelte-dngo6n.svelte-dngo6n,.svelte-dngo6n.svelte-dngo6n:before,.svelte-dngo6n.svelte-dngo6n:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.svelte-dngo6n.svelte-dngo6n{font-family:Arial, Helvetica, sans-serif;margin:0}h1.svelte-dngo6n.svelte-dngo6n{font-size:1rem}p.svelte-dngo6n.svelte-dngo6n{font-size:0.8rem}.gap.svelte-dngo6n.svelte-dngo6n{margin-bottom:1rem}.center.svelte-dngo6n.svelte-dngo6n{display:flex;align-items:center;justify-content:center}.charles-newsletter.svelte-dngo6n.svelte-dngo6n{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-dngo6n h1.svelte-dngo6n{font-size:0.75rem;margin-bottom:8px}.charles-newsletter.svelte-dngo6n p.svelte-dngo6n{font-size:0.6rem}.charles-newsletter.svelte-dngo6n .legal-text.svelte-dngo6n{font-size:0.333rem}.charles-newsletter-form.svelte-dngo6n.svelte-dngo6n{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
 }
 function create_else_block(ctx) {
   let newsletteroptinsuccess;
@@ -648,6 +648,7 @@ function create_if_block$1(ctx) {
   let t5;
   let ccheckbox;
   let t6;
+  let div;
   let ctabutton;
   let current;
   let mounted;
@@ -706,10 +707,12 @@ function create_if_block$1(ctx) {
       t5 = space();
       create_component(ccheckbox.$$.fragment);
       t6 = space();
+      div = element("div");
       create_component(ctabutton.$$.fragment);
-      attr(h1, "class", "gap svelte-uf4qf7");
-      attr(p, "class", "gap svelte-uf4qf7");
-      attr(form, "class", "charles-newsletter-form svelte-uf4qf7");
+      attr(h1, "class", "gap svelte-dngo6n");
+      attr(p, "class", "gap svelte-dngo6n");
+      attr(div, "class", "center svelte-dngo6n");
+      attr(form, "class", "charles-newsletter-form svelte-dngo6n");
     },
     m(target, anchor) {
       insert(target, form, anchor);
@@ -725,7 +728,8 @@ function create_if_block$1(ctx) {
       append(form, t5);
       mount_component(ccheckbox, form, null);
       append(form, t6);
-      mount_component(ctabutton, form, null);
+      append(form, div);
+      mount_component(ctabutton, div, null);
       current = true;
       if (!mounted) {
         dispose = listen(form, "submit", prevent_default(ctx[10]));
@@ -795,24 +799,28 @@ function create_if_block$1(ctx) {
   };
 }
 function create_default_slot_1(ctx) {
+  let span;
   let t0;
   let t1;
   let a;
   let t2;
   return {
     c() {
+      span = element("span");
       t0 = text(ctx[2]);
       t1 = space();
       a = element("a");
       t2 = text("Link");
       attr(a, "href", ctx[3]);
       attr(a, "target", "_blank");
-      attr(a, "class", "svelte-uf4qf7");
+      attr(a, "class", "svelte-dngo6n");
+      attr(span, "class", "legal-text svelte-dngo6n");
     },
     m(target, anchor) {
-      insert(target, t0, anchor);
-      insert(target, t1, anchor);
-      insert(target, a, anchor);
+      insert(target, span, anchor);
+      append(span, t0);
+      append(span, t1);
+      append(span, a);
       append(a, t2);
     },
     p(ctx2, dirty) {
@@ -824,11 +832,7 @@ function create_default_slot_1(ctx) {
     },
     d(detaching) {
       if (detaching)
-        detach(t0);
-      if (detaching)
-        detach(t1);
-      if (detaching)
-        detach(a);
+        detach(span);
     }
   };
 }
@@ -869,7 +873,7 @@ function create_fragment$1(ctx) {
     c() {
       div = element("div");
       if_block.c();
-      attr(div, "class", "charles-newsletter svelte-uf4qf7");
+      attr(div, "class", "charles-newsletter svelte-dngo6n");
     },
     m(target, anchor) {
       insert(target, div, anchor);

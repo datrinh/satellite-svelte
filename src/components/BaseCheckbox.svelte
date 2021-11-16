@@ -47,8 +47,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      height: 1.5rem;
-      width: 1.5rem;
+      height: 0.75rem;
+      width: 0.75rem;
       border-radius: $input-radius;
       background-color: $gray-light;
     }
