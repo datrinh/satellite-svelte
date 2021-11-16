@@ -4,6 +4,7 @@
   import CCheckbox from "../components/BaseCheckbox.svelte";
   import CInput from "../components/BaseInput.svelte";
 
+  export let isPreview = false;
   export let title = "Get our Whatsapp Newsletter";
   export let description =
     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia";
@@ -20,7 +21,18 @@
   let hasAgreed = false;
 
   const onSubmit = () => {
+    if (isPreview) {
+      isDone = true;
+      return;
+    }
+
     isDone = true;
+  };
+
+  const onClickSuccess = () => {
+    if (isPreview) {
+      isDone = false;
+    }
   };
 </script>
 
@@ -45,7 +57,7 @@
       </div>
     </form>
   {:else}
-    <NewsletterOptInSuccess />
+    <NewsletterOptInSuccess on:click={onClickSuccess} />
   {/if}
 </div>
 

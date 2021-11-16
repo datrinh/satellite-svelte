@@ -1,5 +1,11 @@
+<script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+</script>
+
 <section class="charles-newsletter-done">
-  <div class="content">
+  <div class="content" on:click={() => dispatch("click")}>
     <h1 class="text-5xl">
       <!-- <img src="@/assets/wa.svg" alt="Whatsapp Logo" height="36" /> -->
       Thanks a lot! 🥳

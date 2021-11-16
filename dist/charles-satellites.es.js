@@ -381,7 +381,7 @@ class NewsletterOptInSuccess extends SvelteComponent {
   }
 }
 function add_css$4(target) {
-  append_styles(target, "svelte-a74sww", "button.svelte-a74sww{box-sizing:border-box;padding:0.5rem 1.5rem;cursor:pointer;background-color:#00c40a;border-radius:1rem;border:none;color:white;height:1.5rem;display:flex;align-items:center;justify-content:center}");
+  append_styles(target, "svelte-1ru8nfc", "button.svelte-1ru8nfc{box-sizing:border-box;padding:0.5rem 1.5rem;cursor:pointer;background-color:#00c40a;border-radius:2rem;border:none;color:white;height:2.5rem;display:flex;align-items:center;justify-content:center}");
 }
 function create_fragment$4(ctx) {
   let button;
@@ -394,7 +394,7 @@ function create_fragment$4(ctx) {
       if (default_slot)
         default_slot.c();
       attr(button, "type", ctx[0]);
-      attr(button, "class", "svelte-a74sww");
+      attr(button, "class", "svelte-1ru8nfc");
     },
     m(target, anchor) {
       insert(target, button, anchor);
@@ -449,7 +449,7 @@ class CtaButton extends SvelteComponent {
   }
 }
 function add_css$3(target) {
-  append_styles(target, "svelte-nxetdm", '.satellite-checkbox.svelte-nxetdm.svelte-nxetdm.svelte-nxetdm{display:flex;text-align:left;margin-bottom:16px}.satellite-checkbox.svelte-nxetdm .container.svelte-nxetdm.svelte-nxetdm{display:block;position:relative;padding-left:35px;margin-bottom:12px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:#ababab;width:fit-content;font-size:0.8rem}.satellite-checkbox.svelte-nxetdm .container input.svelte-nxetdm.svelte-nxetdm{position:absolute;opacity:0;cursor:pointer;height:0;width:0}.satellite-checkbox.svelte-nxetdm .checkmark.svelte-nxetdm.svelte-nxetdm{position:absolute;top:0;left:0;height:0.75rem;width:0.75rem;border-radius:0.2rem;background-color:#f3f3f3}.satellite-checkbox.svelte-nxetdm .container:hover input.svelte-nxetdm~.checkmark.svelte-nxetdm{background-color:#dadada}.satellite-checkbox.svelte-nxetdm .checkmark.svelte-nxetdm.svelte-nxetdm:after{content:"";position:absolute;display:none}.satellite-checkbox.svelte-nxetdm .container input.svelte-nxetdm:checked~.checkmark.svelte-nxetdm:after{display:block}.satellite-checkbox.svelte-nxetdm .container .checkmark.svelte-nxetdm.svelte-nxetdm:after{left:9px;top:4px;width:7px;height:14px;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);box-sizing:border-box}');
+  append_styles(target, "svelte-pxuelf", '.satellite-checkbox.svelte-pxuelf.svelte-pxuelf.svelte-pxuelf{display:flex;text-align:left;margin-bottom:16px}.satellite-checkbox.svelte-pxuelf .container.svelte-pxuelf.svelte-pxuelf{display:block;position:relative;padding-left:35px;margin-bottom:12px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:#ababab;width:fit-content;font-size:0.8rem}.satellite-checkbox.svelte-pxuelf .container input.svelte-pxuelf.svelte-pxuelf{position:absolute;opacity:0;cursor:pointer;height:0;width:0}.satellite-checkbox.svelte-pxuelf .checkmark.svelte-pxuelf.svelte-pxuelf{position:absolute;top:0;left:0;height:1.25rem;width:1.25rem;border-radius:0.25rem;background-color:#f3f3f3}.satellite-checkbox.svelte-pxuelf .container:hover input.svelte-pxuelf~.checkmark.svelte-pxuelf{background-color:#dadada}.satellite-checkbox.svelte-pxuelf .checkmark.svelte-pxuelf.svelte-pxuelf:after{content:"";position:absolute;display:none}.satellite-checkbox.svelte-pxuelf .container input.svelte-pxuelf:checked~.checkmark.svelte-pxuelf:after{display:block}.satellite-checkbox.svelte-pxuelf .container .checkmark.svelte-pxuelf.svelte-pxuelf:after{left:0.5rem;top:0.1rem;width:0.4rem;height:0.8rem;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}');
 }
 function create_fragment$3(ctx) {
   let div;
@@ -474,11 +474,11 @@ function create_fragment$3(ctx) {
       attr(input, "id", ctx[0]);
       attr(input, "type", "checkbox");
       input.value = ctx[1];
-      attr(input, "class", "svelte-nxetdm");
-      attr(span, "class", "checkmark svelte-nxetdm");
-      attr(label, "class", "container svelte-nxetdm");
+      attr(input, "class", "svelte-pxuelf");
+      attr(span, "class", "checkmark svelte-pxuelf");
+      attr(label, "class", "container svelte-pxuelf");
       attr(label, "for", ctx[0]);
-      attr(div, "class", "satellite-checkbox svelte-nxetdm");
+      attr(div, "class", "satellite-checkbox svelte-pxuelf");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -547,7 +547,7 @@ class BaseCheckbox extends SvelteComponent {
   }
 }
 function add_css$2(target) {
-  append_styles(target, "svelte-rk5yfa", "input.svelte-rk5yfa{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:1.5rem;border-radius:0.2rem;font-size:0.6rem}");
+  append_styles(target, "svelte-17fo3ti", "input.svelte-17fo3ti{padding:0.5rem;background-color:#f3f3f3;border:none;margin-bottom:16px;height:2.5rem;border-radius:0.25rem;font-size:0.75rem}");
 }
 function create_fragment$2(ctx) {
   let input;
@@ -557,7 +557,7 @@ function create_fragment$2(ctx) {
       attr(input, "type", ctx[0]);
       attr(input, "placeholder", ctx[1]);
       input.value = ctx[2];
-      attr(input, "class", "svelte-rk5yfa");
+      attr(input, "class", "svelte-17fo3ti");
     },
     m(target, anchor) {
       insert(target, input, anchor);
@@ -602,12 +602,13 @@ class BaseInput extends SvelteComponent {
   }
 }
 function add_css$1(target) {
-  append_styles(target, "svelte-1olx3qb", ".svelte-1olx3qb.svelte-1olx3qb,.svelte-1olx3qb.svelte-1olx3qb:before,.svelte-1olx3qb.svelte-1olx3qb:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.svelte-1olx3qb.svelte-1olx3qb{font-family:Arial, Helvetica, sans-serif;margin:0}h1.svelte-1olx3qb.svelte-1olx3qb{font-size:1rem}p.svelte-1olx3qb.svelte-1olx3qb{font-size:0.8rem}.gap.svelte-1olx3qb.svelte-1olx3qb{margin-bottom:1rem}.center.svelte-1olx3qb.svelte-1olx3qb{display:flex;align-items:center;justify-content:center}.charles-newsletter.svelte-1olx3qb.svelte-1olx3qb{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-1olx3qb h1.svelte-1olx3qb{font-size:0.75rem;margin-bottom:8px;font-weight:bold}.charles-newsletter.svelte-1olx3qb p.svelte-1olx3qb{font-size:0.6rem}.charles-newsletter.svelte-1olx3qb .legal-text.svelte-1olx3qb{font-size:0.333rem}.charles-newsletter-form.svelte-1olx3qb.svelte-1olx3qb{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
+  append_styles(target, "svelte-ltwhj4", ".svelte-ltwhj4.svelte-ltwhj4,.svelte-ltwhj4.svelte-ltwhj4:before,.svelte-ltwhj4.svelte-ltwhj4:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;margin:0}.gap.svelte-ltwhj4.svelte-ltwhj4{margin-bottom:1rem}.center.svelte-ltwhj4.svelte-ltwhj4{display:flex;align-items:center;justify-content:center}.text-sm.svelte-ltwhj4.svelte-ltwhj4{font-size:0.75rem}.charles-newsletter.svelte-ltwhj4.svelte-ltwhj4{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-ltwhj4 h1.svelte-ltwhj4{font-size:1rem;margin-bottom:8px;font-weight:bold}.charles-newsletter-form.svelte-ltwhj4.svelte-ltwhj4{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
 }
 function create_else_block(ctx) {
   let newsletteroptinsuccess;
   let current;
   newsletteroptinsuccess = new NewsletterOptInSuccess({});
+  newsletteroptinsuccess.$on("click", ctx[11]);
   return {
     c() {
       create_component(newsletteroptinsuccess.$$.fragment);
@@ -654,7 +655,7 @@ function create_if_block$1(ctx) {
   let mounted;
   let dispose;
   function cinput0_value_binding(value) {
-    ctx[11](value);
+    ctx[13](value);
   }
   let cinput0_props = {
     type: "text",
@@ -666,7 +667,7 @@ function create_if_block$1(ctx) {
   cinput0 = new BaseInput({ props: cinput0_props });
   binding_callbacks.push(() => bind(cinput0, "value", cinput0_value_binding));
   function cinput1_value_binding(value) {
-    ctx[12](value);
+    ctx[14](value);
   }
   let cinput1_props = {
     type: "tel",
@@ -709,10 +710,10 @@ function create_if_block$1(ctx) {
       t6 = space();
       div = element("div");
       create_component(ctabutton.$$.fragment);
-      attr(h1, "class", "gap svelte-1olx3qb");
-      attr(p, "class", "gap svelte-1olx3qb");
-      attr(div, "class", "center svelte-1olx3qb");
-      attr(form, "class", "charles-newsletter-form svelte-1olx3qb");
+      attr(h1, "class", "gap svelte-ltwhj4");
+      attr(p, "class", "gap text-sm svelte-ltwhj4");
+      attr(div, "class", "center svelte-ltwhj4");
+      attr(form, "class", "charles-newsletter-form svelte-ltwhj4");
     },
     m(target, anchor) {
       insert(target, form, anchor);
@@ -760,12 +761,12 @@ function create_if_block$1(ctx) {
       }
       cinput1.$set(cinput1_changes);
       const ccheckbox_changes = {};
-      if (dirty & 8204) {
+      if (dirty & 32780) {
         ccheckbox_changes.$$scope = { dirty, ctx: ctx2 };
       }
       ccheckbox.$set(ccheckbox_changes);
       const ctabutton_changes = {};
-      if (dirty & 8208) {
+      if (dirty & 32784) {
         ctabutton_changes.$$scope = { dirty, ctx: ctx2 };
       }
       ctabutton.$set(ctabutton_changes);
@@ -813,8 +814,8 @@ function create_default_slot_1(ctx) {
       t2 = text("Link");
       attr(a, "href", ctx[3]);
       attr(a, "target", "_blank");
-      attr(a, "class", "svelte-1olx3qb");
-      attr(span, "class", "legal-text svelte-1olx3qb");
+      attr(a, "class", "svelte-ltwhj4");
+      attr(span, "class", "text-sm svelte-ltwhj4");
     },
     m(target, anchor) {
       insert(target, span, anchor);
@@ -873,7 +874,7 @@ function create_fragment$1(ctx) {
     c() {
       div = element("div");
       if_block.c();
-      attr(div, "class", "charles-newsletter svelte-1olx3qb");
+      attr(div, "class", "charles-newsletter svelte-ltwhj4");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -921,6 +922,7 @@ function create_fragment$1(ctx) {
 }
 let hasAgreed = false;
 function instance$1($$self, $$props, $$invalidate) {
+  let { isPreview = false } = $$props;
   let { title = "Get our Whatsapp Newsletter" } = $$props;
   let { description = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" } = $$props;
   let { legalText = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" } = $$props;
@@ -932,7 +934,15 @@ function instance$1($$self, $$props, $$invalidate) {
   let name = "";
   let phone = "";
   const onSubmit = () => {
-    $$invalidate(7, isDone = true);
+    if (isPreview) {
+      $$invalidate(7, isDone = true);
+      return;
+    }
+  };
+  const onClickSuccess = () => {
+    if (isPreview) {
+      $$invalidate(7, isDone = false);
+    }
   };
   function cinput0_value_binding(value) {
     name = value;
@@ -943,6 +953,8 @@ function instance$1($$self, $$props, $$invalidate) {
     $$invalidate(9, phone);
   }
   $$self.$$set = ($$props2) => {
+    if ("isPreview" in $$props2)
+      $$invalidate(12, isPreview = $$props2.isPreview);
     if ("title" in $$props2)
       $$invalidate(0, title = $$props2.title);
     if ("description" in $$props2)
@@ -970,6 +982,8 @@ function instance$1($$self, $$props, $$invalidate) {
     name,
     phone,
     onSubmit,
+    onClickSuccess,
+    isPreview,
     cinput0_value_binding,
     cinput1_value_binding
   ];
@@ -978,6 +992,7 @@ class NewsletterOptIn extends SvelteComponent {
   constructor(options) {
     super();
     init(this, options, instance$1, create_fragment$1, safe_not_equal, {
+      isPreview: 12,
       title: 0,
       description: 1,
       legalText: 2,
