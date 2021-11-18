@@ -1,13 +1,36 @@
 import NewsletterOptIn from "./NewsletterOptIn.svelte";
 import { getConfig } from "@/api/config";
+import { parseUrl } from "query-string";
+import type { SatelliteConfig } from "@/interfaces";
 
-const init = async () => {
-  const config = await getConfig();
-  const { selector, title, description, enabled } = config;
-  console.log("document.currentScript", document.currentScript);
-  if (!enabled) {
-    return;
+console.log("document.currentScript", document.currentScript);
+
+let integrationConfig = window?.["_chIntCnf"];
+if (document.currentScript) {
+  const src = (document.currentScript as HTMLScriptElement).src;
+  if (!integrationConfig) {
+    integrationConfig = {};
   }
+  const query = parseUrl(src).query;
+  integrationConfig = {
+    ...integrationConfig,
+    vendor: query.vendor,
+    scriptId: query.script_id,
+    universeUri: query.universe_uri,
+  };
+}
+console.log("integrationConfig", integrationConfig);
+
+const init = async ({ scriptId, universeUri }) => {
+  const config: SatelliteConfig = await (
+    await fetch(
+      `${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/config`
+    )
+  ).json();
+
+  const {
+    newsletter_opt_in: { title, description, selector },
+  } = config;
 
   const targets = document.querySelectorAll(selector);
 
@@ -33,6 +56,6 @@ const init = async () => {
   });
 };
 
-init();
+init(integrationConfig);
 
 export default NewsletterOptIn;

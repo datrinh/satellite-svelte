@@ -4,8 +4,8 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<section class="charles-newsletter-done">
-  <div class="content" on:click={() => dispatch("click")}>
+<section class="charles-newsletter-done" on:click={() => dispatch("click")}>
+  <div class="content">
     <h1 class="text-5xl">
       <!-- <img src="@/assets/wa.svg" alt="Whatsapp Logo" height="36" /> -->
       Thanks a lot! 🥳

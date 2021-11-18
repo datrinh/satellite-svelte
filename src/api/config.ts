@@ -13,8 +13,6 @@ export const init = () => {
   // check config if bubble should be shown
   let integrationConfig = window?.["_chIntCnf"];
 
-  console.log("document.currentScript", document.currentScript);
-
   if (document.currentScript) {
     const src = (document.currentScript as HTMLScriptElement).src;
     if (!integrationConfig) {

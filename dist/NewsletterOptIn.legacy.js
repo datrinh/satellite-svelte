@@ -2091,23 +2091,19 @@ var NewsletterOptIn = (function () {
 
   function create_fragment$4(ctx) {
     var section;
-    var div;
     var mounted;
     var dispose;
     return {
       c: function c() {
         section = element("section");
-        div = element("div");
-        div.innerHTML = "<h1 class=\"text-5xl svelte-10sb7nx\">Thanks a lot! \uD83E\uDD73</h1> \n\n    <p class=\"text-base svelte-10sb7nx\">We have successfully opted-in to stay in touch with us on WhatsApp. We&#39;re\n      excited to have you!</p>";
-        attr(div, "class", "content svelte-10sb7nx");
+        section.innerHTML = "<div class=\"content svelte-10sb7nx\"><h1 class=\"text-5xl svelte-10sb7nx\">Thanks a lot! \uD83E\uDD73</h1> \n\n    <p class=\"text-base svelte-10sb7nx\">We have successfully opted-in to stay in touch with us on WhatsApp. We&#39;re\n      excited to have you!</p></div>";
         attr(section, "class", "charles-newsletter-done svelte-10sb7nx");
       },
       m: function m(target, anchor) {
         insert(target, section, anchor);
-        append(section, div);
 
         if (!mounted) {
-          dispose = listen(div, "click",
+          dispose = listen(section, "click",
           /*click_handler*/
           ctx[1]);
           mounted = true;
@@ -3111,24 +3107,9 @@ var NewsletterOptIn = (function () {
   queryString.pick;
   queryString.exclude;
 
-  const newsletterConfig = {
-      enabled: true,
-      selector: '[data-charles="charles-newsletter"]',
-      title: "Configured Heading",
-      description: "Configured Desc",
-  };
-
-  const getConfig = async () => {
-      return new Promise((resolve) => {
-          setTimeout(() => {
-              resolve(newsletterConfig);
-          }, 500);
-      });
-  };
   const init$1 = () => {
       // check config if bubble should be shown
       let integrationConfig = window?.["_chIntCnf"];
-      console.log("document.currentScript", document.currentScript);
       if (document.currentScript) {
           const src = document.currentScript.src;
           if (!integrationConfig) {
@@ -3715,13 +3696,30 @@ var NewsletterOptIn = (function () {
     return NewsletterOptIn;
   }(SvelteComponent);
 
-  const init = async () => {
-      const config = await getConfig();
-      const { selector, title, description, enabled } = config;
-      console.log("document.currentScript", document.currentScript);
-      if (!enabled) {
-          return;
+  console.log("document.currentScript", document.currentScript);
+  let integrationConfig = window?.["_chIntCnf"];
+  if (document.currentScript) {
+      const src = document.currentScript.src;
+      if (!integrationConfig) {
+          integrationConfig = {};
       }
+      const query = queryString_4(src).query;
+      integrationConfig = {
+          ...integrationConfig,
+          vendor: query.vendor,
+          scriptId: query.script_id,
+          universeUri: query.universe_uri,
+      };
+  }
+  console.log("integrationConfig", integrationConfig);
+  const init = async ({ vendor, scriptId, universeUri }) => {
+      // const config = await getConfig();
+      // const { selector, title, description, enabled } = config;
+      // if (!enabled) {
+      //   return;
+      // }
+      const config = await (await fetch(`${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/config`)).json();
+      const { newsletter_opt_in: { title, description, selector }, } = config;
       const targets = document.querySelectorAll(selector);
       var iframe = document.createElement("iframe");
       iframe.onload = (ev) => {
@@ -3743,7 +3741,7 @@ var NewsletterOptIn = (function () {
           el.parentNode.replaceChild(iframe, el);
       });
   };
-  init();
+  init(integrationConfig);
 
   return NewsletterOptIn;
 
