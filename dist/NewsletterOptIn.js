@@ -1832,12 +1832,7 @@ var NewsletterOptIn = (function () {
         };
     }
     console.log("integrationConfig", integrationConfig);
-    const init = async ({ vendor, scriptId, universeUri }) => {
-        // const config = await getConfig();
-        // const { selector, title, description, enabled } = config;
-        // if (!enabled) {
-        //   return;
-        // }
+    const init = async ({ scriptId, universeUri }) => {
         const config = await (await fetch(`${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/config`)).json();
         const { newsletter_opt_in: { title, description, selector }, } = config;
         const targets = document.querySelectorAll(selector);
