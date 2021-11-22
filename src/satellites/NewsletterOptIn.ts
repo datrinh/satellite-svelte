@@ -1,5 +1,4 @@
 import NewsletterOptIn from "./NewsletterOptIn.svelte";
-import { getConfig } from "@/api/config";
 import { parseUrl } from "query-string";
 import type { SatelliteConfig } from "@/interfaces";
 
@@ -28,12 +27,10 @@ const init = async ({ scriptId, universeUri }) => {
     )
   ).json();
 
-  const {
-    newsletter_opt_in: { title, description, selector },
-  } = config;
+  const { newsletter_opt_in: newsletterConfig } = config;
 
   // Selectors are sent without brackets, so they need to be attached
-  const cleanSelector = `[${selector}]`;
+  const cleanSelector = `[${newsletterConfig.selector}]`;
   const targets = document.querySelectorAll(cleanSelector);
 
   const submitHandler = async ({ name, phoneNumber, hasAgreed }) => {
@@ -43,8 +40,7 @@ const init = async ({ scriptId, universeUri }) => {
       legal_opt_in: hasAgreed,
     };
     const res = await fetch(
-      // `${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_newsletter_opt_in`,
-      `http://localhost:3000/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_external_newsletter_opt_in`,
+      `${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_external_newsletter_opt_in`,
       {
         method: "POST",
         body: JSON.stringify(payload),
@@ -62,8 +58,7 @@ const init = async ({ scriptId, universeUri }) => {
     const app = new NewsletterOptIn({
       target: iframe.contentWindow.document.body,
       props: {
-        title,
-        description,
+        ...newsletterConfig,
         submitHandler,
       },
     });
