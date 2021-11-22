@@ -32,7 +32,30 @@ const init = async ({ scriptId, universeUri }) => {
     newsletter_opt_in: { title, description, selector },
   } = config;
 
-  const targets = document.querySelectorAll(selector);
+  // Selectors are sent without brackets, so they need to be attached
+  const cleanSelector = `[${selector}]`;
+  const targets = document.querySelectorAll(cleanSelector);
+
+  const submitHandler = async ({ name, phoneNumber, hasAgreed }) => {
+    const payload = {
+      name,
+      phone_number: phoneNumber,
+      legal_opt_in: hasAgreed,
+    };
+    const res = await fetch(
+      // `${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_newsletter_opt_in`,
+      `http://localhost:3000/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_external_newsletter_opt_in`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("res", res);
+    return res;
+  };
 
   var iframe = document.createElement("iframe");
   iframe.onload = (ev) => {
@@ -41,6 +64,7 @@ const init = async ({ scriptId, universeUri }) => {
       props: {
         title,
         description,
+        submitHandler,
       },
     });
     iframe.style.height =

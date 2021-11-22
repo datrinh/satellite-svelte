@@ -3,9 +3,14 @@
   import CtaButton from "../components/CtaButton.svelte";
   import CCheckbox from "../components/BaseCheckbox.svelte";
   import CInput from "../components/BaseInput.svelte";
-  import { init } from "../api/config";
 
   export let isPreview = false;
+  export let submitHandler: ({
+    name,
+    phoneNumber,
+    hasAgreed,
+  }) => Promise<unknown>;
+
   export let title = "Get our Whatsapp Newsletter";
   export let description =
     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia";
@@ -15,20 +20,28 @@
   export let ctaButtonLabel = "Submit";
   export let namePlaceholder = "Your Name";
   export let phoneNrPlaceholder = "Your Phone Number";
+  export let successTitle = "Thanks a lot! 🥳";
+  export let successDescription =
+    "We have successfully opted-in to stay in touch with us on WhatsApp. We're excited to have you!";
 
   let isDone = false;
   let name = "";
   let phone = "";
   let hasAgreed = false;
 
-  init();
-
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (isPreview) {
       isDone = true;
       return;
     }
 
+    console.log("{ name, phoneNumber: phone, hasAgreed }", {
+      name,
+      phoneNumber: phone,
+      hasAgreed,
+    });
+
+    await submitHandler?.({ name, phoneNumber: phone, hasAgreed });
     isDone = true;
   };
 
@@ -48,7 +61,7 @@
       <CInput type="text" placeholder={namePlaceholder} bind:value={name} />
       <CInput type="tel" placeholder={phoneNrPlaceholder} bind:value={phone} />
 
-      <CCheckbox id="agreed" value={hasAgreed}>
+      <CCheckbox id="agreed" bind:checked={hasAgreed}>
         <span class="text-sm">
           {legalText}
           <a href={privacyPolicyLink} target="_blank">Link</a>
@@ -60,7 +73,11 @@
       </div>
     </form>
   {:else}
-    <NewsletterOptInSuccess on:click={onClickSuccess} />
+    <NewsletterOptInSuccess
+      {successTitle}
+      {successDescription}
+      on:click={onClickSuccess}
+    />
   {/if}
 </div>
 

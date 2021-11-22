@@ -2,9 +2,11 @@
   export let type = "text";
   export let placeholder: string;
   export let value: string;
+
+  const onInput = (ev) => (value = ev.target.value);
 </script>
 
-<input {type} {placeholder} {value} />
+<input {type} {placeholder} {value} on:input={onInput} />
 
 <style lang="scss">
   @import "../styles/variables";

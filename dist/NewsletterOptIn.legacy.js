@@ -93,6 +93,42 @@ var NewsletterOptIn = (function () {
     return _getPrototypeOf(o);
   }
 
+  function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+    try {
+      var info = gen[key](arg);
+      var value = info.value;
+    } catch (error) {
+      reject(error);
+      return;
+    }
+
+    if (info.done) {
+      resolve(value);
+    } else {
+      Promise.resolve(value).then(_next, _throw);
+    }
+  }
+
+  function _asyncToGenerator(fn) {
+    return function () {
+      var self = this,
+          args = arguments;
+      return new Promise(function (resolve, reject) {
+        var gen = fn.apply(self, args);
+
+        function _next(value) {
+          asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+        }
+
+        function _throw(err) {
+          asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+        }
+
+        _next(undefined);
+      });
+    };
+  }
+
   function _arrayWithHoles(arr) {
     if (Array.isArray(arr)) return arr;
   }
@@ -153,6 +189,764 @@ var NewsletterOptIn = (function () {
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
   }
+
+  var runtime_1 = createCommonjsModule(function (module) {
+  /**
+   * Copyright (c) 2014-present, Facebook, Inc.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   */
+
+  var runtime = (function (exports) {
+
+    var Op = Object.prototype;
+    var hasOwn = Op.hasOwnProperty;
+    var undefined$1; // More compressible than void 0.
+    var $Symbol = typeof Symbol === "function" ? Symbol : {};
+    var iteratorSymbol = $Symbol.iterator || "@@iterator";
+    var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+    var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+    function define(obj, key, value) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+      return obj[key];
+    }
+    try {
+      // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+      define({}, "");
+    } catch (err) {
+      define = function(obj, key, value) {
+        return obj[key] = value;
+      };
+    }
+
+    function wrap(innerFn, outerFn, self, tryLocsList) {
+      // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+      var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+      var generator = Object.create(protoGenerator.prototype);
+      var context = new Context(tryLocsList || []);
+
+      // The ._invoke method unifies the implementations of the .next,
+      // .throw, and .return methods.
+      generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+      return generator;
+    }
+    exports.wrap = wrap;
+
+    // Try/catch helper to minimize deoptimizations. Returns a completion
+    // record like context.tryEntries[i].completion. This interface could
+    // have been (and was previously) designed to take a closure to be
+    // invoked without arguments, but in all the cases we care about we
+    // already have an existing method we want to call, so there's no need
+    // to create a new function object. We can even get away with assuming
+    // the method takes exactly one argument, since that happens to be true
+    // in every case, so we don't have to touch the arguments object. The
+    // only additional allocation required is the completion record, which
+    // has a stable shape and so hopefully should be cheap to allocate.
+    function tryCatch(fn, obj, arg) {
+      try {
+        return { type: "normal", arg: fn.call(obj, arg) };
+      } catch (err) {
+        return { type: "throw", arg: err };
+      }
+    }
+
+    var GenStateSuspendedStart = "suspendedStart";
+    var GenStateSuspendedYield = "suspendedYield";
+    var GenStateExecuting = "executing";
+    var GenStateCompleted = "completed";
+
+    // Returning this object from the innerFn has the same effect as
+    // breaking out of the dispatch switch statement.
+    var ContinueSentinel = {};
+
+    // Dummy constructor functions that we use as the .constructor and
+    // .constructor.prototype properties for functions that return Generator
+    // objects. For full spec compliance, you may wish to configure your
+    // minifier not to mangle the names of these two functions.
+    function Generator() {}
+    function GeneratorFunction() {}
+    function GeneratorFunctionPrototype() {}
+
+    // This is a polyfill for %IteratorPrototype% for environments that
+    // don't natively support it.
+    var IteratorPrototype = {};
+    define(IteratorPrototype, iteratorSymbol, function () {
+      return this;
+    });
+
+    var getProto = Object.getPrototypeOf;
+    var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+    if (NativeIteratorPrototype &&
+        NativeIteratorPrototype !== Op &&
+        hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+      // This environment has a native %IteratorPrototype%; use it instead
+      // of the polyfill.
+      IteratorPrototype = NativeIteratorPrototype;
+    }
+
+    var Gp = GeneratorFunctionPrototype.prototype =
+      Generator.prototype = Object.create(IteratorPrototype);
+    GeneratorFunction.prototype = GeneratorFunctionPrototype;
+    define(Gp, "constructor", GeneratorFunctionPrototype);
+    define(GeneratorFunctionPrototype, "constructor", GeneratorFunction);
+    GeneratorFunction.displayName = define(
+      GeneratorFunctionPrototype,
+      toStringTagSymbol,
+      "GeneratorFunction"
+    );
+
+    // Helper for defining the .next, .throw, and .return methods of the
+    // Iterator interface in terms of a single ._invoke method.
+    function defineIteratorMethods(prototype) {
+      ["next", "throw", "return"].forEach(function(method) {
+        define(prototype, method, function(arg) {
+          return this._invoke(method, arg);
+        });
+      });
+    }
+
+    exports.isGeneratorFunction = function(genFun) {
+      var ctor = typeof genFun === "function" && genFun.constructor;
+      return ctor
+        ? ctor === GeneratorFunction ||
+          // For the native GeneratorFunction constructor, the best we can
+          // do is to check its .name property.
+          (ctor.displayName || ctor.name) === "GeneratorFunction"
+        : false;
+    };
+
+    exports.mark = function(genFun) {
+      if (Object.setPrototypeOf) {
+        Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+      } else {
+        genFun.__proto__ = GeneratorFunctionPrototype;
+        define(genFun, toStringTagSymbol, "GeneratorFunction");
+      }
+      genFun.prototype = Object.create(Gp);
+      return genFun;
+    };
+
+    // Within the body of any async function, `await x` is transformed to
+    // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+    // `hasOwn.call(value, "__await")` to determine if the yielded value is
+    // meant to be awaited.
+    exports.awrap = function(arg) {
+      return { __await: arg };
+    };
+
+    function AsyncIterator(generator, PromiseImpl) {
+      function invoke(method, arg, resolve, reject) {
+        var record = tryCatch(generator[method], generator, arg);
+        if (record.type === "throw") {
+          reject(record.arg);
+        } else {
+          var result = record.arg;
+          var value = result.value;
+          if (value &&
+              typeof value === "object" &&
+              hasOwn.call(value, "__await")) {
+            return PromiseImpl.resolve(value.__await).then(function(value) {
+              invoke("next", value, resolve, reject);
+            }, function(err) {
+              invoke("throw", err, resolve, reject);
+            });
+          }
+
+          return PromiseImpl.resolve(value).then(function(unwrapped) {
+            // When a yielded Promise is resolved, its final value becomes
+            // the .value of the Promise<{value,done}> result for the
+            // current iteration.
+            result.value = unwrapped;
+            resolve(result);
+          }, function(error) {
+            // If a rejected Promise was yielded, throw the rejection back
+            // into the async generator function so it can be handled there.
+            return invoke("throw", error, resolve, reject);
+          });
+        }
+      }
+
+      var previousPromise;
+
+      function enqueue(method, arg) {
+        function callInvokeWithMethodAndArg() {
+          return new PromiseImpl(function(resolve, reject) {
+            invoke(method, arg, resolve, reject);
+          });
+        }
+
+        return previousPromise =
+          // If enqueue has been called before, then we want to wait until
+          // all previous Promises have been resolved before calling invoke,
+          // so that results are always delivered in the correct order. If
+          // enqueue has not been called before, then it is important to
+          // call invoke immediately, without waiting on a callback to fire,
+          // so that the async generator function has the opportunity to do
+          // any necessary setup in a predictable way. This predictability
+          // is why the Promise constructor synchronously invokes its
+          // executor callback, and why async functions synchronously
+          // execute code before the first await. Since we implement simple
+          // async functions in terms of async generators, it is especially
+          // important to get this right, even though it requires care.
+          previousPromise ? previousPromise.then(
+            callInvokeWithMethodAndArg,
+            // Avoid propagating failures to Promises returned by later
+            // invocations of the iterator.
+            callInvokeWithMethodAndArg
+          ) : callInvokeWithMethodAndArg();
+      }
+
+      // Define the unified helper method that is used to implement .next,
+      // .throw, and .return (see defineIteratorMethods).
+      this._invoke = enqueue;
+    }
+
+    defineIteratorMethods(AsyncIterator.prototype);
+    define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+      return this;
+    });
+    exports.AsyncIterator = AsyncIterator;
+
+    // Note that simple async functions are implemented on top of
+    // AsyncIterator objects; they just return a Promise for the value of
+    // the final result produced by the iterator.
+    exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+      if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+      var iter = new AsyncIterator(
+        wrap(innerFn, outerFn, self, tryLocsList),
+        PromiseImpl
+      );
+
+      return exports.isGeneratorFunction(outerFn)
+        ? iter // If outerFn is a generator, return the full iterator.
+        : iter.next().then(function(result) {
+            return result.done ? result.value : iter.next();
+          });
+    };
+
+    function makeInvokeMethod(innerFn, self, context) {
+      var state = GenStateSuspendedStart;
+
+      return function invoke(method, arg) {
+        if (state === GenStateExecuting) {
+          throw new Error("Generator is already running");
+        }
+
+        if (state === GenStateCompleted) {
+          if (method === "throw") {
+            throw arg;
+          }
+
+          // Be forgiving, per 25.3.3.3.3 of the spec:
+          // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+          return doneResult();
+        }
+
+        context.method = method;
+        context.arg = arg;
+
+        while (true) {
+          var delegate = context.delegate;
+          if (delegate) {
+            var delegateResult = maybeInvokeDelegate(delegate, context);
+            if (delegateResult) {
+              if (delegateResult === ContinueSentinel) continue;
+              return delegateResult;
+            }
+          }
+
+          if (context.method === "next") {
+            // Setting context._sent for legacy support of Babel's
+            // function.sent implementation.
+            context.sent = context._sent = context.arg;
+
+          } else if (context.method === "throw") {
+            if (state === GenStateSuspendedStart) {
+              state = GenStateCompleted;
+              throw context.arg;
+            }
+
+            context.dispatchException(context.arg);
+
+          } else if (context.method === "return") {
+            context.abrupt("return", context.arg);
+          }
+
+          state = GenStateExecuting;
+
+          var record = tryCatch(innerFn, self, context);
+          if (record.type === "normal") {
+            // If an exception is thrown from innerFn, we leave state ===
+            // GenStateExecuting and loop back for another invocation.
+            state = context.done
+              ? GenStateCompleted
+              : GenStateSuspendedYield;
+
+            if (record.arg === ContinueSentinel) {
+              continue;
+            }
+
+            return {
+              value: record.arg,
+              done: context.done
+            };
+
+          } else if (record.type === "throw") {
+            state = GenStateCompleted;
+            // Dispatch the exception by looping back around to the
+            // context.dispatchException(context.arg) call above.
+            context.method = "throw";
+            context.arg = record.arg;
+          }
+        }
+      };
+    }
+
+    // Call delegate.iterator[context.method](context.arg) and handle the
+    // result, either by returning a { value, done } result from the
+    // delegate iterator, or by modifying context.method and context.arg,
+    // setting context.delegate to null, and returning the ContinueSentinel.
+    function maybeInvokeDelegate(delegate, context) {
+      var method = delegate.iterator[context.method];
+      if (method === undefined$1) {
+        // A .throw or .return when the delegate iterator has no .throw
+        // method always terminates the yield* loop.
+        context.delegate = null;
+
+        if (context.method === "throw") {
+          // Note: ["return"] must be used for ES3 parsing compatibility.
+          if (delegate.iterator["return"]) {
+            // If the delegate iterator has a return method, give it a
+            // chance to clean up.
+            context.method = "return";
+            context.arg = undefined$1;
+            maybeInvokeDelegate(delegate, context);
+
+            if (context.method === "throw") {
+              // If maybeInvokeDelegate(context) changed context.method from
+              // "return" to "throw", let that override the TypeError below.
+              return ContinueSentinel;
+            }
+          }
+
+          context.method = "throw";
+          context.arg = new TypeError(
+            "The iterator does not provide a 'throw' method");
+        }
+
+        return ContinueSentinel;
+      }
+
+      var record = tryCatch(method, delegate.iterator, context.arg);
+
+      if (record.type === "throw") {
+        context.method = "throw";
+        context.arg = record.arg;
+        context.delegate = null;
+        return ContinueSentinel;
+      }
+
+      var info = record.arg;
+
+      if (! info) {
+        context.method = "throw";
+        context.arg = new TypeError("iterator result is not an object");
+        context.delegate = null;
+        return ContinueSentinel;
+      }
+
+      if (info.done) {
+        // Assign the result of the finished delegate to the temporary
+        // variable specified by delegate.resultName (see delegateYield).
+        context[delegate.resultName] = info.value;
+
+        // Resume execution at the desired location (see delegateYield).
+        context.next = delegate.nextLoc;
+
+        // If context.method was "throw" but the delegate handled the
+        // exception, let the outer generator proceed normally. If
+        // context.method was "next", forget context.arg since it has been
+        // "consumed" by the delegate iterator. If context.method was
+        // "return", allow the original .return call to continue in the
+        // outer generator.
+        if (context.method !== "return") {
+          context.method = "next";
+          context.arg = undefined$1;
+        }
+
+      } else {
+        // Re-yield the result returned by the delegate method.
+        return info;
+      }
+
+      // The delegate iterator is finished, so forget it and continue with
+      // the outer generator.
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    // Define Generator.prototype.{next,throw,return} in terms of the
+    // unified ._invoke helper method.
+    defineIteratorMethods(Gp);
+
+    define(Gp, toStringTagSymbol, "Generator");
+
+    // A Generator should always return itself as the iterator object when the
+    // @@iterator function is called on it. Some browsers' implementations of the
+    // iterator prototype chain incorrectly implement this, causing the Generator
+    // object to not be returned from this call. This ensures that doesn't happen.
+    // See https://github.com/facebook/regenerator/issues/274 for more details.
+    define(Gp, iteratorSymbol, function() {
+      return this;
+    });
+
+    define(Gp, "toString", function() {
+      return "[object Generator]";
+    });
+
+    function pushTryEntry(locs) {
+      var entry = { tryLoc: locs[0] };
+
+      if (1 in locs) {
+        entry.catchLoc = locs[1];
+      }
+
+      if (2 in locs) {
+        entry.finallyLoc = locs[2];
+        entry.afterLoc = locs[3];
+      }
+
+      this.tryEntries.push(entry);
+    }
+
+    function resetTryEntry(entry) {
+      var record = entry.completion || {};
+      record.type = "normal";
+      delete record.arg;
+      entry.completion = record;
+    }
+
+    function Context(tryLocsList) {
+      // The root entry object (effectively a try statement without a catch
+      // or a finally block) gives us a place to store values thrown from
+      // locations where there is no enclosing try statement.
+      this.tryEntries = [{ tryLoc: "root" }];
+      tryLocsList.forEach(pushTryEntry, this);
+      this.reset(true);
+    }
+
+    exports.keys = function(object) {
+      var keys = [];
+      for (var key in object) {
+        keys.push(key);
+      }
+      keys.reverse();
+
+      // Rather than returning an object with a next method, we keep
+      // things simple and return the next function itself.
+      return function next() {
+        while (keys.length) {
+          var key = keys.pop();
+          if (key in object) {
+            next.value = key;
+            next.done = false;
+            return next;
+          }
+        }
+
+        // To avoid creating an additional object, we just hang the .value
+        // and .done properties off the next function object itself. This
+        // also ensures that the minifier will not anonymize the function.
+        next.done = true;
+        return next;
+      };
+    };
+
+    function values(iterable) {
+      if (iterable) {
+        var iteratorMethod = iterable[iteratorSymbol];
+        if (iteratorMethod) {
+          return iteratorMethod.call(iterable);
+        }
+
+        if (typeof iterable.next === "function") {
+          return iterable;
+        }
+
+        if (!isNaN(iterable.length)) {
+          var i = -1, next = function next() {
+            while (++i < iterable.length) {
+              if (hasOwn.call(iterable, i)) {
+                next.value = iterable[i];
+                next.done = false;
+                return next;
+              }
+            }
+
+            next.value = undefined$1;
+            next.done = true;
+
+            return next;
+          };
+
+          return next.next = next;
+        }
+      }
+
+      // Return an iterator with no values.
+      return { next: doneResult };
+    }
+    exports.values = values;
+
+    function doneResult() {
+      return { value: undefined$1, done: true };
+    }
+
+    Context.prototype = {
+      constructor: Context,
+
+      reset: function(skipTempReset) {
+        this.prev = 0;
+        this.next = 0;
+        // Resetting context._sent for legacy support of Babel's
+        // function.sent implementation.
+        this.sent = this._sent = undefined$1;
+        this.done = false;
+        this.delegate = null;
+
+        this.method = "next";
+        this.arg = undefined$1;
+
+        this.tryEntries.forEach(resetTryEntry);
+
+        if (!skipTempReset) {
+          for (var name in this) {
+            // Not sure about the optimal order of these conditions:
+            if (name.charAt(0) === "t" &&
+                hasOwn.call(this, name) &&
+                !isNaN(+name.slice(1))) {
+              this[name] = undefined$1;
+            }
+          }
+        }
+      },
+
+      stop: function() {
+        this.done = true;
+
+        var rootEntry = this.tryEntries[0];
+        var rootRecord = rootEntry.completion;
+        if (rootRecord.type === "throw") {
+          throw rootRecord.arg;
+        }
+
+        return this.rval;
+      },
+
+      dispatchException: function(exception) {
+        if (this.done) {
+          throw exception;
+        }
+
+        var context = this;
+        function handle(loc, caught) {
+          record.type = "throw";
+          record.arg = exception;
+          context.next = loc;
+
+          if (caught) {
+            // If the dispatched exception was caught by a catch block,
+            // then let that catch block handle the exception normally.
+            context.method = "next";
+            context.arg = undefined$1;
+          }
+
+          return !! caught;
+        }
+
+        for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+          var entry = this.tryEntries[i];
+          var record = entry.completion;
+
+          if (entry.tryLoc === "root") {
+            // Exception thrown outside of any try block that could handle
+            // it, so set the completion value of the entire function to
+            // throw the exception.
+            return handle("end");
+          }
+
+          if (entry.tryLoc <= this.prev) {
+            var hasCatch = hasOwn.call(entry, "catchLoc");
+            var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+            if (hasCatch && hasFinally) {
+              if (this.prev < entry.catchLoc) {
+                return handle(entry.catchLoc, true);
+              } else if (this.prev < entry.finallyLoc) {
+                return handle(entry.finallyLoc);
+              }
+
+            } else if (hasCatch) {
+              if (this.prev < entry.catchLoc) {
+                return handle(entry.catchLoc, true);
+              }
+
+            } else if (hasFinally) {
+              if (this.prev < entry.finallyLoc) {
+                return handle(entry.finallyLoc);
+              }
+
+            } else {
+              throw new Error("try statement without catch or finally");
+            }
+          }
+        }
+      },
+
+      abrupt: function(type, arg) {
+        for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+          var entry = this.tryEntries[i];
+          if (entry.tryLoc <= this.prev &&
+              hasOwn.call(entry, "finallyLoc") &&
+              this.prev < entry.finallyLoc) {
+            var finallyEntry = entry;
+            break;
+          }
+        }
+
+        if (finallyEntry &&
+            (type === "break" ||
+             type === "continue") &&
+            finallyEntry.tryLoc <= arg &&
+            arg <= finallyEntry.finallyLoc) {
+          // Ignore the finally entry if control is not jumping to a
+          // location outside the try/catch block.
+          finallyEntry = null;
+        }
+
+        var record = finallyEntry ? finallyEntry.completion : {};
+        record.type = type;
+        record.arg = arg;
+
+        if (finallyEntry) {
+          this.method = "next";
+          this.next = finallyEntry.finallyLoc;
+          return ContinueSentinel;
+        }
+
+        return this.complete(record);
+      },
+
+      complete: function(record, afterLoc) {
+        if (record.type === "throw") {
+          throw record.arg;
+        }
+
+        if (record.type === "break" ||
+            record.type === "continue") {
+          this.next = record.arg;
+        } else if (record.type === "return") {
+          this.rval = this.arg = record.arg;
+          this.method = "return";
+          this.next = "end";
+        } else if (record.type === "normal" && afterLoc) {
+          this.next = afterLoc;
+        }
+
+        return ContinueSentinel;
+      },
+
+      finish: function(finallyLoc) {
+        for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+          var entry = this.tryEntries[i];
+          if (entry.finallyLoc === finallyLoc) {
+            this.complete(entry.completion, entry.afterLoc);
+            resetTryEntry(entry);
+            return ContinueSentinel;
+          }
+        }
+      },
+
+      "catch": function(tryLoc) {
+        for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+          var entry = this.tryEntries[i];
+          if (entry.tryLoc === tryLoc) {
+            var record = entry.completion;
+            if (record.type === "throw") {
+              var thrown = record.arg;
+              resetTryEntry(entry);
+            }
+            return thrown;
+          }
+        }
+
+        // The context.catch method must only be called with a location
+        // argument that corresponds to a known catch block.
+        throw new Error("illegal catch attempt");
+      },
+
+      delegateYield: function(iterable, resultName, nextLoc) {
+        this.delegate = {
+          iterator: values(iterable),
+          resultName: resultName,
+          nextLoc: nextLoc
+        };
+
+        if (this.method === "next") {
+          // Deliberately forget the last sent value so that we don't
+          // accidentally pass it on to the delegate.
+          this.arg = undefined$1;
+        }
+
+        return ContinueSentinel;
+      }
+    };
+
+    // Regardless of whether this script is executing as a CommonJS module
+    // or not, return the runtime object so that we can declare the variable
+    // regeneratorRuntime in the outer scope, which allows this module to be
+    // injected easily by `bin/regenerator --include-runtime script.js`.
+    return exports;
+
+  }(
+    // If this script is executing as a CommonJS module, use module.exports
+    // as the regeneratorRuntime namespace. Otherwise create a new empty
+    // object. Either way, the resulting object will be used to initialize
+    // the regeneratorRuntime variable at the top of this file.
+    module.exports 
+  ));
+
+  try {
+    regeneratorRuntime = runtime;
+  } catch (accidentalStrictMode) {
+    // This module should not be running in strict mode, so the above
+    // assignment should always work unless something is misconfigured. Just
+    // in case runtime.js accidentally runs in strict mode, in modern engines
+    // we can explicitly access globalThis. In older engines we can escape
+    // strict mode using a global Function call. This could conceivably fail
+    // if a Content Security Policy forbids using Function, but in that case
+    // the proper solution is to fix the accidental strict mode problem. If
+    // you've misconfigured your bundler to force strict mode and applied a
+    // CSP to forbid Function, and you're not willing to fix either of those
+    // problems, please detail your unique predicament in a GitHub issue.
+    if (typeof globalThis === "object") {
+      globalThis.regeneratorRuntime = runtime;
+    } else {
+      Function("r", "regeneratorRuntime = r")(runtime);
+    }
+  }
+  });
+
+  var regenerator = runtime_1;
 
   var check = function (it) {
     return it && it.Math == Math && it;
@@ -1994,7 +2788,7 @@ var NewsletterOptIn = (function () {
       }
       component.$$.dirty[(i / 31) | 0] |= (1 << (i % 31));
   }
-  function init$2(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
+  function init$1(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
       const parent_component = current_component;
       set_current_component(component);
       const $$ = component.$$ = {
@@ -2091,25 +2885,63 @@ var NewsletterOptIn = (function () {
 
   function create_fragment$4(ctx) {
     var section;
+    var div;
+    var h1;
+    var t0;
+    var t1;
+    var p;
+    var t2;
     var mounted;
     var dispose;
     return {
       c: function c() {
         section = element("section");
-        section.innerHTML = "<div class=\"content svelte-10sb7nx\"><h1 class=\"text-5xl svelte-10sb7nx\">Thanks a lot! \uD83E\uDD73</h1> \n\n    <p class=\"text-base svelte-10sb7nx\">We have successfully opted-in to stay in touch with us on WhatsApp. We&#39;re\n      excited to have you!</p></div>";
+        div = element("div");
+        h1 = element("h1");
+        t0 = text(
+        /*successTitle*/
+        ctx[0]);
+        t1 = space();
+        p = element("p");
+        t2 = text(
+        /*successDescription*/
+        ctx[1]);
+        attr(h1, "class", "text-5xl svelte-10sb7nx");
+        attr(p, "class", "text-base svelte-10sb7nx");
+        attr(div, "class", "content svelte-10sb7nx");
         attr(section, "class", "charles-newsletter-done svelte-10sb7nx");
       },
       m: function m(target, anchor) {
         insert(target, section, anchor);
+        append(section, div);
+        append(div, h1);
+        append(h1, t0);
+        append(div, t1);
+        append(div, p);
+        append(p, t2);
 
         if (!mounted) {
           dispose = listen(section, "click",
           /*click_handler*/
-          ctx[1]);
+          ctx[3]);
           mounted = true;
         }
       },
-      p: noop,
+      p: function p(ctx, _ref) {
+        var _ref2 = _slicedToArray(_ref, 1),
+            dirty = _ref2[0];
+
+        if (dirty &
+        /*successTitle*/
+        1) set_data(t0,
+        /*successTitle*/
+        ctx[0]);
+        if (dirty &
+        /*successDescription*/
+        2) set_data(t2,
+        /*successDescription*/
+        ctx[1]);
+      },
       i: noop,
       o: noop,
       d: function d(detaching) {
@@ -2120,14 +2952,21 @@ var NewsletterOptIn = (function () {
     };
   }
 
-  function instance$4($$self) {
+  function instance$4($$self, $$props, $$invalidate) {
+    var successTitle = $$props.successTitle;
+    var successDescription = $$props.successDescription;
     var dispatch = createEventDispatcher();
 
     var click_handler = function click_handler() {
       return dispatch("click");
     };
 
-    return [dispatch, click_handler];
+    $$self.$$set = function ($$props) {
+      if ('successTitle' in $$props) $$invalidate(0, successTitle = $$props.successTitle);
+      if ('successDescription' in $$props) $$invalidate(1, successDescription = $$props.successDescription);
+    };
+
+    return [successTitle, successDescription, dispatch, click_handler];
   }
 
   var NewsletterOptInSuccess = /*#__PURE__*/function (_SvelteComponent) {
@@ -2141,7 +2980,10 @@ var NewsletterOptIn = (function () {
       _classCallCheck(this, NewsletterOptInSuccess);
 
       _this = _super.call(this);
-      init$2(_assertThisInitialized(_this), options, instance$4, create_fragment$4, safe_not_equal, {}, add_css$4);
+      init$1(_assertThisInitialized(_this), options, instance$4, create_fragment$4, safe_not_equal, {
+        successTitle: 0,
+        successDescription: 1
+      }, add_css$4);
       return _this;
     }
 
@@ -2251,7 +3093,7 @@ var NewsletterOptIn = (function () {
       _classCallCheck(this, CtaButton);
 
       _this = _super.call(this);
-      init$2(_assertThisInitialized(_this), options, instance$3, create_fragment$3, safe_not_equal, {
+      init$1(_assertThisInitialized(_this), options, instance$3, create_fragment$3, safe_not_equal, {
         type: 0
       }, add_css$3);
       return _this;
@@ -2276,6 +3118,8 @@ var NewsletterOptIn = (function () {
     var t1;
     var span;
     var current;
+    var mounted;
+    var dispose;
     var default_slot_template =
     /*#slots*/
     ctx[3].default;
@@ -2293,17 +3137,14 @@ var NewsletterOptIn = (function () {
         span = element("span");
         attr(input, "id",
         /*id*/
-        ctx[0]);
+        ctx[1]);
         attr(input, "type", "checkbox");
-        input.value =
-        /*value*/
-        ctx[1];
         attr(input, "class", "svelte-pxuelf");
         attr(span, "class", "checkmark svelte-pxuelf");
         attr(label, "class", "container svelte-pxuelf");
         attr(label, "for",
         /*id*/
-        ctx[0]);
+        ctx[1]);
         attr(div, "class", "satellite-checkbox svelte-pxuelf");
       },
       m: function m(target, anchor) {
@@ -2316,9 +3157,19 @@ var NewsletterOptIn = (function () {
 
         append(label, t0);
         append(label, input);
+        input.checked =
+        /*checked*/
+        ctx[0];
         append(label, t1);
         append(label, span);
         current = true;
+
+        if (!mounted) {
+          dispose = listen(input, "change",
+          /*input_change_handler*/
+          ctx[4]);
+          mounted = true;
+        }
       },
       p: function p(ctx, _ref) {
         var _ref2 = _slicedToArray(_ref, 1),
@@ -2340,26 +3191,26 @@ var NewsletterOptIn = (function () {
 
         if (!current || dirty &
         /*id*/
-        1) {
+        2) {
           attr(input, "id",
           /*id*/
-          ctx[0]);
+          ctx[1]);
         }
 
-        if (!current || dirty &
-        /*value*/
-        2) {
-          input.value =
-          /*value*/
-          ctx[1];
+        if (dirty &
+        /*checked*/
+        1) {
+          input.checked =
+          /*checked*/
+          ctx[0];
         }
 
         if (!current || dirty &
         /*id*/
-        1) {
+        2) {
           attr(label, "for",
           /*id*/
-          ctx[0]);
+          ctx[1]);
         }
       },
       i: function i(local) {
@@ -2374,6 +3225,8 @@ var NewsletterOptIn = (function () {
       d: function d(detaching) {
         if (detaching) detach(div);
         if (default_slot) default_slot.d(detaching);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -2383,15 +3236,20 @@ var NewsletterOptIn = (function () {
         slots = _$$props$$$slots === void 0 ? {} : _$$props$$$slots,
         $$scope = $$props.$$scope;
     var id = $$props.id;
-    var value = $$props.value;
+    var checked = $$props.checked;
+
+    function input_change_handler() {
+      checked = this.checked;
+      $$invalidate(0, checked);
+    }
 
     $$self.$$set = function ($$props) {
-      if ('id' in $$props) $$invalidate(0, id = $$props.id);
-      if ('value' in $$props) $$invalidate(1, value = $$props.value);
+      if ('id' in $$props) $$invalidate(1, id = $$props.id);
+      if ('checked' in $$props) $$invalidate(0, checked = $$props.checked);
       if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
     };
 
-    return [id, value, $$scope, slots];
+    return [checked, id, $$scope, slots, input_change_handler];
   }
 
   var BaseCheckbox = /*#__PURE__*/function (_SvelteComponent) {
@@ -2405,9 +3263,9 @@ var NewsletterOptIn = (function () {
       _classCallCheck(this, BaseCheckbox);
 
       _this = _super.call(this);
-      init$2(_assertThisInitialized(_this), options, instance$2, create_fragment$2, safe_not_equal, {
-        id: 0,
-        value: 1
+      init$1(_assertThisInitialized(_this), options, instance$2, create_fragment$2, safe_not_equal, {
+        id: 1,
+        checked: 0
       }, add_css$2);
       return _this;
     }
@@ -2425,22 +3283,31 @@ var NewsletterOptIn = (function () {
 
   function create_fragment$1(ctx) {
     var input;
+    var mounted;
+    var dispose;
     return {
       c: function c() {
         input = element("input");
         attr(input, "type",
         /*type*/
-        ctx[0]);
+        ctx[1]);
         attr(input, "placeholder",
         /*placeholder*/
-        ctx[1]);
+        ctx[2]);
         input.value =
         /*value*/
-        ctx[2];
+        ctx[0];
         attr(input, "class", "svelte-17fo3ti");
       },
       m: function m(target, anchor) {
         insert(target, input, anchor);
+
+        if (!mounted) {
+          dispose = listen(input, "input",
+          /*onInput*/
+          ctx[3]);
+          mounted = true;
+        }
       },
       p: function p(ctx, _ref) {
         var _ref2 = _slicedToArray(_ref, 1),
@@ -2448,34 +3315,36 @@ var NewsletterOptIn = (function () {
 
         if (dirty &
         /*type*/
-        1) {
+        2) {
           attr(input, "type",
           /*type*/
-          ctx[0]);
-        }
-
-        if (dirty &
-        /*placeholder*/
-        2) {
-          attr(input, "placeholder",
-          /*placeholder*/
           ctx[1]);
         }
 
         if (dirty &
+        /*placeholder*/
+        4) {
+          attr(input, "placeholder",
+          /*placeholder*/
+          ctx[2]);
+        }
+
+        if (dirty &
         /*value*/
-        4 && input.value !==
+        1 && input.value !==
         /*value*/
-        ctx[2]) {
+        ctx[0]) {
           input.value =
           /*value*/
-          ctx[2];
+          ctx[0];
         }
       },
       i: noop,
       o: noop,
       d: function d(detaching) {
         if (detaching) detach(input);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -2486,13 +3355,17 @@ var NewsletterOptIn = (function () {
     var placeholder = $$props.placeholder;
     var value = $$props.value;
 
-    $$self.$$set = function ($$props) {
-      if ('type' in $$props) $$invalidate(0, type = $$props.type);
-      if ('placeholder' in $$props) $$invalidate(1, placeholder = $$props.placeholder);
-      if ('value' in $$props) $$invalidate(2, value = $$props.value);
+    var onInput = function onInput(ev) {
+      return $$invalidate(0, value = ev.target.value);
     };
 
-    return [type, placeholder, value];
+    $$self.$$set = function ($$props) {
+      if ('type' in $$props) $$invalidate(1, type = $$props.type);
+      if ('placeholder' in $$props) $$invalidate(2, placeholder = $$props.placeholder);
+      if ('value' in $$props) $$invalidate(0, value = $$props.value);
+    };
+
+    return [value, type, placeholder, onInput];
   }
 
   var BaseInput = /*#__PURE__*/function (_SvelteComponent) {
@@ -2506,15 +3379,649 @@ var NewsletterOptIn = (function () {
       _classCallCheck(this, BaseInput);
 
       _this = _super.call(this);
-      init$2(_assertThisInitialized(_this), options, instance$1, create_fragment$1, safe_not_equal, {
-        type: 0,
-        placeholder: 1,
-        value: 2
+      init$1(_assertThisInitialized(_this), options, instance$1, create_fragment$1, safe_not_equal, {
+        type: 1,
+        placeholder: 2,
+        value: 0
       }, add_css$1);
       return _this;
     }
 
     return BaseInput;
+  }(SvelteComponent);
+
+  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+  function add_css(target) {
+    append_styles(target, "svelte-ltwhj4", ".svelte-ltwhj4.svelte-ltwhj4,.svelte-ltwhj4.svelte-ltwhj4:before,.svelte-ltwhj4.svelte-ltwhj4:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;margin:0}.gap.svelte-ltwhj4.svelte-ltwhj4{margin-bottom:1rem}.center.svelte-ltwhj4.svelte-ltwhj4{display:flex;align-items:center;justify-content:center}.text-sm.svelte-ltwhj4.svelte-ltwhj4{font-size:0.75rem}.charles-newsletter.svelte-ltwhj4.svelte-ltwhj4{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-ltwhj4 h1.svelte-ltwhj4{font-size:1rem;margin-bottom:8px;font-weight:bold}.charles-newsletter-form.svelte-ltwhj4.svelte-ltwhj4{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
+  } // (60:2) {:else}
+
+
+  function create_else_block(ctx) {
+    var newsletteroptinsuccess;
+    var current;
+    newsletteroptinsuccess = new NewsletterOptInSuccess({
+      props: {
+        successTitle:
+        /*successTitle*/
+        ctx[7],
+        successDescription:
+        /*successDescription*/
+        ctx[8]
+      }
+    });
+    newsletteroptinsuccess.$on("click",
+    /*onClickSuccess*/
+    ctx[14]);
+    return {
+      c: function c() {
+        create_component(newsletteroptinsuccess.$$.fragment);
+      },
+      m: function m(target, anchor) {
+        mount_component(newsletteroptinsuccess, target, anchor);
+        current = true;
+      },
+      p: function p(ctx, dirty) {
+        var newsletteroptinsuccess_changes = {};
+        if (dirty &
+        /*successTitle*/
+        128) newsletteroptinsuccess_changes.successTitle =
+        /*successTitle*/
+        ctx[7];
+        if (dirty &
+        /*successDescription*/
+        256) newsletteroptinsuccess_changes.successDescription =
+        /*successDescription*/
+        ctx[8];
+        newsletteroptinsuccess.$set(newsletteroptinsuccess_changes);
+      },
+      i: function i(local) {
+        if (current) return;
+        transition_in(newsletteroptinsuccess.$$.fragment, local);
+        current = true;
+      },
+      o: function o(local) {
+        transition_out(newsletteroptinsuccess.$$.fragment, local);
+        current = false;
+      },
+      d: function d(detaching) {
+        destroy_component(newsletteroptinsuccess, detaching);
+      }
+    };
+  } // (41:2) {#if !isDone}
+
+
+  function create_if_block(ctx) {
+    var form;
+    var h1;
+    var t0;
+    var t1;
+    var p;
+    var t2;
+    var t3;
+    var cinput0;
+    var updating_value;
+    var t4;
+    var cinput1;
+    var updating_value_1;
+    var t5;
+    var ccheckbox;
+    var updating_checked;
+    var t6;
+    var div;
+    var ctabutton;
+    var current;
+    var mounted;
+    var dispose;
+
+    function cinput0_value_binding(value) {
+      /*cinput0_value_binding*/
+      ctx[17](value);
+    }
+
+    var cinput0_props = {
+      type: "text",
+      placeholder:
+      /*namePlaceholder*/
+      ctx[5]
+    };
+
+    if (
+    /*name*/
+    ctx[10] !== void 0) {
+      cinput0_props.value =
+      /*name*/
+      ctx[10];
+    }
+
+    cinput0 = new BaseInput({
+      props: cinput0_props
+    });
+    binding_callbacks.push(function () {
+      return bind(cinput0, 'value', cinput0_value_binding);
+    });
+
+    function cinput1_value_binding(value) {
+      /*cinput1_value_binding*/
+      ctx[18](value);
+    }
+
+    var cinput1_props = {
+      type: "tel",
+      placeholder:
+      /*phoneNrPlaceholder*/
+      ctx[6]
+    };
+
+    if (
+    /*phone*/
+    ctx[11] !== void 0) {
+      cinput1_props.value =
+      /*phone*/
+      ctx[11];
+    }
+
+    cinput1 = new BaseInput({
+      props: cinput1_props
+    });
+    binding_callbacks.push(function () {
+      return bind(cinput1, 'value', cinput1_value_binding);
+    });
+
+    function ccheckbox_checked_binding(value) {
+      /*ccheckbox_checked_binding*/
+      ctx[19](value);
+    }
+
+    var ccheckbox_props = {
+      id: "agreed",
+      $$slots: {
+        default: [create_default_slot_1]
+      },
+      $$scope: {
+        ctx: ctx
+      }
+    };
+
+    if (
+    /*hasAgreed*/
+    ctx[12] !== void 0) {
+      ccheckbox_props.checked =
+      /*hasAgreed*/
+      ctx[12];
+    }
+
+    ccheckbox = new BaseCheckbox({
+      props: ccheckbox_props
+    });
+    binding_callbacks.push(function () {
+      return bind(ccheckbox, 'checked', ccheckbox_checked_binding);
+    });
+    ctabutton = new CtaButton({
+      props: {
+        type: "submit",
+        $$slots: {
+          default: [create_default_slot]
+        },
+        $$scope: {
+          ctx: ctx
+        }
+      }
+    });
+    return {
+      c: function c() {
+        form = element("form");
+        h1 = element("h1");
+        t0 = text(
+        /*title*/
+        ctx[0]);
+        t1 = space();
+        p = element("p");
+        t2 = text(
+        /*description*/
+        ctx[1]);
+        t3 = space();
+        create_component(cinput0.$$.fragment);
+        t4 = space();
+        create_component(cinput1.$$.fragment);
+        t5 = space();
+        create_component(ccheckbox.$$.fragment);
+        t6 = space();
+        div = element("div");
+        create_component(ctabutton.$$.fragment);
+        attr(h1, "class", "gap svelte-ltwhj4");
+        attr(p, "class", "gap text-sm svelte-ltwhj4");
+        attr(div, "class", "center svelte-ltwhj4");
+        attr(form, "class", "charles-newsletter-form svelte-ltwhj4");
+      },
+      m: function m(target, anchor) {
+        insert(target, form, anchor);
+        append(form, h1);
+        append(h1, t0);
+        append(form, t1);
+        append(form, p);
+        append(p, t2);
+        append(form, t3);
+        mount_component(cinput0, form, null);
+        append(form, t4);
+        mount_component(cinput1, form, null);
+        append(form, t5);
+        mount_component(ccheckbox, form, null);
+        append(form, t6);
+        append(form, div);
+        mount_component(ctabutton, div, null);
+        current = true;
+
+        if (!mounted) {
+          dispose = listen(form, "submit", prevent_default(
+          /*onSubmit*/
+          ctx[13]));
+          mounted = true;
+        }
+      },
+      p: function p(ctx, dirty) {
+        if (!current || dirty &
+        /*title*/
+        1) set_data(t0,
+        /*title*/
+        ctx[0]);
+        if (!current || dirty &
+        /*description*/
+        2) set_data(t2,
+        /*description*/
+        ctx[1]);
+        var cinput0_changes = {};
+        if (dirty &
+        /*namePlaceholder*/
+        32) cinput0_changes.placeholder =
+        /*namePlaceholder*/
+        ctx[5];
+
+        if (!updating_value && dirty &
+        /*name*/
+        1024) {
+          updating_value = true;
+          cinput0_changes.value =
+          /*name*/
+          ctx[10];
+          add_flush_callback(function () {
+            return updating_value = false;
+          });
+        }
+
+        cinput0.$set(cinput0_changes);
+        var cinput1_changes = {};
+        if (dirty &
+        /*phoneNrPlaceholder*/
+        64) cinput1_changes.placeholder =
+        /*phoneNrPlaceholder*/
+        ctx[6];
+
+        if (!updating_value_1 && dirty &
+        /*phone*/
+        2048) {
+          updating_value_1 = true;
+          cinput1_changes.value =
+          /*phone*/
+          ctx[11];
+          add_flush_callback(function () {
+            return updating_value_1 = false;
+          });
+        }
+
+        cinput1.$set(cinput1_changes);
+        var ccheckbox_changes = {};
+
+        if (dirty &
+        /*$$scope, privacyPolicyLink, legalText*/
+        1048588) {
+          ccheckbox_changes.$$scope = {
+            dirty: dirty,
+            ctx: ctx
+          };
+        }
+
+        if (!updating_checked && dirty &
+        /*hasAgreed*/
+        4096) {
+          updating_checked = true;
+          ccheckbox_changes.checked =
+          /*hasAgreed*/
+          ctx[12];
+          add_flush_callback(function () {
+            return updating_checked = false;
+          });
+        }
+
+        ccheckbox.$set(ccheckbox_changes);
+        var ctabutton_changes = {};
+
+        if (dirty &
+        /*$$scope, ctaButtonLabel*/
+        1048592) {
+          ctabutton_changes.$$scope = {
+            dirty: dirty,
+            ctx: ctx
+          };
+        }
+
+        ctabutton.$set(ctabutton_changes);
+      },
+      i: function i(local) {
+        if (current) return;
+        transition_in(cinput0.$$.fragment, local);
+        transition_in(cinput1.$$.fragment, local);
+        transition_in(ccheckbox.$$.fragment, local);
+        transition_in(ctabutton.$$.fragment, local);
+        current = true;
+      },
+      o: function o(local) {
+        transition_out(cinput0.$$.fragment, local);
+        transition_out(cinput1.$$.fragment, local);
+        transition_out(ccheckbox.$$.fragment, local);
+        transition_out(ctabutton.$$.fragment, local);
+        current = false;
+      },
+      d: function d(detaching) {
+        if (detaching) detach(form);
+        destroy_component(cinput0);
+        destroy_component(cinput1);
+        destroy_component(ccheckbox);
+        destroy_component(ctabutton);
+        mounted = false;
+        dispose();
+      }
+    };
+  } // (49:6) <CCheckbox id="agreed" bind:checked={hasAgreed}>
+
+
+  function create_default_slot_1(ctx) {
+    var span;
+    var t0;
+    var t1;
+    var a;
+    var t2;
+    return {
+      c: function c() {
+        span = element("span");
+        t0 = text(
+        /*legalText*/
+        ctx[2]);
+        t1 = space();
+        a = element("a");
+        t2 = text("Link");
+        attr(a, "href",
+        /*privacyPolicyLink*/
+        ctx[3]);
+        attr(a, "target", "_blank");
+        attr(a, "class", "svelte-ltwhj4");
+        attr(span, "class", "text-sm svelte-ltwhj4");
+      },
+      m: function m(target, anchor) {
+        insert(target, span, anchor);
+        append(span, t0);
+        append(span, t1);
+        append(span, a);
+        append(a, t2);
+      },
+      p: function p(ctx, dirty) {
+        if (dirty &
+        /*legalText*/
+        4) set_data(t0,
+        /*legalText*/
+        ctx[2]);
+
+        if (dirty &
+        /*privacyPolicyLink*/
+        8) {
+          attr(a, "href",
+          /*privacyPolicyLink*/
+          ctx[3]);
+        }
+      },
+      d: function d(detaching) {
+        if (detaching) detach(span);
+      }
+    };
+  } // (57:8) <CtaButton type="submit">
+
+
+  function create_default_slot(ctx) {
+    var t;
+    return {
+      c: function c() {
+        t = text(
+        /*ctaButtonLabel*/
+        ctx[4]);
+      },
+      m: function m(target, anchor) {
+        insert(target, t, anchor);
+      },
+      p: function p(ctx, dirty) {
+        if (dirty &
+        /*ctaButtonLabel*/
+        16) set_data(t,
+        /*ctaButtonLabel*/
+        ctx[4]);
+      },
+      d: function d(detaching) {
+        if (detaching) detach(t);
+      }
+    };
+  }
+
+  function create_fragment(ctx) {
+    var div;
+    var current_block_type_index;
+    var if_block;
+    var current;
+    var if_block_creators = [create_if_block, create_else_block];
+    var if_blocks = [];
+
+    function select_block_type(ctx, dirty) {
+      if (!
+      /*isDone*/
+      ctx[9]) return 0;
+      return 1;
+    }
+
+    current_block_type_index = select_block_type(ctx);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c: function c() {
+        div = element("div");
+        if_block.c();
+        attr(div, "class", "charles-newsletter svelte-ltwhj4");
+      },
+      m: function m(target, anchor) {
+        insert(target, div, anchor);
+        if_blocks[current_block_type_index].m(div, null);
+        current = true;
+      },
+      p: function p(ctx, _ref) {
+        var _ref2 = _slicedToArray(_ref, 1),
+            dirty = _ref2[0];
+
+        var previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx);
+
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx, dirty);
+        } else {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, function () {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+            if_block.c();
+          } else {
+            if_block.p(ctx, dirty);
+          }
+
+          transition_in(if_block, 1);
+          if_block.m(div, null);
+        }
+      },
+      i: function i(local) {
+        if (current) return;
+        transition_in(if_block);
+        current = true;
+      },
+      o: function o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d: function d(detaching) {
+        if (detaching) detach(div);
+        if_blocks[current_block_type_index].d();
+      }
+    };
+  }
+
+  function instance($$self, $$props, $$invalidate) {
+    var _$$props$isPreview = $$props.isPreview,
+        isPreview = _$$props$isPreview === void 0 ? false : _$$props$isPreview;
+    var submitHandler = $$props.submitHandler;
+    var _$$props$title = $$props.title,
+        title = _$$props$title === void 0 ? "Get our Whatsapp Newsletter" : _$$props$title;
+    var _$$props$description = $$props.description,
+        description = _$$props$description === void 0 ? "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" : _$$props$description;
+    var _$$props$legalText = $$props.legalText,
+        legalText = _$$props$legalText === void 0 ? "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" : _$$props$legalText;
+    var _$$props$privacyPolic = $$props.privacyPolicyLink,
+        privacyPolicyLink = _$$props$privacyPolic === void 0 ? "https://hello-charles.com" : _$$props$privacyPolic;
+    var _$$props$ctaButtonLab = $$props.ctaButtonLabel,
+        ctaButtonLabel = _$$props$ctaButtonLab === void 0 ? "Submit" : _$$props$ctaButtonLab;
+    var _$$props$namePlacehol = $$props.namePlaceholder,
+        namePlaceholder = _$$props$namePlacehol === void 0 ? "Your Name" : _$$props$namePlacehol;
+    var _$$props$phoneNrPlace = $$props.phoneNrPlaceholder,
+        phoneNrPlaceholder = _$$props$phoneNrPlace === void 0 ? "Your Phone Number" : _$$props$phoneNrPlace;
+    var _$$props$successTitle = $$props.successTitle,
+        successTitle = _$$props$successTitle === void 0 ? "Thanks a lot! 🥳" : _$$props$successTitle;
+    var _$$props$successDescr = $$props.successDescription,
+        successDescription = _$$props$successDescr === void 0 ? "We have successfully opted-in to stay in touch with us on WhatsApp. We're excited to have you!" : _$$props$successDescr;
+    var isDone = false;
+    var name = "";
+    var phone = "";
+    var hasAgreed = false;
+
+    var onSubmit = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        var _submitHandler;
+
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!isPreview) {
+                  _context.next = 3;
+                  break;
+                }
+
+                $$invalidate(9, isDone = true);
+                return _context.abrupt("return");
+
+              case 3:
+                console.log("{ name, phoneNumber: phone, hasAgreed }", {
+                  name: name,
+                  phoneNumber: phone,
+                  hasAgreed: hasAgreed
+                });
+                _context.next = 6;
+                return (_submitHandler = submitHandler) === null || _submitHandler === void 0 ? void 0 : _submitHandler({
+                  name: name,
+                  phoneNumber: phone,
+                  hasAgreed: hasAgreed
+                });
+
+              case 6:
+                $$invalidate(9, isDone = true);
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function onSubmit() {
+        return _ref3.apply(this, arguments);
+      };
+    }();
+
+    var onClickSuccess = function onClickSuccess() {
+      if (isPreview) {
+        $$invalidate(9, isDone = false);
+      }
+    };
+
+    function cinput0_value_binding(value) {
+      name = value;
+      $$invalidate(10, name);
+    }
+
+    function cinput1_value_binding(value) {
+      phone = value;
+      $$invalidate(11, phone);
+    }
+
+    function ccheckbox_checked_binding(value) {
+      hasAgreed = value;
+      $$invalidate(12, hasAgreed);
+    }
+
+    $$self.$$set = function ($$props) {
+      if ('isPreview' in $$props) $$invalidate(15, isPreview = $$props.isPreview);
+      if ('submitHandler' in $$props) $$invalidate(16, submitHandler = $$props.submitHandler);
+      if ('title' in $$props) $$invalidate(0, title = $$props.title);
+      if ('description' in $$props) $$invalidate(1, description = $$props.description);
+      if ('legalText' in $$props) $$invalidate(2, legalText = $$props.legalText);
+      if ('privacyPolicyLink' in $$props) $$invalidate(3, privacyPolicyLink = $$props.privacyPolicyLink);
+      if ('ctaButtonLabel' in $$props) $$invalidate(4, ctaButtonLabel = $$props.ctaButtonLabel);
+      if ('namePlaceholder' in $$props) $$invalidate(5, namePlaceholder = $$props.namePlaceholder);
+      if ('phoneNrPlaceholder' in $$props) $$invalidate(6, phoneNrPlaceholder = $$props.phoneNrPlaceholder);
+      if ('successTitle' in $$props) $$invalidate(7, successTitle = $$props.successTitle);
+      if ('successDescription' in $$props) $$invalidate(8, successDescription = $$props.successDescription);
+    };
+
+    return [title, description, legalText, privacyPolicyLink, ctaButtonLabel, namePlaceholder, phoneNrPlaceholder, successTitle, successDescription, isDone, name, phone, hasAgreed, onSubmit, onClickSuccess, isPreview, submitHandler, cinput0_value_binding, cinput1_value_binding, ccheckbox_checked_binding];
+  }
+
+  var NewsletterOptIn = /*#__PURE__*/function (_SvelteComponent) {
+    _inherits(NewsletterOptIn, _SvelteComponent);
+
+    var _super = _createSuper(NewsletterOptIn);
+
+    function NewsletterOptIn(options) {
+      var _this;
+
+      _classCallCheck(this, NewsletterOptIn);
+
+      _this = _super.call(this);
+      init$1(_assertThisInitialized(_this), options, instance, create_fragment, safe_not_equal, {
+        isPreview: 15,
+        submitHandler: 16,
+        title: 0,
+        description: 1,
+        legalText: 2,
+        privacyPolicyLink: 3,
+        ctaButtonLabel: 4,
+        namePlaceholder: 5,
+        phoneNrPlaceholder: 6,
+        successTitle: 7,
+        successDescription: 8
+      }, add_css);
+      return _this;
+    }
+
+    return NewsletterOptIn;
   }(SvelteComponent);
 
   var strictUriEncode = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.charCodeAt(0).toString(16).toUpperCase()}`);
@@ -3107,595 +4614,6 @@ var NewsletterOptIn = (function () {
   queryString.pick;
   queryString.exclude;
 
-  const init$1 = () => {
-      // check config if bubble should be shown
-      let integrationConfig = window?.["_chIntCnf"];
-      if (document.currentScript) {
-          const src = document.currentScript.src;
-          if (!integrationConfig) {
-              integrationConfig = {};
-          }
-          const query = queryString_4(src).query;
-          console.log("query", query);
-          if (query.proxy_vendor) {
-              integrationConfig.vendor = query.proxy_vendor;
-          }
-          if (query.script_id) {
-              integrationConfig.script_id = query.script_id;
-          }
-          if (query.universe_uri) {
-              integrationConfig.universe_uri = query.universe_uri;
-          }
-      }
-  };
-  // if (
-  //   integrationConfig?.vendor &&
-  //   integrationConfig.universe_uri &&
-  //   integrationConfig.universe_uri.length > 0
-  // ) {
-  //   main(integrationConfig);
-  // } else {
-  //   console.warn(
-  //     "[Charles Satellite] - missing base integration config: ",
-  //     integrationConfig
-  //   );
-  // }
-  // function main(integrationConfig: CharlesIntegrationBaseConfiguration): void {
-  //   const provider = new Provider({
-  //     universe_uri: integrationConfig.universe_uri,
-  //     script_id: integrationConfig.script_id,
-  //   });
-  //   // get config off universe
-  //   provider
-  //     .getConfiguration()
-  //     .then((config) => {
-  //       // TODO use schema validate json
-  //       /** Load modules **/
-  //       // order opt in
-  //       if (config?.order_opt_in && config.order_opt_in.active === true) {
-  //         OrderOptInWidget.create(
-  //           provider,
-  //           config.order_opt_in,
-  //           integrationConfig.vendor
-  //         );
-  //       }
-  //     })
-  //     .catch((err: Error) => {
-  //       throw err;
-  //     });
-  // }
-
-  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-  function add_css(target) {
-    append_styles(target, "svelte-ltwhj4", ".svelte-ltwhj4.svelte-ltwhj4,.svelte-ltwhj4.svelte-ltwhj4:before,.svelte-ltwhj4.svelte-ltwhj4:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;margin:0}.gap.svelte-ltwhj4.svelte-ltwhj4{margin-bottom:1rem}.center.svelte-ltwhj4.svelte-ltwhj4{display:flex;align-items:center;justify-content:center}.text-sm.svelte-ltwhj4.svelte-ltwhj4{font-size:0.75rem}.charles-newsletter.svelte-ltwhj4.svelte-ltwhj4{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-ltwhj4 h1.svelte-ltwhj4{font-size:1rem;margin-bottom:8px;font-weight:bold}.charles-newsletter-form.svelte-ltwhj4.svelte-ltwhj4{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
-  } // (53:2) {:else}
-
-
-  function create_else_block(ctx) {
-    var newsletteroptinsuccess;
-    var current;
-    newsletteroptinsuccess = new NewsletterOptInSuccess({});
-    newsletteroptinsuccess.$on("click",
-    /*onClickSuccess*/
-    ctx[11]);
-    return {
-      c: function c() {
-        create_component(newsletteroptinsuccess.$$.fragment);
-      },
-      m: function m(target, anchor) {
-        mount_component(newsletteroptinsuccess, target, anchor);
-        current = true;
-      },
-      p: noop,
-      i: function i(local) {
-        if (current) return;
-        transition_in(newsletteroptinsuccess.$$.fragment, local);
-        current = true;
-      },
-      o: function o(local) {
-        transition_out(newsletteroptinsuccess.$$.fragment, local);
-        current = false;
-      },
-      d: function d(detaching) {
-        destroy_component(newsletteroptinsuccess, detaching);
-      }
-    };
-  } // (34:2) {#if !isDone}
-
-
-  function create_if_block(ctx) {
-    var form;
-    var h1;
-    var t0;
-    var t1;
-    var p;
-    var t2;
-    var t3;
-    var cinput0;
-    var updating_value;
-    var t4;
-    var cinput1;
-    var updating_value_1;
-    var t5;
-    var ccheckbox;
-    var t6;
-    var div;
-    var ctabutton;
-    var current;
-    var mounted;
-    var dispose;
-
-    function cinput0_value_binding(value) {
-      /*cinput0_value_binding*/
-      ctx[13](value);
-    }
-
-    var cinput0_props = {
-      type: "text",
-      placeholder:
-      /*namePlaceholder*/
-      ctx[5]
-    };
-
-    if (
-    /*name*/
-    ctx[8] !== void 0) {
-      cinput0_props.value =
-      /*name*/
-      ctx[8];
-    }
-
-    cinput0 = new BaseInput({
-      props: cinput0_props
-    });
-    binding_callbacks.push(function () {
-      return bind(cinput0, 'value', cinput0_value_binding);
-    });
-
-    function cinput1_value_binding(value) {
-      /*cinput1_value_binding*/
-      ctx[14](value);
-    }
-
-    var cinput1_props = {
-      type: "tel",
-      placeholder:
-      /*phoneNrPlaceholder*/
-      ctx[6]
-    };
-
-    if (
-    /*phone*/
-    ctx[9] !== void 0) {
-      cinput1_props.value =
-      /*phone*/
-      ctx[9];
-    }
-
-    cinput1 = new BaseInput({
-      props: cinput1_props
-    });
-    binding_callbacks.push(function () {
-      return bind(cinput1, 'value', cinput1_value_binding);
-    });
-    ccheckbox = new BaseCheckbox({
-      props: {
-        id: "agreed",
-        value: hasAgreed,
-        $$slots: {
-          default: [create_default_slot_1]
-        },
-        $$scope: {
-          ctx: ctx
-        }
-      }
-    });
-    ctabutton = new CtaButton({
-      props: {
-        type: "submit",
-        $$slots: {
-          default: [create_default_slot]
-        },
-        $$scope: {
-          ctx: ctx
-        }
-      }
-    });
-    return {
-      c: function c() {
-        form = element("form");
-        h1 = element("h1");
-        t0 = text(
-        /*title*/
-        ctx[0]);
-        t1 = space();
-        p = element("p");
-        t2 = text(
-        /*description*/
-        ctx[1]);
-        t3 = space();
-        create_component(cinput0.$$.fragment);
-        t4 = space();
-        create_component(cinput1.$$.fragment);
-        t5 = space();
-        create_component(ccheckbox.$$.fragment);
-        t6 = space();
-        div = element("div");
-        create_component(ctabutton.$$.fragment);
-        attr(h1, "class", "gap svelte-ltwhj4");
-        attr(p, "class", "gap text-sm svelte-ltwhj4");
-        attr(div, "class", "center svelte-ltwhj4");
-        attr(form, "class", "charles-newsletter-form svelte-ltwhj4");
-      },
-      m: function m(target, anchor) {
-        insert(target, form, anchor);
-        append(form, h1);
-        append(h1, t0);
-        append(form, t1);
-        append(form, p);
-        append(p, t2);
-        append(form, t3);
-        mount_component(cinput0, form, null);
-        append(form, t4);
-        mount_component(cinput1, form, null);
-        append(form, t5);
-        mount_component(ccheckbox, form, null);
-        append(form, t6);
-        append(form, div);
-        mount_component(ctabutton, div, null);
-        current = true;
-
-        if (!mounted) {
-          dispose = listen(form, "submit", prevent_default(
-          /*onSubmit*/
-          ctx[10]));
-          mounted = true;
-        }
-      },
-      p: function p(ctx, dirty) {
-        if (!current || dirty &
-        /*title*/
-        1) set_data(t0,
-        /*title*/
-        ctx[0]);
-        if (!current || dirty &
-        /*description*/
-        2) set_data(t2,
-        /*description*/
-        ctx[1]);
-        var cinput0_changes = {};
-        if (dirty &
-        /*namePlaceholder*/
-        32) cinput0_changes.placeholder =
-        /*namePlaceholder*/
-        ctx[5];
-
-        if (!updating_value && dirty &
-        /*name*/
-        256) {
-          updating_value = true;
-          cinput0_changes.value =
-          /*name*/
-          ctx[8];
-          add_flush_callback(function () {
-            return updating_value = false;
-          });
-        }
-
-        cinput0.$set(cinput0_changes);
-        var cinput1_changes = {};
-        if (dirty &
-        /*phoneNrPlaceholder*/
-        64) cinput1_changes.placeholder =
-        /*phoneNrPlaceholder*/
-        ctx[6];
-
-        if (!updating_value_1 && dirty &
-        /*phone*/
-        512) {
-          updating_value_1 = true;
-          cinput1_changes.value =
-          /*phone*/
-          ctx[9];
-          add_flush_callback(function () {
-            return updating_value_1 = false;
-          });
-        }
-
-        cinput1.$set(cinput1_changes);
-        var ccheckbox_changes = {};
-
-        if (dirty &
-        /*$$scope, privacyPolicyLink, legalText*/
-        32780) {
-          ccheckbox_changes.$$scope = {
-            dirty: dirty,
-            ctx: ctx
-          };
-        }
-
-        ccheckbox.$set(ccheckbox_changes);
-        var ctabutton_changes = {};
-
-        if (dirty &
-        /*$$scope, ctaButtonLabel*/
-        32784) {
-          ctabutton_changes.$$scope = {
-            dirty: dirty,
-            ctx: ctx
-          };
-        }
-
-        ctabutton.$set(ctabutton_changes);
-      },
-      i: function i(local) {
-        if (current) return;
-        transition_in(cinput0.$$.fragment, local);
-        transition_in(cinput1.$$.fragment, local);
-        transition_in(ccheckbox.$$.fragment, local);
-        transition_in(ctabutton.$$.fragment, local);
-        current = true;
-      },
-      o: function o(local) {
-        transition_out(cinput0.$$.fragment, local);
-        transition_out(cinput1.$$.fragment, local);
-        transition_out(ccheckbox.$$.fragment, local);
-        transition_out(ctabutton.$$.fragment, local);
-        current = false;
-      },
-      d: function d(detaching) {
-        if (detaching) detach(form);
-        destroy_component(cinput0);
-        destroy_component(cinput1);
-        destroy_component(ccheckbox);
-        destroy_component(ctabutton);
-        mounted = false;
-        dispose();
-      }
-    };
-  } // (42:6) <CCheckbox id="agreed" value={hasAgreed}>
-
-
-  function create_default_slot_1(ctx) {
-    var span;
-    var t0;
-    var t1;
-    var a;
-    var t2;
-    return {
-      c: function c() {
-        span = element("span");
-        t0 = text(
-        /*legalText*/
-        ctx[2]);
-        t1 = space();
-        a = element("a");
-        t2 = text("Link");
-        attr(a, "href",
-        /*privacyPolicyLink*/
-        ctx[3]);
-        attr(a, "target", "_blank");
-        attr(a, "class", "svelte-ltwhj4");
-        attr(span, "class", "text-sm svelte-ltwhj4");
-      },
-      m: function m(target, anchor) {
-        insert(target, span, anchor);
-        append(span, t0);
-        append(span, t1);
-        append(span, a);
-        append(a, t2);
-      },
-      p: function p(ctx, dirty) {
-        if (dirty &
-        /*legalText*/
-        4) set_data(t0,
-        /*legalText*/
-        ctx[2]);
-
-        if (dirty &
-        /*privacyPolicyLink*/
-        8) {
-          attr(a, "href",
-          /*privacyPolicyLink*/
-          ctx[3]);
-        }
-      },
-      d: function d(detaching) {
-        if (detaching) detach(span);
-      }
-    };
-  } // (50:8) <CtaButton type="submit">
-
-
-  function create_default_slot(ctx) {
-    var t;
-    return {
-      c: function c() {
-        t = text(
-        /*ctaButtonLabel*/
-        ctx[4]);
-      },
-      m: function m(target, anchor) {
-        insert(target, t, anchor);
-      },
-      p: function p(ctx, dirty) {
-        if (dirty &
-        /*ctaButtonLabel*/
-        16) set_data(t,
-        /*ctaButtonLabel*/
-        ctx[4]);
-      },
-      d: function d(detaching) {
-        if (detaching) detach(t);
-      }
-    };
-  }
-
-  function create_fragment(ctx) {
-    var div;
-    var current_block_type_index;
-    var if_block;
-    var current;
-    var if_block_creators = [create_if_block, create_else_block];
-    var if_blocks = [];
-
-    function select_block_type(ctx, dirty) {
-      if (!
-      /*isDone*/
-      ctx[7]) return 0;
-      return 1;
-    }
-
-    current_block_type_index = select_block_type(ctx);
-    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    return {
-      c: function c() {
-        div = element("div");
-        if_block.c();
-        attr(div, "class", "charles-newsletter svelte-ltwhj4");
-      },
-      m: function m(target, anchor) {
-        insert(target, div, anchor);
-        if_blocks[current_block_type_index].m(div, null);
-        current = true;
-      },
-      p: function p(ctx, _ref) {
-        var _ref2 = _slicedToArray(_ref, 1),
-            dirty = _ref2[0];
-
-        var previous_block_index = current_block_type_index;
-        current_block_type_index = select_block_type(ctx);
-
-        if (current_block_type_index === previous_block_index) {
-          if_blocks[current_block_type_index].p(ctx, dirty);
-        } else {
-          group_outros();
-          transition_out(if_blocks[previous_block_index], 1, 1, function () {
-            if_blocks[previous_block_index] = null;
-          });
-          check_outros();
-          if_block = if_blocks[current_block_type_index];
-
-          if (!if_block) {
-            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-            if_block.c();
-          } else {
-            if_block.p(ctx, dirty);
-          }
-
-          transition_in(if_block, 1);
-          if_block.m(div, null);
-        }
-      },
-      i: function i(local) {
-        if (current) return;
-        transition_in(if_block);
-        current = true;
-      },
-      o: function o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d: function d(detaching) {
-        if (detaching) detach(div);
-        if_blocks[current_block_type_index].d();
-      }
-    };
-  }
-
-  var hasAgreed = false;
-
-  function instance($$self, $$props, $$invalidate) {
-    var _$$props$isPreview = $$props.isPreview,
-        isPreview = _$$props$isPreview === void 0 ? false : _$$props$isPreview;
-    var _$$props$title = $$props.title,
-        title = _$$props$title === void 0 ? "Get our Whatsapp Newsletter" : _$$props$title;
-    var _$$props$description = $$props.description,
-        description = _$$props$description === void 0 ? "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" : _$$props$description;
-    var _$$props$legalText = $$props.legalText,
-        legalText = _$$props$legalText === void 0 ? "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" : _$$props$legalText;
-    var _$$props$privacyPolic = $$props.privacyPolicyLink,
-        privacyPolicyLink = _$$props$privacyPolic === void 0 ? "https://hello-charles.com" : _$$props$privacyPolic;
-    var _$$props$ctaButtonLab = $$props.ctaButtonLabel,
-        ctaButtonLabel = _$$props$ctaButtonLab === void 0 ? "Submit" : _$$props$ctaButtonLab;
-    var _$$props$namePlacehol = $$props.namePlaceholder,
-        namePlaceholder = _$$props$namePlacehol === void 0 ? "Your Name" : _$$props$namePlacehol;
-    var _$$props$phoneNrPlace = $$props.phoneNrPlaceholder,
-        phoneNrPlaceholder = _$$props$phoneNrPlace === void 0 ? "Your Phone Number" : _$$props$phoneNrPlace;
-    var isDone = false;
-    var name = "";
-    var phone = "";
-    init$1();
-
-    var onSubmit = function onSubmit() {
-      if (isPreview) {
-        $$invalidate(7, isDone = true);
-        return;
-      }
-
-      $$invalidate(7, isDone = true);
-    };
-
-    var onClickSuccess = function onClickSuccess() {
-      if (isPreview) {
-        $$invalidate(7, isDone = false);
-      }
-    };
-
-    function cinput0_value_binding(value) {
-      name = value;
-      $$invalidate(8, name);
-    }
-
-    function cinput1_value_binding(value) {
-      phone = value;
-      $$invalidate(9, phone);
-    }
-
-    $$self.$$set = function ($$props) {
-      if ('isPreview' in $$props) $$invalidate(12, isPreview = $$props.isPreview);
-      if ('title' in $$props) $$invalidate(0, title = $$props.title);
-      if ('description' in $$props) $$invalidate(1, description = $$props.description);
-      if ('legalText' in $$props) $$invalidate(2, legalText = $$props.legalText);
-      if ('privacyPolicyLink' in $$props) $$invalidate(3, privacyPolicyLink = $$props.privacyPolicyLink);
-      if ('ctaButtonLabel' in $$props) $$invalidate(4, ctaButtonLabel = $$props.ctaButtonLabel);
-      if ('namePlaceholder' in $$props) $$invalidate(5, namePlaceholder = $$props.namePlaceholder);
-      if ('phoneNrPlaceholder' in $$props) $$invalidate(6, phoneNrPlaceholder = $$props.phoneNrPlaceholder);
-    };
-
-    return [title, description, legalText, privacyPolicyLink, ctaButtonLabel, namePlaceholder, phoneNrPlaceholder, isDone, name, phone, onSubmit, onClickSuccess, isPreview, cinput0_value_binding, cinput1_value_binding];
-  }
-
-  var NewsletterOptIn = /*#__PURE__*/function (_SvelteComponent) {
-    _inherits(NewsletterOptIn, _SvelteComponent);
-
-    var _super = _createSuper(NewsletterOptIn);
-
-    function NewsletterOptIn(options) {
-      var _this;
-
-      _classCallCheck(this, NewsletterOptIn);
-
-      _this = _super.call(this);
-      init$2(_assertThisInitialized(_this), options, instance, create_fragment, safe_not_equal, {
-        isPreview: 12,
-        title: 0,
-        description: 1,
-        legalText: 2,
-        privacyPolicyLink: 3,
-        ctaButtonLabel: 4,
-        namePlaceholder: 5,
-        phoneNrPlaceholder: 6
-      }, add_css);
-      return _this;
-    }
-
-    return NewsletterOptIn;
-  }(SvelteComponent);
-
   console.log("document.currentScript", document.currentScript);
   let integrationConfig = window?.["_chIntCnf"];
   if (document.currentScript) {
@@ -3715,7 +4633,27 @@ var NewsletterOptIn = (function () {
   const init = async ({ scriptId, universeUri }) => {
       const config = await (await fetch(`${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/config`)).json();
       const { newsletter_opt_in: { title, description, selector }, } = config;
-      const targets = document.querySelectorAll(selector);
+      // Selectors are sent without brackets, so they need to be attached
+      const cleanSelector = `[${selector}]`;
+      const targets = document.querySelectorAll(cleanSelector);
+      const submitHandler = async ({ name, phoneNumber, hasAgreed }) => {
+          const payload = {
+              name,
+              phone_number: phoneNumber,
+              legal_opt_in: hasAgreed,
+          };
+          const res = await fetch(
+          // `${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_newsletter_opt_in`,
+          `http://localhost:3000/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_external_newsletter_opt_in`, {
+              method: "POST",
+              body: JSON.stringify(payload),
+              headers: {
+                  "Content-Type": "application/json",
+              },
+          });
+          console.log("res", res);
+          return res;
+      };
       var iframe = document.createElement("iframe");
       iframe.onload = (ev) => {
           new NewsletterOptIn({
@@ -3723,6 +4661,7 @@ var NewsletterOptIn = (function () {
               props: {
                   title,
                   description,
+                  submitHandler,
               },
           });
           iframe.style.height =

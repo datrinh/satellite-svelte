@@ -319,7 +319,7 @@ var NewsletterOptIn = (function () {
         }
         component.$$.dirty[(i / 31) | 0] |= (1 << (i % 31));
     }
-    function init$2(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
+    function init$1(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
         const parent_component = current_component;
         set_current_component(component);
         const $$ = component.$$ = {
@@ -414,29 +414,47 @@ var NewsletterOptIn = (function () {
 
     function create_fragment$4(ctx) {
     	let section;
+    	let div;
+    	let h1;
+    	let t0;
+    	let t1;
+    	let p;
+    	let t2;
     	let mounted;
     	let dispose;
 
     	return {
     		c() {
     			section = element("section");
-
-    			section.innerHTML = `<div class="content svelte-10sb7nx"><h1 class="text-5xl svelte-10sb7nx">Thanks a lot! 🥳</h1> 
-
-    <p class="text-base svelte-10sb7nx">We have successfully opted-in to stay in touch with us on WhatsApp. We&#39;re
-      excited to have you!</p></div>`;
-
+    			div = element("div");
+    			h1 = element("h1");
+    			t0 = text(/*successTitle*/ ctx[0]);
+    			t1 = space();
+    			p = element("p");
+    			t2 = text(/*successDescription*/ ctx[1]);
+    			attr(h1, "class", "text-5xl svelte-10sb7nx");
+    			attr(p, "class", "text-base svelte-10sb7nx");
+    			attr(div, "class", "content svelte-10sb7nx");
     			attr(section, "class", "charles-newsletter-done svelte-10sb7nx");
     		},
     		m(target, anchor) {
     			insert(target, section, anchor);
+    			append(section, div);
+    			append(div, h1);
+    			append(h1, t0);
+    			append(div, t1);
+    			append(div, p);
+    			append(p, t2);
 
     			if (!mounted) {
-    				dispose = listen(section, "click", /*click_handler*/ ctx[1]);
+    				dispose = listen(section, "click", /*click_handler*/ ctx[3]);
     				mounted = true;
     			}
     		},
-    		p: noop,
+    		p(ctx, [dirty]) {
+    			if (dirty & /*successTitle*/ 1) set_data(t0, /*successTitle*/ ctx[0]);
+    			if (dirty & /*successDescription*/ 2) set_data(t2, /*successDescription*/ ctx[1]);
+    		},
     		i: noop,
     		o: noop,
     		d(detaching) {
@@ -447,16 +465,24 @@ var NewsletterOptIn = (function () {
     	};
     }
 
-    function instance$4($$self) {
+    function instance$4($$self, $$props, $$invalidate) {
+    	let { successTitle } = $$props;
+    	let { successDescription } = $$props;
     	const dispatch = createEventDispatcher();
     	const click_handler = () => dispatch("click");
-    	return [dispatch, click_handler];
+
+    	$$self.$$set = $$props => {
+    		if ('successTitle' in $$props) $$invalidate(0, successTitle = $$props.successTitle);
+    		if ('successDescription' in $$props) $$invalidate(1, successDescription = $$props.successDescription);
+    	};
+
+    	return [successTitle, successDescription, dispatch, click_handler];
     }
 
     class NewsletterOptInSuccess extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init$2(this, options, instance$4, create_fragment$4, safe_not_equal, {}, add_css$4);
+    		init$1(this, options, instance$4, create_fragment$4, safe_not_equal, { successTitle: 0, successDescription: 1 }, add_css$4);
     	}
     }
 
@@ -539,7 +565,7 @@ var NewsletterOptIn = (function () {
     class CtaButton extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init$2(this, options, instance$3, create_fragment$3, safe_not_equal, { type: 0 }, add_css$3);
+    		init$1(this, options, instance$3, create_fragment$3, safe_not_equal, { type: 0 }, add_css$3);
     	}
     }
 
@@ -557,6 +583,8 @@ var NewsletterOptIn = (function () {
     	let t1;
     	let span;
     	let current;
+    	let mounted;
+    	let dispose;
     	const default_slot_template = /*#slots*/ ctx[3].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[2], null);
 
@@ -569,13 +597,12 @@ var NewsletterOptIn = (function () {
     			input = element("input");
     			t1 = space();
     			span = element("span");
-    			attr(input, "id", /*id*/ ctx[0]);
+    			attr(input, "id", /*id*/ ctx[1]);
     			attr(input, "type", "checkbox");
-    			input.value = /*value*/ ctx[1];
     			attr(input, "class", "svelte-pxuelf");
     			attr(span, "class", "checkmark svelte-pxuelf");
     			attr(label, "class", "container svelte-pxuelf");
-    			attr(label, "for", /*id*/ ctx[0]);
+    			attr(label, "for", /*id*/ ctx[1]);
     			attr(div, "class", "satellite-checkbox svelte-pxuelf");
     		},
     		m(target, anchor) {
@@ -588,9 +615,15 @@ var NewsletterOptIn = (function () {
 
     			append(label, t0);
     			append(label, input);
+    			input.checked = /*checked*/ ctx[0];
     			append(label, t1);
     			append(label, span);
     			current = true;
+
+    			if (!mounted) {
+    				dispose = listen(input, "change", /*input_change_handler*/ ctx[4]);
+    				mounted = true;
+    			}
     		},
     		p(ctx, [dirty]) {
     			if (default_slot) {
@@ -608,16 +641,16 @@ var NewsletterOptIn = (function () {
     				}
     			}
 
-    			if (!current || dirty & /*id*/ 1) {
-    				attr(input, "id", /*id*/ ctx[0]);
+    			if (!current || dirty & /*id*/ 2) {
+    				attr(input, "id", /*id*/ ctx[1]);
     			}
 
-    			if (!current || dirty & /*value*/ 2) {
-    				input.value = /*value*/ ctx[1];
+    			if (dirty & /*checked*/ 1) {
+    				input.checked = /*checked*/ ctx[0];
     			}
 
-    			if (!current || dirty & /*id*/ 1) {
-    				attr(label, "for", /*id*/ ctx[0]);
+    			if (!current || dirty & /*id*/ 2) {
+    				attr(label, "for", /*id*/ ctx[1]);
     			}
     		},
     		i(local) {
@@ -632,6 +665,8 @@ var NewsletterOptIn = (function () {
     		d(detaching) {
     			if (detaching) detach(div);
     			if (default_slot) default_slot.d(detaching);
+    			mounted = false;
+    			dispose();
     		}
     	};
     }
@@ -639,21 +674,26 @@ var NewsletterOptIn = (function () {
     function instance$2($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	let { id } = $$props;
-    	let { value } = $$props;
+    	let { checked } = $$props;
+
+    	function input_change_handler() {
+    		checked = this.checked;
+    		$$invalidate(0, checked);
+    	}
 
     	$$self.$$set = $$props => {
-    		if ('id' in $$props) $$invalidate(0, id = $$props.id);
-    		if ('value' in $$props) $$invalidate(1, value = $$props.value);
+    		if ('id' in $$props) $$invalidate(1, id = $$props.id);
+    		if ('checked' in $$props) $$invalidate(0, checked = $$props.checked);
     		if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
     	};
 
-    	return [id, value, $$scope, slots];
+    	return [checked, id, $$scope, slots, input_change_handler];
     }
 
     class BaseCheckbox extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init$2(this, options, instance$2, create_fragment$2, safe_not_equal, { id: 0, value: 1 }, add_css$2);
+    		init$1(this, options, instance$2, create_fragment$2, safe_not_equal, { id: 1, checked: 0 }, add_css$2);
     	}
     }
 
@@ -665,35 +705,44 @@ var NewsletterOptIn = (function () {
 
     function create_fragment$1(ctx) {
     	let input;
+    	let mounted;
+    	let dispose;
 
     	return {
     		c() {
     			input = element("input");
-    			attr(input, "type", /*type*/ ctx[0]);
-    			attr(input, "placeholder", /*placeholder*/ ctx[1]);
-    			input.value = /*value*/ ctx[2];
+    			attr(input, "type", /*type*/ ctx[1]);
+    			attr(input, "placeholder", /*placeholder*/ ctx[2]);
+    			input.value = /*value*/ ctx[0];
     			attr(input, "class", "svelte-17fo3ti");
     		},
     		m(target, anchor) {
     			insert(target, input, anchor);
+
+    			if (!mounted) {
+    				dispose = listen(input, "input", /*onInput*/ ctx[3]);
+    				mounted = true;
+    			}
     		},
     		p(ctx, [dirty]) {
-    			if (dirty & /*type*/ 1) {
-    				attr(input, "type", /*type*/ ctx[0]);
+    			if (dirty & /*type*/ 2) {
+    				attr(input, "type", /*type*/ ctx[1]);
     			}
 
-    			if (dirty & /*placeholder*/ 2) {
-    				attr(input, "placeholder", /*placeholder*/ ctx[1]);
+    			if (dirty & /*placeholder*/ 4) {
+    				attr(input, "placeholder", /*placeholder*/ ctx[2]);
     			}
 
-    			if (dirty & /*value*/ 4 && input.value !== /*value*/ ctx[2]) {
-    				input.value = /*value*/ ctx[2];
+    			if (dirty & /*value*/ 1 && input.value !== /*value*/ ctx[0]) {
+    				input.value = /*value*/ ctx[0];
     			}
     		},
     		i: noop,
     		o: noop,
     		d(detaching) {
     			if (detaching) detach(input);
+    			mounted = false;
+    			dispose();
     		}
     	};
     }
@@ -702,20 +751,512 @@ var NewsletterOptIn = (function () {
     	let { type = "text" } = $$props;
     	let { placeholder } = $$props;
     	let { value } = $$props;
+    	const onInput = ev => $$invalidate(0, value = ev.target.value);
 
     	$$self.$$set = $$props => {
-    		if ('type' in $$props) $$invalidate(0, type = $$props.type);
-    		if ('placeholder' in $$props) $$invalidate(1, placeholder = $$props.placeholder);
-    		if ('value' in $$props) $$invalidate(2, value = $$props.value);
+    		if ('type' in $$props) $$invalidate(1, type = $$props.type);
+    		if ('placeholder' in $$props) $$invalidate(2, placeholder = $$props.placeholder);
+    		if ('value' in $$props) $$invalidate(0, value = $$props.value);
     	};
 
-    	return [type, placeholder, value];
+    	return [value, type, placeholder, onInput];
     }
 
     class BaseInput extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init$2(this, options, instance$1, create_fragment$1, safe_not_equal, { type: 0, placeholder: 1, value: 2 }, add_css$1);
+    		init$1(this, options, instance$1, create_fragment$1, safe_not_equal, { type: 1, placeholder: 2, value: 0 }, add_css$1);
+    	}
+    }
+
+    /* src/satellites/NewsletterOptIn.svelte generated by Svelte v3.44.1 */
+
+    function add_css(target) {
+    	append_styles(target, "svelte-ltwhj4", ".svelte-ltwhj4.svelte-ltwhj4,.svelte-ltwhj4.svelte-ltwhj4:before,.svelte-ltwhj4.svelte-ltwhj4:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;margin:0}.gap.svelte-ltwhj4.svelte-ltwhj4{margin-bottom:1rem}.center.svelte-ltwhj4.svelte-ltwhj4{display:flex;align-items:center;justify-content:center}.text-sm.svelte-ltwhj4.svelte-ltwhj4{font-size:0.75rem}.charles-newsletter.svelte-ltwhj4.svelte-ltwhj4{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-ltwhj4 h1.svelte-ltwhj4{font-size:1rem;margin-bottom:8px;font-weight:bold}.charles-newsletter-form.svelte-ltwhj4.svelte-ltwhj4{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
+    }
+
+    // (60:2) {:else}
+    function create_else_block(ctx) {
+    	let newsletteroptinsuccess;
+    	let current;
+
+    	newsletteroptinsuccess = new NewsletterOptInSuccess({
+    			props: {
+    				successTitle: /*successTitle*/ ctx[7],
+    				successDescription: /*successDescription*/ ctx[8]
+    			}
+    		});
+
+    	newsletteroptinsuccess.$on("click", /*onClickSuccess*/ ctx[14]);
+
+    	return {
+    		c() {
+    			create_component(newsletteroptinsuccess.$$.fragment);
+    		},
+    		m(target, anchor) {
+    			mount_component(newsletteroptinsuccess, target, anchor);
+    			current = true;
+    		},
+    		p(ctx, dirty) {
+    			const newsletteroptinsuccess_changes = {};
+    			if (dirty & /*successTitle*/ 128) newsletteroptinsuccess_changes.successTitle = /*successTitle*/ ctx[7];
+    			if (dirty & /*successDescription*/ 256) newsletteroptinsuccess_changes.successDescription = /*successDescription*/ ctx[8];
+    			newsletteroptinsuccess.$set(newsletteroptinsuccess_changes);
+    		},
+    		i(local) {
+    			if (current) return;
+    			transition_in(newsletteroptinsuccess.$$.fragment, local);
+    			current = true;
+    		},
+    		o(local) {
+    			transition_out(newsletteroptinsuccess.$$.fragment, local);
+    			current = false;
+    		},
+    		d(detaching) {
+    			destroy_component(newsletteroptinsuccess, detaching);
+    		}
+    	};
+    }
+
+    // (41:2) {#if !isDone}
+    function create_if_block(ctx) {
+    	let form;
+    	let h1;
+    	let t0;
+    	let t1;
+    	let p;
+    	let t2;
+    	let t3;
+    	let cinput0;
+    	let updating_value;
+    	let t4;
+    	let cinput1;
+    	let updating_value_1;
+    	let t5;
+    	let ccheckbox;
+    	let updating_checked;
+    	let t6;
+    	let div;
+    	let ctabutton;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	function cinput0_value_binding(value) {
+    		/*cinput0_value_binding*/ ctx[17](value);
+    	}
+
+    	let cinput0_props = {
+    		type: "text",
+    		placeholder: /*namePlaceholder*/ ctx[5]
+    	};
+
+    	if (/*name*/ ctx[10] !== void 0) {
+    		cinput0_props.value = /*name*/ ctx[10];
+    	}
+
+    	cinput0 = new BaseInput({ props: cinput0_props });
+    	binding_callbacks.push(() => bind(cinput0, 'value', cinput0_value_binding));
+
+    	function cinput1_value_binding(value) {
+    		/*cinput1_value_binding*/ ctx[18](value);
+    	}
+
+    	let cinput1_props = {
+    		type: "tel",
+    		placeholder: /*phoneNrPlaceholder*/ ctx[6]
+    	};
+
+    	if (/*phone*/ ctx[11] !== void 0) {
+    		cinput1_props.value = /*phone*/ ctx[11];
+    	}
+
+    	cinput1 = new BaseInput({ props: cinput1_props });
+    	binding_callbacks.push(() => bind(cinput1, 'value', cinput1_value_binding));
+
+    	function ccheckbox_checked_binding(value) {
+    		/*ccheckbox_checked_binding*/ ctx[19](value);
+    	}
+
+    	let ccheckbox_props = {
+    		id: "agreed",
+    		$$slots: { default: [create_default_slot_1] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*hasAgreed*/ ctx[12] !== void 0) {
+    		ccheckbox_props.checked = /*hasAgreed*/ ctx[12];
+    	}
+
+    	ccheckbox = new BaseCheckbox({ props: ccheckbox_props });
+    	binding_callbacks.push(() => bind(ccheckbox, 'checked', ccheckbox_checked_binding));
+
+    	ctabutton = new CtaButton({
+    			props: {
+    				type: "submit",
+    				$$slots: { default: [create_default_slot] },
+    				$$scope: { ctx }
+    			}
+    		});
+
+    	return {
+    		c() {
+    			form = element("form");
+    			h1 = element("h1");
+    			t0 = text(/*title*/ ctx[0]);
+    			t1 = space();
+    			p = element("p");
+    			t2 = text(/*description*/ ctx[1]);
+    			t3 = space();
+    			create_component(cinput0.$$.fragment);
+    			t4 = space();
+    			create_component(cinput1.$$.fragment);
+    			t5 = space();
+    			create_component(ccheckbox.$$.fragment);
+    			t6 = space();
+    			div = element("div");
+    			create_component(ctabutton.$$.fragment);
+    			attr(h1, "class", "gap svelte-ltwhj4");
+    			attr(p, "class", "gap text-sm svelte-ltwhj4");
+    			attr(div, "class", "center svelte-ltwhj4");
+    			attr(form, "class", "charles-newsletter-form svelte-ltwhj4");
+    		},
+    		m(target, anchor) {
+    			insert(target, form, anchor);
+    			append(form, h1);
+    			append(h1, t0);
+    			append(form, t1);
+    			append(form, p);
+    			append(p, t2);
+    			append(form, t3);
+    			mount_component(cinput0, form, null);
+    			append(form, t4);
+    			mount_component(cinput1, form, null);
+    			append(form, t5);
+    			mount_component(ccheckbox, form, null);
+    			append(form, t6);
+    			append(form, div);
+    			mount_component(ctabutton, div, null);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = listen(form, "submit", prevent_default(/*onSubmit*/ ctx[13]));
+    				mounted = true;
+    			}
+    		},
+    		p(ctx, dirty) {
+    			if (!current || dirty & /*title*/ 1) set_data(t0, /*title*/ ctx[0]);
+    			if (!current || dirty & /*description*/ 2) set_data(t2, /*description*/ ctx[1]);
+    			const cinput0_changes = {};
+    			if (dirty & /*namePlaceholder*/ 32) cinput0_changes.placeholder = /*namePlaceholder*/ ctx[5];
+
+    			if (!updating_value && dirty & /*name*/ 1024) {
+    				updating_value = true;
+    				cinput0_changes.value = /*name*/ ctx[10];
+    				add_flush_callback(() => updating_value = false);
+    			}
+
+    			cinput0.$set(cinput0_changes);
+    			const cinput1_changes = {};
+    			if (dirty & /*phoneNrPlaceholder*/ 64) cinput1_changes.placeholder = /*phoneNrPlaceholder*/ ctx[6];
+
+    			if (!updating_value_1 && dirty & /*phone*/ 2048) {
+    				updating_value_1 = true;
+    				cinput1_changes.value = /*phone*/ ctx[11];
+    				add_flush_callback(() => updating_value_1 = false);
+    			}
+
+    			cinput1.$set(cinput1_changes);
+    			const ccheckbox_changes = {};
+
+    			if (dirty & /*$$scope, privacyPolicyLink, legalText*/ 1048588) {
+    				ccheckbox_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_checked && dirty & /*hasAgreed*/ 4096) {
+    				updating_checked = true;
+    				ccheckbox_changes.checked = /*hasAgreed*/ ctx[12];
+    				add_flush_callback(() => updating_checked = false);
+    			}
+
+    			ccheckbox.$set(ccheckbox_changes);
+    			const ctabutton_changes = {};
+
+    			if (dirty & /*$$scope, ctaButtonLabel*/ 1048592) {
+    				ctabutton_changes.$$scope = { dirty, ctx };
+    			}
+
+    			ctabutton.$set(ctabutton_changes);
+    		},
+    		i(local) {
+    			if (current) return;
+    			transition_in(cinput0.$$.fragment, local);
+    			transition_in(cinput1.$$.fragment, local);
+    			transition_in(ccheckbox.$$.fragment, local);
+    			transition_in(ctabutton.$$.fragment, local);
+    			current = true;
+    		},
+    		o(local) {
+    			transition_out(cinput0.$$.fragment, local);
+    			transition_out(cinput1.$$.fragment, local);
+    			transition_out(ccheckbox.$$.fragment, local);
+    			transition_out(ctabutton.$$.fragment, local);
+    			current = false;
+    		},
+    		d(detaching) {
+    			if (detaching) detach(form);
+    			destroy_component(cinput0);
+    			destroy_component(cinput1);
+    			destroy_component(ccheckbox);
+    			destroy_component(ctabutton);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+    }
+
+    // (49:6) <CCheckbox id="agreed" bind:checked={hasAgreed}>
+    function create_default_slot_1(ctx) {
+    	let span;
+    	let t0;
+    	let t1;
+    	let a;
+    	let t2;
+
+    	return {
+    		c() {
+    			span = element("span");
+    			t0 = text(/*legalText*/ ctx[2]);
+    			t1 = space();
+    			a = element("a");
+    			t2 = text("Link");
+    			attr(a, "href", /*privacyPolicyLink*/ ctx[3]);
+    			attr(a, "target", "_blank");
+    			attr(a, "class", "svelte-ltwhj4");
+    			attr(span, "class", "text-sm svelte-ltwhj4");
+    		},
+    		m(target, anchor) {
+    			insert(target, span, anchor);
+    			append(span, t0);
+    			append(span, t1);
+    			append(span, a);
+    			append(a, t2);
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*legalText*/ 4) set_data(t0, /*legalText*/ ctx[2]);
+
+    			if (dirty & /*privacyPolicyLink*/ 8) {
+    				attr(a, "href", /*privacyPolicyLink*/ ctx[3]);
+    			}
+    		},
+    		d(detaching) {
+    			if (detaching) detach(span);
+    		}
+    	};
+    }
+
+    // (57:8) <CtaButton type="submit">
+    function create_default_slot(ctx) {
+    	let t;
+
+    	return {
+    		c() {
+    			t = text(/*ctaButtonLabel*/ ctx[4]);
+    		},
+    		m(target, anchor) {
+    			insert(target, t, anchor);
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*ctaButtonLabel*/ 16) set_data(t, /*ctaButtonLabel*/ ctx[4]);
+    		},
+    		d(detaching) {
+    			if (detaching) detach(t);
+    		}
+    	};
+    }
+
+    function create_fragment(ctx) {
+    	let div;
+    	let current_block_type_index;
+    	let if_block;
+    	let current;
+    	const if_block_creators = [create_if_block, create_else_block];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (!/*isDone*/ ctx[9]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	return {
+    		c() {
+    			div = element("div");
+    			if_block.c();
+    			attr(div, "class", "charles-newsletter svelte-ltwhj4");
+    		},
+    		m(target, anchor) {
+    			insert(target, div, anchor);
+    			if_blocks[current_block_type_index].m(div, null);
+    			current = true;
+    		},
+    		p(ctx, [dirty]) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				} else {
+    					if_block.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(div, null);
+    			}
+    		},
+    		i(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d(detaching) {
+    			if (detaching) detach(div);
+    			if_blocks[current_block_type_index].d();
+    		}
+    	};
+    }
+
+    function instance($$self, $$props, $$invalidate) {
+    	let { isPreview = false } = $$props;
+    	let { submitHandler } = $$props;
+    	let { title = "Get our Whatsapp Newsletter" } = $$props;
+    	let { description = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" } = $$props;
+    	let { legalText = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" } = $$props;
+    	let { privacyPolicyLink = "https://hello-charles.com" } = $$props;
+    	let { ctaButtonLabel = "Submit" } = $$props;
+    	let { namePlaceholder = "Your Name" } = $$props;
+    	let { phoneNrPlaceholder = "Your Phone Number" } = $$props;
+    	let { successTitle = "Thanks a lot! 🥳" } = $$props;
+    	let { successDescription = "We have successfully opted-in to stay in touch with us on WhatsApp. We're excited to have you!" } = $$props;
+    	let isDone = false;
+    	let name = "";
+    	let phone = "";
+    	let hasAgreed = false;
+
+    	const onSubmit = async () => {
+    		if (isPreview) {
+    			$$invalidate(9, isDone = true);
+    			return;
+    		}
+
+    		console.log("{ name, phoneNumber: phone, hasAgreed }", { name, phoneNumber: phone, hasAgreed });
+    		await submitHandler?.({ name, phoneNumber: phone, hasAgreed });
+    		$$invalidate(9, isDone = true);
+    	};
+
+    	const onClickSuccess = () => {
+    		if (isPreview) {
+    			$$invalidate(9, isDone = false);
+    		}
+    	};
+
+    	function cinput0_value_binding(value) {
+    		name = value;
+    		$$invalidate(10, name);
+    	}
+
+    	function cinput1_value_binding(value) {
+    		phone = value;
+    		$$invalidate(11, phone);
+    	}
+
+    	function ccheckbox_checked_binding(value) {
+    		hasAgreed = value;
+    		$$invalidate(12, hasAgreed);
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ('isPreview' in $$props) $$invalidate(15, isPreview = $$props.isPreview);
+    		if ('submitHandler' in $$props) $$invalidate(16, submitHandler = $$props.submitHandler);
+    		if ('title' in $$props) $$invalidate(0, title = $$props.title);
+    		if ('description' in $$props) $$invalidate(1, description = $$props.description);
+    		if ('legalText' in $$props) $$invalidate(2, legalText = $$props.legalText);
+    		if ('privacyPolicyLink' in $$props) $$invalidate(3, privacyPolicyLink = $$props.privacyPolicyLink);
+    		if ('ctaButtonLabel' in $$props) $$invalidate(4, ctaButtonLabel = $$props.ctaButtonLabel);
+    		if ('namePlaceholder' in $$props) $$invalidate(5, namePlaceholder = $$props.namePlaceholder);
+    		if ('phoneNrPlaceholder' in $$props) $$invalidate(6, phoneNrPlaceholder = $$props.phoneNrPlaceholder);
+    		if ('successTitle' in $$props) $$invalidate(7, successTitle = $$props.successTitle);
+    		if ('successDescription' in $$props) $$invalidate(8, successDescription = $$props.successDescription);
+    	};
+
+    	return [
+    		title,
+    		description,
+    		legalText,
+    		privacyPolicyLink,
+    		ctaButtonLabel,
+    		namePlaceholder,
+    		phoneNrPlaceholder,
+    		successTitle,
+    		successDescription,
+    		isDone,
+    		name,
+    		phone,
+    		hasAgreed,
+    		onSubmit,
+    		onClickSuccess,
+    		isPreview,
+    		submitHandler,
+    		cinput0_value_binding,
+    		cinput1_value_binding,
+    		ccheckbox_checked_binding
+    	];
+    }
+
+    class NewsletterOptIn extends SvelteComponent {
+    	constructor(options) {
+    		super();
+
+    		init$1(
+    			this,
+    			options,
+    			instance,
+    			create_fragment,
+    			safe_not_equal,
+    			{
+    				isPreview: 15,
+    				submitHandler: 16,
+    				title: 0,
+    				description: 1,
+    				legalText: 2,
+    				privacyPolicyLink: 3,
+    				ctaButtonLabel: 4,
+    				namePlaceholder: 5,
+    				phoneNrPlaceholder: 6,
+    				successTitle: 7,
+    				successDescription: 8
+    			},
+    			add_css
+    		);
     	}
     }
 
@@ -1313,509 +1854,6 @@ var NewsletterOptIn = (function () {
     queryString.pick;
     queryString.exclude;
 
-    const init$1 = () => {
-        // check config if bubble should be shown
-        let integrationConfig = window?.["_chIntCnf"];
-        if (document.currentScript) {
-            const src = document.currentScript.src;
-            if (!integrationConfig) {
-                integrationConfig = {};
-            }
-            const query = queryString_4(src).query;
-            console.log("query", query);
-            if (query.proxy_vendor) {
-                integrationConfig.vendor = query.proxy_vendor;
-            }
-            if (query.script_id) {
-                integrationConfig.script_id = query.script_id;
-            }
-            if (query.universe_uri) {
-                integrationConfig.universe_uri = query.universe_uri;
-            }
-        }
-    };
-    // if (
-    //   integrationConfig?.vendor &&
-    //   integrationConfig.universe_uri &&
-    //   integrationConfig.universe_uri.length > 0
-    // ) {
-    //   main(integrationConfig);
-    // } else {
-    //   console.warn(
-    //     "[Charles Satellite] - missing base integration config: ",
-    //     integrationConfig
-    //   );
-    // }
-    // function main(integrationConfig: CharlesIntegrationBaseConfiguration): void {
-    //   const provider = new Provider({
-    //     universe_uri: integrationConfig.universe_uri,
-    //     script_id: integrationConfig.script_id,
-    //   });
-    //   // get config off universe
-    //   provider
-    //     .getConfiguration()
-    //     .then((config) => {
-    //       // TODO use schema validate json
-    //       /** Load modules **/
-    //       // order opt in
-    //       if (config?.order_opt_in && config.order_opt_in.active === true) {
-    //         OrderOptInWidget.create(
-    //           provider,
-    //           config.order_opt_in,
-    //           integrationConfig.vendor
-    //         );
-    //       }
-    //     })
-    //     .catch((err: Error) => {
-    //       throw err;
-    //     });
-    // }
-
-    /* src/satellites/NewsletterOptIn.svelte generated by Svelte v3.44.1 */
-
-    function add_css(target) {
-    	append_styles(target, "svelte-ltwhj4", ".svelte-ltwhj4.svelte-ltwhj4,.svelte-ltwhj4.svelte-ltwhj4:before,.svelte-ltwhj4.svelte-ltwhj4:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;margin:0}.gap.svelte-ltwhj4.svelte-ltwhj4{margin-bottom:1rem}.center.svelte-ltwhj4.svelte-ltwhj4{display:flex;align-items:center;justify-content:center}.text-sm.svelte-ltwhj4.svelte-ltwhj4{font-size:0.75rem}.charles-newsletter.svelte-ltwhj4.svelte-ltwhj4{box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);border-radius:0.5rem;text-align:center;background-color:white;margin:2px}.charles-newsletter.svelte-ltwhj4 h1.svelte-ltwhj4{font-size:1rem;margin-bottom:8px;font-weight:bold}.charles-newsletter-form.svelte-ltwhj4.svelte-ltwhj4{display:flex;flex-direction:column;max-width:576px;padding:3rem;margin:auto}");
-    }
-
-    // (53:2) {:else}
-    function create_else_block(ctx) {
-    	let newsletteroptinsuccess;
-    	let current;
-    	newsletteroptinsuccess = new NewsletterOptInSuccess({});
-    	newsletteroptinsuccess.$on("click", /*onClickSuccess*/ ctx[11]);
-
-    	return {
-    		c() {
-    			create_component(newsletteroptinsuccess.$$.fragment);
-    		},
-    		m(target, anchor) {
-    			mount_component(newsletteroptinsuccess, target, anchor);
-    			current = true;
-    		},
-    		p: noop,
-    		i(local) {
-    			if (current) return;
-    			transition_in(newsletteroptinsuccess.$$.fragment, local);
-    			current = true;
-    		},
-    		o(local) {
-    			transition_out(newsletteroptinsuccess.$$.fragment, local);
-    			current = false;
-    		},
-    		d(detaching) {
-    			destroy_component(newsletteroptinsuccess, detaching);
-    		}
-    	};
-    }
-
-    // (34:2) {#if !isDone}
-    function create_if_block(ctx) {
-    	let form;
-    	let h1;
-    	let t0;
-    	let t1;
-    	let p;
-    	let t2;
-    	let t3;
-    	let cinput0;
-    	let updating_value;
-    	let t4;
-    	let cinput1;
-    	let updating_value_1;
-    	let t5;
-    	let ccheckbox;
-    	let t6;
-    	let div;
-    	let ctabutton;
-    	let current;
-    	let mounted;
-    	let dispose;
-
-    	function cinput0_value_binding(value) {
-    		/*cinput0_value_binding*/ ctx[13](value);
-    	}
-
-    	let cinput0_props = {
-    		type: "text",
-    		placeholder: /*namePlaceholder*/ ctx[5]
-    	};
-
-    	if (/*name*/ ctx[8] !== void 0) {
-    		cinput0_props.value = /*name*/ ctx[8];
-    	}
-
-    	cinput0 = new BaseInput({ props: cinput0_props });
-    	binding_callbacks.push(() => bind(cinput0, 'value', cinput0_value_binding));
-
-    	function cinput1_value_binding(value) {
-    		/*cinput1_value_binding*/ ctx[14](value);
-    	}
-
-    	let cinput1_props = {
-    		type: "tel",
-    		placeholder: /*phoneNrPlaceholder*/ ctx[6]
-    	};
-
-    	if (/*phone*/ ctx[9] !== void 0) {
-    		cinput1_props.value = /*phone*/ ctx[9];
-    	}
-
-    	cinput1 = new BaseInput({ props: cinput1_props });
-    	binding_callbacks.push(() => bind(cinput1, 'value', cinput1_value_binding));
-
-    	ccheckbox = new BaseCheckbox({
-    			props: {
-    				id: "agreed",
-    				value: hasAgreed,
-    				$$slots: { default: [create_default_slot_1] },
-    				$$scope: { ctx }
-    			}
-    		});
-
-    	ctabutton = new CtaButton({
-    			props: {
-    				type: "submit",
-    				$$slots: { default: [create_default_slot] },
-    				$$scope: { ctx }
-    			}
-    		});
-
-    	return {
-    		c() {
-    			form = element("form");
-    			h1 = element("h1");
-    			t0 = text(/*title*/ ctx[0]);
-    			t1 = space();
-    			p = element("p");
-    			t2 = text(/*description*/ ctx[1]);
-    			t3 = space();
-    			create_component(cinput0.$$.fragment);
-    			t4 = space();
-    			create_component(cinput1.$$.fragment);
-    			t5 = space();
-    			create_component(ccheckbox.$$.fragment);
-    			t6 = space();
-    			div = element("div");
-    			create_component(ctabutton.$$.fragment);
-    			attr(h1, "class", "gap svelte-ltwhj4");
-    			attr(p, "class", "gap text-sm svelte-ltwhj4");
-    			attr(div, "class", "center svelte-ltwhj4");
-    			attr(form, "class", "charles-newsletter-form svelte-ltwhj4");
-    		},
-    		m(target, anchor) {
-    			insert(target, form, anchor);
-    			append(form, h1);
-    			append(h1, t0);
-    			append(form, t1);
-    			append(form, p);
-    			append(p, t2);
-    			append(form, t3);
-    			mount_component(cinput0, form, null);
-    			append(form, t4);
-    			mount_component(cinput1, form, null);
-    			append(form, t5);
-    			mount_component(ccheckbox, form, null);
-    			append(form, t6);
-    			append(form, div);
-    			mount_component(ctabutton, div, null);
-    			current = true;
-
-    			if (!mounted) {
-    				dispose = listen(form, "submit", prevent_default(/*onSubmit*/ ctx[10]));
-    				mounted = true;
-    			}
-    		},
-    		p(ctx, dirty) {
-    			if (!current || dirty & /*title*/ 1) set_data(t0, /*title*/ ctx[0]);
-    			if (!current || dirty & /*description*/ 2) set_data(t2, /*description*/ ctx[1]);
-    			const cinput0_changes = {};
-    			if (dirty & /*namePlaceholder*/ 32) cinput0_changes.placeholder = /*namePlaceholder*/ ctx[5];
-
-    			if (!updating_value && dirty & /*name*/ 256) {
-    				updating_value = true;
-    				cinput0_changes.value = /*name*/ ctx[8];
-    				add_flush_callback(() => updating_value = false);
-    			}
-
-    			cinput0.$set(cinput0_changes);
-    			const cinput1_changes = {};
-    			if (dirty & /*phoneNrPlaceholder*/ 64) cinput1_changes.placeholder = /*phoneNrPlaceholder*/ ctx[6];
-
-    			if (!updating_value_1 && dirty & /*phone*/ 512) {
-    				updating_value_1 = true;
-    				cinput1_changes.value = /*phone*/ ctx[9];
-    				add_flush_callback(() => updating_value_1 = false);
-    			}
-
-    			cinput1.$set(cinput1_changes);
-    			const ccheckbox_changes = {};
-
-    			if (dirty & /*$$scope, privacyPolicyLink, legalText*/ 32780) {
-    				ccheckbox_changes.$$scope = { dirty, ctx };
-    			}
-
-    			ccheckbox.$set(ccheckbox_changes);
-    			const ctabutton_changes = {};
-
-    			if (dirty & /*$$scope, ctaButtonLabel*/ 32784) {
-    				ctabutton_changes.$$scope = { dirty, ctx };
-    			}
-
-    			ctabutton.$set(ctabutton_changes);
-    		},
-    		i(local) {
-    			if (current) return;
-    			transition_in(cinput0.$$.fragment, local);
-    			transition_in(cinput1.$$.fragment, local);
-    			transition_in(ccheckbox.$$.fragment, local);
-    			transition_in(ctabutton.$$.fragment, local);
-    			current = true;
-    		},
-    		o(local) {
-    			transition_out(cinput0.$$.fragment, local);
-    			transition_out(cinput1.$$.fragment, local);
-    			transition_out(ccheckbox.$$.fragment, local);
-    			transition_out(ctabutton.$$.fragment, local);
-    			current = false;
-    		},
-    		d(detaching) {
-    			if (detaching) detach(form);
-    			destroy_component(cinput0);
-    			destroy_component(cinput1);
-    			destroy_component(ccheckbox);
-    			destroy_component(ctabutton);
-    			mounted = false;
-    			dispose();
-    		}
-    	};
-    }
-
-    // (42:6) <CCheckbox id="agreed" value={hasAgreed}>
-    function create_default_slot_1(ctx) {
-    	let span;
-    	let t0;
-    	let t1;
-    	let a;
-    	let t2;
-
-    	return {
-    		c() {
-    			span = element("span");
-    			t0 = text(/*legalText*/ ctx[2]);
-    			t1 = space();
-    			a = element("a");
-    			t2 = text("Link");
-    			attr(a, "href", /*privacyPolicyLink*/ ctx[3]);
-    			attr(a, "target", "_blank");
-    			attr(a, "class", "svelte-ltwhj4");
-    			attr(span, "class", "text-sm svelte-ltwhj4");
-    		},
-    		m(target, anchor) {
-    			insert(target, span, anchor);
-    			append(span, t0);
-    			append(span, t1);
-    			append(span, a);
-    			append(a, t2);
-    		},
-    		p(ctx, dirty) {
-    			if (dirty & /*legalText*/ 4) set_data(t0, /*legalText*/ ctx[2]);
-
-    			if (dirty & /*privacyPolicyLink*/ 8) {
-    				attr(a, "href", /*privacyPolicyLink*/ ctx[3]);
-    			}
-    		},
-    		d(detaching) {
-    			if (detaching) detach(span);
-    		}
-    	};
-    }
-
-    // (50:8) <CtaButton type="submit">
-    function create_default_slot(ctx) {
-    	let t;
-
-    	return {
-    		c() {
-    			t = text(/*ctaButtonLabel*/ ctx[4]);
-    		},
-    		m(target, anchor) {
-    			insert(target, t, anchor);
-    		},
-    		p(ctx, dirty) {
-    			if (dirty & /*ctaButtonLabel*/ 16) set_data(t, /*ctaButtonLabel*/ ctx[4]);
-    		},
-    		d(detaching) {
-    			if (detaching) detach(t);
-    		}
-    	};
-    }
-
-    function create_fragment(ctx) {
-    	let div;
-    	let current_block_type_index;
-    	let if_block;
-    	let current;
-    	const if_block_creators = [create_if_block, create_else_block];
-    	const if_blocks = [];
-
-    	function select_block_type(ctx, dirty) {
-    		if (!/*isDone*/ ctx[7]) return 0;
-    		return 1;
-    	}
-
-    	current_block_type_index = select_block_type(ctx);
-    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-
-    	return {
-    		c() {
-    			div = element("div");
-    			if_block.c();
-    			attr(div, "class", "charles-newsletter svelte-ltwhj4");
-    		},
-    		m(target, anchor) {
-    			insert(target, div, anchor);
-    			if_blocks[current_block_type_index].m(div, null);
-    			current = true;
-    		},
-    		p(ctx, [dirty]) {
-    			let previous_block_index = current_block_type_index;
-    			current_block_type_index = select_block_type(ctx);
-
-    			if (current_block_type_index === previous_block_index) {
-    				if_blocks[current_block_type_index].p(ctx, dirty);
-    			} else {
-    				group_outros();
-
-    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
-    					if_blocks[previous_block_index] = null;
-    				});
-
-    				check_outros();
-    				if_block = if_blocks[current_block_type_index];
-
-    				if (!if_block) {
-    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    					if_block.c();
-    				} else {
-    					if_block.p(ctx, dirty);
-    				}
-
-    				transition_in(if_block, 1);
-    				if_block.m(div, null);
-    			}
-    		},
-    		i(local) {
-    			if (current) return;
-    			transition_in(if_block);
-    			current = true;
-    		},
-    		o(local) {
-    			transition_out(if_block);
-    			current = false;
-    		},
-    		d(detaching) {
-    			if (detaching) detach(div);
-    			if_blocks[current_block_type_index].d();
-    		}
-    	};
-    }
-
-    let hasAgreed = false;
-
-    function instance($$self, $$props, $$invalidate) {
-    	let { isPreview = false } = $$props;
-    	let { title = "Get our Whatsapp Newsletter" } = $$props;
-    	let { description = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" } = $$props;
-    	let { legalText = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure aliquid repellat quisquam non molestiae, unde libero cupiditate quia" } = $$props;
-    	let { privacyPolicyLink = "https://hello-charles.com" } = $$props;
-    	let { ctaButtonLabel = "Submit" } = $$props;
-    	let { namePlaceholder = "Your Name" } = $$props;
-    	let { phoneNrPlaceholder = "Your Phone Number" } = $$props;
-    	let isDone = false;
-    	let name = "";
-    	let phone = "";
-    	init$1();
-
-    	const onSubmit = () => {
-    		if (isPreview) {
-    			$$invalidate(7, isDone = true);
-    			return;
-    		}
-
-    		$$invalidate(7, isDone = true);
-    	};
-
-    	const onClickSuccess = () => {
-    		if (isPreview) {
-    			$$invalidate(7, isDone = false);
-    		}
-    	};
-
-    	function cinput0_value_binding(value) {
-    		name = value;
-    		$$invalidate(8, name);
-    	}
-
-    	function cinput1_value_binding(value) {
-    		phone = value;
-    		$$invalidate(9, phone);
-    	}
-
-    	$$self.$$set = $$props => {
-    		if ('isPreview' in $$props) $$invalidate(12, isPreview = $$props.isPreview);
-    		if ('title' in $$props) $$invalidate(0, title = $$props.title);
-    		if ('description' in $$props) $$invalidate(1, description = $$props.description);
-    		if ('legalText' in $$props) $$invalidate(2, legalText = $$props.legalText);
-    		if ('privacyPolicyLink' in $$props) $$invalidate(3, privacyPolicyLink = $$props.privacyPolicyLink);
-    		if ('ctaButtonLabel' in $$props) $$invalidate(4, ctaButtonLabel = $$props.ctaButtonLabel);
-    		if ('namePlaceholder' in $$props) $$invalidate(5, namePlaceholder = $$props.namePlaceholder);
-    		if ('phoneNrPlaceholder' in $$props) $$invalidate(6, phoneNrPlaceholder = $$props.phoneNrPlaceholder);
-    	};
-
-    	return [
-    		title,
-    		description,
-    		legalText,
-    		privacyPolicyLink,
-    		ctaButtonLabel,
-    		namePlaceholder,
-    		phoneNrPlaceholder,
-    		isDone,
-    		name,
-    		phone,
-    		onSubmit,
-    		onClickSuccess,
-    		isPreview,
-    		cinput0_value_binding,
-    		cinput1_value_binding
-    	];
-    }
-
-    class NewsletterOptIn extends SvelteComponent {
-    	constructor(options) {
-    		super();
-
-    		init$2(
-    			this,
-    			options,
-    			instance,
-    			create_fragment,
-    			safe_not_equal,
-    			{
-    				isPreview: 12,
-    				title: 0,
-    				description: 1,
-    				legalText: 2,
-    				privacyPolicyLink: 3,
-    				ctaButtonLabel: 4,
-    				namePlaceholder: 5,
-    				phoneNrPlaceholder: 6
-    			},
-    			add_css
-    		);
-    	}
-    }
-
     console.log("document.currentScript", document.currentScript);
     let integrationConfig = window?.["_chIntCnf"];
     if (document.currentScript) {
@@ -1835,7 +1873,27 @@ var NewsletterOptIn = (function () {
     const init = async ({ scriptId, universeUri }) => {
         const config = await (await fetch(`${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/config`)).json();
         const { newsletter_opt_in: { title, description, selector }, } = config;
-        const targets = document.querySelectorAll(selector);
+        // Selectors are sent without brackets, so they need to be attached
+        const cleanSelector = `[${selector}]`;
+        const targets = document.querySelectorAll(cleanSelector);
+        const submitHandler = async ({ name, phoneNumber, hasAgreed }) => {
+            const payload = {
+                name,
+                phone_number: phoneNumber,
+                legal_opt_in: hasAgreed,
+            };
+            const res = await fetch(
+            // `${universeUri}/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_newsletter_opt_in`,
+            `http://localhost:3000/api/v0/storefronts/scripts/${scriptId}/public/api/v0/message_subscriptions/from_external_newsletter_opt_in`, {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log("res", res);
+            return res;
+        };
         var iframe = document.createElement("iframe");
         iframe.onload = (ev) => {
             new NewsletterOptIn({
@@ -1843,6 +1901,7 @@ var NewsletterOptIn = (function () {
                 props: {
                     title,
                     description,
+                    submitHandler,
                 },
             });
             iframe.style.height =
