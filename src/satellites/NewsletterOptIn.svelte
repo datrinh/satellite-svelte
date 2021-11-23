@@ -3,6 +3,7 @@
   import CtaButton from "../components/CtaButton.svelte";
   import CCheckbox from "../components/BaseCheckbox.svelte";
   import CInput from "../components/BaseInput.svelte";
+  import CPhoneInput from "../components/PhoneInput.svelte";
 
   export let isPreview = false;
   export let submitHandler: ({
@@ -58,10 +59,19 @@
       <h1 class="gap">{title}</h1>
       <p class="gap text-sm">{description}</p>
 
-      <CInput type="text" placeholder={namePlaceholder} bind:value={name} />
-      <CInput type="tel" placeholder={phoneNrPlaceholder} bind:value={phone} />
+      <CInput
+        type="text"
+        placeholder={namePlaceholder}
+        required
+        bind:value={name}
+      />
+      <CPhoneInput
+        placeholder={phoneNrPlaceholder}
+        required
+        bind:value={phone}
+      />
 
-      <CCheckbox id="agreed" bind:checked={hasAgreed}>
+      <CCheckbox id="agreed" bind:checked={hasAgreed} required={true}>
         <span class="text-sm">
           {legalText}
           <a href={privacyPolicyLink} target="_blank">Link</a>

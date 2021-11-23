@@ -1,12 +1,13 @@
 <script lang="ts">
   export let id;
   export let checked;
+  export let required = false;
 </script>
 
 <div class="satellite-checkbox">
   <label class="container" for={id}>
     <slot />
-    <input {id} type="checkbox" bind:checked />
+    <input {id} type="checkbox" {required} bind:checked />
     <span class="checkmark" />
   </label>
 </div>

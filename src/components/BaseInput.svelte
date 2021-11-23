@@ -1,12 +1,20 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   export let type = "text";
   export let placeholder: string;
   export let value: string;
+  export let required = false;
 
-  const onInput = (ev) => (value = ev.target.value);
+  const dispatch = createEventDispatcher();
+
+  const onInput = (ev) => {
+    value = ev.target.value;
+    dispatch("input", value);
+  };
 </script>
 
-<input {type} {placeholder} {value} on:input={onInput} />
+<input {type} {placeholder} {value} {required} on:input={onInput} />
 
 <style lang="scss">
   @import "../styles/variables";
@@ -14,9 +22,10 @@
     padding: 0.5rem;
     background-color: $gray-light;
     border: none;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
     height: $input-height;
     border-radius: $input-radius;
     font-size: 0.75rem;
+    width: 100%;
   }
 </style>
