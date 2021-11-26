@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DEFAULT_PHONE_PREFIXES } from "@/config";
+  import countries from "../countries.json";
   import { createEventDispatcher } from "svelte";
   import CInput from "./BaseInput.svelte";
 
@@ -8,7 +8,7 @@
   export let value = `${prefix} ${number}`;
   export let placeholder: string;
   export let required = false;
-  export let allowedPrefixes = DEFAULT_PHONE_PREFIXES;
+  export let allowedCountries = countries;
 
   const dispatch = createEventDispatcher();
 
@@ -22,7 +22,6 @@
 
   const onInput = () => {
     value = `${prefix}${sanitizeNumber(number)}`;
-    console.log("value", value);
     dispatch("input", value);
   };
 </script>
@@ -34,8 +33,10 @@
     bind:value={prefix}
     on:change={onInput}
   >
-    {#each allowedPrefixes as prefix}
-      <option>{prefix}</option>
+    {#each allowedCountries as country}
+      <option value={`+${country.callingCode}`}
+        >{country.code} (+{country.callingCode})</option
+      >
     {/each}
   </select>
 
